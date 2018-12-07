@@ -336,7 +336,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="SQLite-csharp\Community.CsharpSqlite\Community.CsharpSqlite4.csproj">
+    <ProjectReference Include="..\SQLite-csharp\Community.CsharpSqlite\Community.CsharpSqlite4.csproj">
       <Project>{F1653F20-D47D-4F29-8C55-3C835542AF5F}</Project>
       <Name>Community.CsharpSqlite4</Name>
     </ProjectReference>

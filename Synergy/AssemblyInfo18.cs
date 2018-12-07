@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("PalmaRoss")]
 [assembly: AssemblyProduct("Synergy Add-in for MindManager 2018")]
-[assembly: AssemblyCopyright("(c) 2013-2017 PalmaRoss")]
+[assembly: AssemblyCopyright("(c) 2013-2018 PalmaRoss")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
