@@ -6,7 +6,7 @@ using SynManager;
 
 namespace Maps
 {
-    public partial class PublishMaptDlg : Form
+    partial class PublishMaptDlg : Form
     {
         public PublishMaptDlg(Mindjet.MindManager.Interop.Document _doc)
         {

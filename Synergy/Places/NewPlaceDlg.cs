@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Places
 {
-    public partial class NewPlaceDlg : Form
+    partial class NewPlaceDlg : Form
     {
         public NewPlaceDlg(string _storage = "")
         {

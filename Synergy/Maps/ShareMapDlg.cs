@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Maps
 {
-    public partial class ShareMapDlg : Form
+    partial class ShareMapDlg : Form
     {
         public ShareMapDlg(string _mapname, string _mapfolderPath)
         {

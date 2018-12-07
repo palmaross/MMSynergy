@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SynManager
 {
-    public partial class InternetCheckDlg : Form
+    partial class InternetCheckDlg : Form
     {
         public InternetCheckDlg()
         {

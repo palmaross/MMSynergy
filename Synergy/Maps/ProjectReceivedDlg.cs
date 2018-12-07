@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Maps
 {
-    public partial class ProjectReceivedDlg : Form
+    partial class ProjectReceivedDlg : Form
     {
         public ProjectReceivedDlg()
         {

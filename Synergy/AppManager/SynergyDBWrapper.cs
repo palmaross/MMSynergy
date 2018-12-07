@@ -31,7 +31,7 @@ namespace SynManager
         }
     }
 
-    public class MapsDB : DatabaseWrapper
+    class MapsDB : DatabaseWrapper
     {
         public override string GetDatabaseName()
         {
@@ -76,7 +76,7 @@ namespace SynManager
         }
     }
 
-    public class StoragesDB : DatabaseWrapper
+    class StoragesDB : DatabaseWrapper
     {
         public override string GetDatabaseName()
         {
@@ -108,7 +108,7 @@ namespace SynManager
         }
     }
 
-    public class PlacesDB : DatabaseWrapper
+    class PlacesDB : DatabaseWrapper
     {
         public override string GetDatabaseName()
         {
@@ -126,7 +126,7 @@ namespace SynManager
         }
     }
 
-    public class ProjectsDB : DatabaseWrapper
+    class ProjectsDB : DatabaseWrapper
     {
         public override string GetDatabaseName()
         {

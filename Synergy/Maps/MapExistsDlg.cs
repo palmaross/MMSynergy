@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Maps
 {
-    public partial class MapExistsDlg : Form
+    partial class MapExistsDlg : Form
     {
         public MapExistsDlg(string _mapname, string _project = "")
         {

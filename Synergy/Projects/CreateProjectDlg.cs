@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Projects
 {
-    public partial class CreateProjectDlg : Form
+    partial class CreateProjectDlg : Form
     {
         public CreateProjectDlg()
         {

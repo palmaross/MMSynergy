@@ -13,7 +13,7 @@
     /// <summary>
     /// Class to hold event properties
     /// </summary>
-    public class MMEventArgs
+    class MMEventArgs
     {
         //TODO needed?
         public enum EventTypeEnum
@@ -81,7 +81,7 @@
         public string extra = "";
     }
 
-    public class MMBase
+    class MMBase
     {
         public virtual void onTimer200() { }
 

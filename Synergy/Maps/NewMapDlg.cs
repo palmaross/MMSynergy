@@ -11,7 +11,7 @@ using Mindjet.MindManager.Interop;
 
 namespace Maps
 {
-    public partial class NewMapDlg : Form
+    partial class NewMapDlg : Form
     {
         public NewMapDlg()
         {

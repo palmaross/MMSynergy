@@ -345,6 +345,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="I18n.default.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\green.png" />
   </ItemGroup>
   <ItemGroup>

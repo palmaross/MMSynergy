@@ -11,7 +11,7 @@ using System.IO;
 
 namespace Maps
 {
-    public partial class GetPathDlg : Form
+    partial class GetPathDlg : Form
     {
         public GetPathDlg(string storage = "", string _place = "", string cause = "", string type = "")
         {

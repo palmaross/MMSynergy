@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Places
 {
-    public partial class NewCloudStorageDlg : Form
+    partial class NewCloudStorageDlg : Form
     {
         public NewCloudStorageDlg()
         {

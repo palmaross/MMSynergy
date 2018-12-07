@@ -11,7 +11,7 @@ using Mindjet.MindManager.Interop;
 
 namespace Maps
 {
-    public partial class LinkedFilesDlg : Form
+    partial class LinkedFilesDlg : Form
     {
         public LinkedFilesDlg(List<string> links, Document _doc)
         {

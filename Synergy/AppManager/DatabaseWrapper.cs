@@ -8,7 +8,7 @@ namespace SynManager
 {
     using Community.CsharpSqlite;
 
-    public class DatabaseWrapper : Object, IDisposable
+    class DatabaseWrapper : Object, IDisposable
     {
         public virtual string GetDatabaseName()
         {
@@ -184,7 +184,7 @@ namespace SynManager
     /// <summary>
     /// Container for all opened databases
     /// </summary>
-    public class DatabaseContainer
+    class DatabaseContainer
     {
 
         protected static Dictionary<String, SQLiteDatabase> m_databases = new Dictionary<string, SQLiteDatabase>();

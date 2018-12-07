@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Net;
 using System.Net.Mail;
 using System.Windows.Forms;
@@ -10,7 +9,7 @@ using Mindjet.MindManager.Interop;
 
 namespace SynManager
 {
-    public class Internet
+    class Internet
     {
         public static string CheckInternetAndProcess(
             string _guid, string _storage, string _process, string _site, string _placepath, string _cause)

@@ -9,7 +9,7 @@ namespace Projects
 {
     class ProjectsGroup
     {
-        public void Create(ribbonTab myTab)
+        void Create(ribbonTab myTab)
         {
             m_myTab = myTab;
             string imagePath = MMUtils.imagePath;

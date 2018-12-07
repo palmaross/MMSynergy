@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Maps
 {
-    public partial class MapReceivedDlg : Form
+    partial class MapReceivedDlg : Form
     {
         public MapReceivedDlg()
         {

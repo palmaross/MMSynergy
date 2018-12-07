@@ -9,7 +9,7 @@ using System.IO;
 namespace SynManager
 {
     // When finish, will be completely destroyed in Maps.cs Destroy
-    public class Timers
+    class Timers
     {
         public Timers(int _secToSaveMap, int _secToWait, int _minLockTime)
         {

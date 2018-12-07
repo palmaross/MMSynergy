@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Places
 {
-    public partial class NewNetworkDiskDlg : Form
+    partial class NewNetworkDiskDlg : Form
     {
         public NewNetworkDiskDlg()
         {

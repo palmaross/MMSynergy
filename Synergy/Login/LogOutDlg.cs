@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Login
 {
-    public partial class LogOutDlg : Form
+    partial class LogOutDlg : Form
     {
         public LogOutDlg()
         {

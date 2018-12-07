@@ -8,7 +8,7 @@ using Microsoft.Win32;
 using System.Reflection;
 
 namespace SynManager {
-	public class I18n {
+	class I18n {
 		public I18n(string sAddinName="Synergy18", int version=18) {
 			m_appdata = System.Environment.GetEnvironmentVariable("LOCALAPPDATA") + "\\Mindjet\\MindManager\\" + version.ToString();
 #if PLATFORM_X64

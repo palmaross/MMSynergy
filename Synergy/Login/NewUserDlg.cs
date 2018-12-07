@@ -11,7 +11,7 @@ using System.Net.Mail;
 
 namespace Login
 {
-    public partial class NewUserDlg : Form
+    partial class NewUserDlg : Form
     {
         public NewUserDlg()
         {

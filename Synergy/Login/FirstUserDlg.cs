@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Login
 {
-    public partial class FirstUserDlg : Form
+    partial class FirstUserDlg : Form
     {
         public FirstUserDlg()
         {

@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Synergy18
 {
-    public partial class LinkToFileDlg : Form
+    partial class LinkToFileDlg : Form
     {
         public LinkToFileDlg()
         {

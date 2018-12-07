@@ -5,7 +5,7 @@ using System.Security.Permissions;
 namespace SynManager
 {
     // When finish, will be completely destroyed in Maps.cs Destroy
-    public class Watchers : Object, IDisposable
+    class Watchers : Object, IDisposable
     {
         public Watchers(string mapsharefolder, string mapfolder, string projectfolder)
         {

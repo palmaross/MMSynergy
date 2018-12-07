@@ -10,7 +10,7 @@ using SynManager;
 
 namespace Places
 {
-    public partial class SiteVerificationDlg : Form
+    partial class SiteVerificationDlg : Form
     {
         public SiteVerificationDlg(string _site)
         {

@@ -6,7 +6,7 @@ using Mindjet.MindManager.Interop;
 
 namespace SynManager
 {
-    public class MapCompanion : Object, IDisposable
+    class MapCompanion : Object, IDisposable
     {
         public MapCompanion() { }
         public MapCompanion(Document aDocument)

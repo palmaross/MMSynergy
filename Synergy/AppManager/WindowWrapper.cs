@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SynManager
 {
-	public class WindowWrapper : System.Windows.Forms.IWin32Window
+	class WindowWrapper : System.Windows.Forms.IWin32Window
 	{
 		public WindowWrapper(IntPtr handle)
 		{
