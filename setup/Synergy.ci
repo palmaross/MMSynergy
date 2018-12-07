@@ -1,0 +1,1513 @@
+﻿<project version = 9 civer = 6.1.1 winver = "2.12/6.2.9200" >
+   <autorun >0</>
+   <autoclose >1</>
+   <compname >PalmaRoss</>
+   <produrl >http://www.palmaross.com</>
+   <ver >$version$</>
+   <supurl ></>
+   <updurl >http://update.palmaross.com</>
+   <dlgfont >verdana</>
+   <headlogo >default - 1</>
+   <dlgfontsize >s8</>
+   <output >C:\test</>
+   <exename >$exename$-$version$.exe</>
+   <beffile ></>
+   <aftfile ></>
+   <uninclude >1</>
+   <lang >english</>
+   <addlang >russian</>
+   <selfextr >1</>
+   <instpath >#progfiles#\PalmaRoss\Synergy</>
+   <voltype >nolimit</>
+   <volsize ></>
+   <volpattern >disk%i.pak</>
+   <password ></>
+   <progname >$appname$</>
+   <appname ></>
+   <bl ></>
+   <blurl ></>
+   <unpath >inst</>
+   <unexe >uninstall-synergy.exe</>
+   <unlog >uninstall-synergy.ini</>
+   <installroot sorttype = 0 >
+      <children >
+         <install id = install expanded = 2 >
+            <children >
+               <_ id = background disabled = 1 >
+                  <desc ></>
+                  <head >#lcaption#</>
+                  <foot ></>
+                  <font >Times</>
+                  <height >36</>
+                  <bold >0</>
+                  <italic >0</>
+                  <backcol >0x0000FF</>
+                  <textcol >0xFFFFFF</>
+                  <shadecol >0x888888</>
+                  <uniform >0</>
+                  <backbmp ></>
+                  <stretchback >0</>
+               </>
+               <_ id = dlglang disabled = 0 >
+                  <desc >ChooseLang</>
+                  <buttons >nc</>
+                  <design >left</>
+                  <headlogo ></>
+                  <varlist >
+                     <rows ></>
+                  </>
+                  <head ></>
+                  <headtext ></>
+                  <dlgtext ></>
+                  <if ></>
+               </>
+               <_ tag = 0 id = langres >
+                  <desc ></>
+                  <name >English</>
+                  <varlist >
+                     <rows >
+                        <_ >
+                           <varname >high_resol_caption</>
+                           <value >Synergy Ribbon for high resolution displays</>
+                        </>
+                        <_ >
+                           <varname >high_resol</>
+                           <value >If you find that text under the buttons on the Synergy ribbon go over the buttons, reinstall Synergy checking checkbox below:</>
+                        </>
+                        <_ >
+                           <varname >mm_not_found</>
+                           <value >Do you have MindManager installed? 
+We can't detect it on your system. 
+Synergy setup is not possible. Sorry.</>
+                        </>
+                        <_ >
+                           <varname >mm_not_supported</>
+                           <value >Your version of MindManager is not supported!
+
+This Synergy version works with MindManager 17 or above.</>
+                        </>
+                        <_ >
+                           <varname >needclosemm</>
+                           <value >You need to close MindManager to continue.
+Please save all unsaved work and click OK.
+To abort installation, click Cancel.</>
+                        </>
+                        <_ >
+                           <varname >clang</>
+                           <value >english</>
+                        </>
+                        <_ >
+                           <varname >whatsnew</>
+                           <value >What's New</>
+                        </>
+                        <_ >
+                           <varname >repairMM</>
+                           <value >Restore default databases</>
+                        </>
+                        <_ >
+                           <varname >mymaps1</>
+                           <value >Synergy</>
+                        </>
+                        <_ >
+                           <varname >needrerun</>
+                           <value >Synergy was not installed.
+Please re-run Setup further.</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ tag = 0 id = langres >
+                  <desc ></>
+                  <name >russian</>
+                  <varlist >
+                     <rows >
+                        <_ >
+                           <varname >mm_not_found</>
+                           <value >У вас установлен MindManager? 
+Мы его не обнаружили. 
+Установке Synergy невозможна. Извините.</>
+                        </>
+                        <_ >
+                           <varname >mm_not_supported</>
+                           <value >Ваша версия MindManager не поддерживается!
+
+Данная версия Synergy работает с MindManager 17 и выше.</>
+                        </>
+                        <_ >
+                           <varname >high_resol</>
+                           <value >Если после установки вы обнаружите, что на ленте Synergy текст под кнопками "наезжает" на кнопки, то переустановите Synergy, отметив чекбокс ниже:</>
+                        </>
+                        <_ >
+                           <varname >high_resol_caption</>
+                           <value >Лента Synergy для экранов с высоким рарешением</>
+                        </>
+                        <_ >
+                           <varname >needclosemm</>
+                           <value >Для продолжения нужно закрыть все окна MindManager.
+Сохраните все несохранённые документы и нажмите ОК.
+Для выхода из программы установки нажмите Отмена.</>
+                        </>
+                        <_ >
+                           <varname >clang</>
+                           <value >russian</>
+                        </>
+                        <_ >
+                           <varname >whatsnew</>
+                           <value >Новое в этой версии</>
+                        </>
+                        <_ >
+                           <varname >repairMM</>
+                           <value >Восстановить стандартные базы данных</>
+                        </>
+                        <_ >
+                           <varname >mymaps1</>
+                           <value >943B~1</>
+                        </>
+                        <_ >
+                           <varname >needrerun</>
+                           <value >Надстройка Synergy не установлена.
+Вам потребуется произвести установку снова.</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ id = dlgwel >
+                  <desc ></>
+                  <buttons >auto</>
+                  <design >left</>
+                  <headlogo ></>
+                  <varlist >
+                     <rows ></>
+                  </>
+                  <head ></>
+                  <headtext ></>
+                  <dlgtext ></>
+                  <if ></>
+               </>
+               <_ tag = 0 id = regget >
+                  <desc ></>
+                  <root >locmach</>
+                  <subkey >Software\Mindjet\MindManager\17\Settings</>
+                  <wow64 >0</>
+                  <reglist >
+                     <rows >
+                        <_ >
+                           <valname >ProductVersionMajor</>
+                           <varname >mm17x32major</>
+                           <defval >4</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ tag = 0 id = regget >
+                  <desc ></>
+                  <root >locmach</>
+                  <subkey >Software\Mindjet\MindManager\18\Settings</>
+                  <wow64 >0</>
+                  <reglist >
+                     <rows >
+                        <_ >
+                           <valname >ProductVersionMajor</>
+                           <varname >mm18x32major</>
+                           <defval >4</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ tag = 0 id = regget >
+                  <desc ></>
+                  <root >locmach</>
+                  <subkey >Software\Mindjet\MindManager\17\Settings</>
+                  <wow64 >1</>
+                  <reglist >
+                     <rows >
+                        <_ >
+                           <valname >ProductVersionMajor</>
+                           <varname >mm17x64major</>
+                           <defval >4</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ tag = 0 id = regget >
+                  <desc ></>
+                  <root >locmach</>
+                  <subkey >Software\Mindjet\MindManager\18\Settings</>
+                  <wow64 >1</>
+                  <reglist >
+                     <rows >
+                        <_ >
+                           <valname >ProductVersionMajor</>
+                           <varname >mm18x64major</>
+                           <defval >4</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ tag = 0 id = if expanded = 2 >
+                  <children >
+                     <_ tag = 0 id = message expanded = 2 >
+                        <children >
+                           <_ tag = 0 id = exit >
+                              <desc ></>
+                              <extype >exit</>
+                              <code >1</>
+                              <msg ></>
+                           </>
+                        </>
+                        <desc ></>
+                        <type >warning</>
+                        <caption ></>
+                        <text >#mm_not_supported#</>
+                        <btns >ok</>
+                        <resvar ></>
+                        <msgif >def</>
+                        <if ></>
+                     </>
+                  </>
+                  <desc >Найден только MindManager версии 11 или 14</>
+                  <else ></>
+                  <condlist >
+                     <rows >
+                        <_ >
+                           <varname >mm17x32major</>
+                           <iftype >noteq</>
+                           <not >0</>
+                           <value >17</>
+                           <orand >and</>
+                        </>
+                        <_ >
+                           <varname >mm18x32major</>
+                           <iftype >noteq</>
+                           <not >0</>
+                           <value >18</>
+                           <orand >and</>
+                        </>
+                        <_ >
+                           <varname >mm17x64major</>
+                           <iftype >noteq</>
+                           <not >0</>
+                           <value >17</>
+                           <orand >and</>
+                        </>
+                        <_ >
+                           <varname >mm18x64major</>
+                           <iftype >noteq</>
+                           <not >0</>
+                           <value >18</>
+                           <orand >and</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ tag = 0 id = if expanded = 2 >
+                  <children >
+                     <_ tag = 0 id = message expanded = 2 >
+                        <children >
+                           <_ tag = 0 id = exit >
+                              <desc ></>
+                              <extype >exit</>
+                              <code >1</>
+                              <msg ></>
+                           </>
+                        </>
+                        <desc >MindManager не обнаружен</>
+                        <type >warning</>
+                        <caption ></>
+                        <text >#mm_not_found#</>
+                        <btns >ok</>
+                        <resvar ></>
+                        <msgif >def</>
+                        <if ></>
+                     </>
+                  </>
+                  <desc >MindManager вообще не найден</>
+                  <else ></>
+                  <condlist >
+                     <rows >
+                        <_ >
+                           <varname >mm17x32major</>
+                           <iftype >noteq</>
+                           <not >0</>
+                           <value >17</>
+                           <orand >and</>
+                        </>
+                        <_ >
+                           <varname >mm18x32major</>
+                           <iftype >noteq</>
+                           <not >0</>
+                           <value >18</>
+                           <orand >and</>
+                        </>
+                        <_ >
+                           <varname >mm17x64major</>
+                           <iftype >noteq</>
+                           <not >0</>
+                           <value >17</>
+                           <orand >and</>
+                        </>
+                        <_ >
+                           <varname >mm18x64major</>
+                           <iftype >noteq</>
+                           <not >0</>
+                           <value >18</>
+                           <orand >and</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ id = dlglic disabled = 0 >
+                  <desc ></>
+                  <file >c:\work\Synergy\Setup\License_en.txt</>
+                  <print >1</>
+                  <iagree >radio</>
+                  <buttons >pnc</>
+                  <design >left</>
+                  <headlogo ></>
+                  <varlist >
+                     <rows >
+                        <_ >
+                           <varname >Liccolor</>
+                           <value >1</>
+                        </>
+                        <_ >
+                           <varname >_Lic_russian</>
+                           <value >c:\work\Synergy\Setup\license_rus.rtf</>
+                        </>
+                     </>
+                  </>
+                  <head ></>
+                  <headtext ></>
+                  <if ></>
+               </>
+               <_ tag = 0 id = dlgread >
+                  <desc >What's new</>
+                  <file >c:\work\Synergy\Setup\whatsnew_en.rtf</>
+                  <print >0</>
+                  <head >#whatsnew#</>
+                  <headtext ></>
+                  <headlogo ></>
+                  <buttons >pnc</>
+                  <if ></>
+                  <varlist >
+                     <rows >
+                        <_ >
+                           <varname >_Dhead</>
+                           <value >#whatsnew#</>
+                        </>
+                        <_ >
+                           <varname >_Read_russian</>
+                           <value >c:\work\Synergy\Setup\whatsnew_rus.rtf</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ tag = 0 id = unlogmode >
+                  <desc ></>
+                  <state >on</>
+                  <unfile >unfdel</>
+                  <undir >undleave</>
+               </>
+               <_ id = dlgpath >
+                  <desc ></>
+                  <buttons >auto</>
+                  <design >left</>
+                  <headlogo ></>
+                  <chlist >
+                     <rows ></>
+                  </>
+                  <varlist >
+                     <rows >
+                        <_ >
+                           <varname >Pathregkey</>
+                           <value >Software\PalmaRoss\Synergy</>
+                        </>
+                     </>
+                  </>
+                  <head ></>
+                  <headtext ></>
+                  <dlgtext ></>
+                  <pathadd ></>
+                  <enforce >0</>
+                  <if ></>
+                  <savepath >1</>
+               </>
+               <_ tag = 0 id = redir64 >
+                  <desc ></>
+                  <redir >on</>
+                  <var >progfiles64</>
+               </>
+               <_ tag = 0 id = regget >
+                  <desc ></>
+                  <root >curuser</>
+                  <subkey >SOFTWARE\PalmaRoss\Synergy</>
+                  <wow64 >0</>
+                  <reglist >
+                     <rows >
+                        <_ >
+                           <valname >InstPath</>
+                           <varname >InstPathSynergy</>
+                           <defval >0</>
+                        </>
+                     </>
+                  </>
+               </>
+               <_ tag = 0 id = dlgsets disabled = 1 >
+                  <desc >Для экранов с высоким разрешением</>
+                  <head >#high_resol_caption#</>
+                  <headtext ></>
+                  <headlogo ></>
+                  <buttons >auto</>
+                  <if ></>
+                  <setlist >
+                     <rows >
+                        <_ >
+                           <type >text</>
+                           <left >5</>
+                           <width >90</>
+                           <varname >3</>
+                           <value >#high_resol#</>
+                        </>
+                        <_ >
+                           <type >check</>
+                           <left >5</>
+                           <width >70</>
+                           <varname >high_res</>
+                           <value >#high_resol_caption#</>
+                        </>
+                     </>
+                  </>
+                  <varlist >
+                     <rows ></>
+                  </>
+               </>
+               <_ id = dlgprog expanded = 2 >
+                  <children >
+                     <_ tag = 0 id = check expanded = 0 disabled = 0 >
+                        <children >
+                           <_ tag = 0 id = message expanded = 2 >
+                              <children >
+                                 <_ tag = 0 id = message expanded = 2 >
+                                    <children >
+                                       <_ tag = 0 id = exit >
+                                          <desc ></>
+                                          <extype >exit</>
+                                          <code >1</>
+                                          <msg ></>
+                                       </>
+                                    </>
+                                    <desc ></>
+                                    <type >info</>
+                                    <caption >Setup is not complete</>
+                                    <text >#needrerun#</>
+                                    <btns >ok</>
+                                    <resvar >msgret</>
+                                    <msgif >ok</>
+                                    <if ></>
+                                 </>
+                              </>
+                              <desc ></>
+                              <type >quest</>
+                              <caption >Need to close app</>
+                              <text >#needclosemm#</>
+                              <btns >okcancel</>
+                              <resvar >msgret</>
+                              <msgif >cancel</>
+                              <if ></>
+                           </>
+                        </>
+                        <desc >mm</>
+                        <checktype >process</>
+                        <name >MindManager.exe</>
+                        <not >0</>
+                        <resvar >mm_running</>
+                        <msg ></>
+                     </>
+                     <_ tag = 0 id = close >
+                        <desc >MindManager</>
+                        <closetype >process</>
+                        <name >MindManager.exe</>
+                        <closelist >
+                           <rows ></>
+                        </>
+                     </>
+                     <_ tag = 0 id = unpack >
+                        <desc >MultiMapsCommonUnpack</>
+                        <comptype >default</>
+                        <ratio >r5</>
+                        <solid >1</>
+                        <path >inst</>
+                        <custpath ></>
+                        <ifexist >over</>
+                        <if ></>
+                        <srclist >
+                           <rows rel = unpack >
+                              <_ >
+                                 <filename >c:\work\Synergy\Setup\images</>
+                                 <recurse >0</>
+                                 <justfile >0</>
+                                 <emptydir >0</>
+                                 <exclude >desktop.ini</>
+                              </>
+                              <_ >
+                                 <filename >c:\work\Synergy\Setup\lang-resources</>
+                                 <recurse >0</>
+                                 <justfile >0</>
+                                 <emptydir >0</>
+                                 <exclude >desktop.ini</>
+                              </>
+                              <_ >
+                                 <filename >c:\work\Synergy\Setup\common-root\*.*</>
+                                 <recurse >0</>
+                                 <justfile >0</>
+                                 <emptydir >0</>
+                                 <exclude >desktop.ini</>
+                              </>
+                              <_ >
+                                 <filename >c:\work\Synergy\Setup\$appname$\Synergy.chm</>
+                                 <recurse >0</>
+                                 <justfile >1</>
+                                 <emptydir >0</>
+                                 <exclude ></>
+                              </>
+                           </>
+                        </>
+                        <varlist >
+                           <rows ></>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 0 disabled = 1 >
+                        <children >
+                           <_ tag = 0 id = unpack >
+                              <desc ></>
+                              <comptype >default</>
+                              <ratio >r5</>
+                              <solid >1</>
+                              <path >custom</>
+                              <custpath >#InstPathMM#\images</>
+                              <ifexist >over</>
+                              <if ></>
+                              <srclist >
+                                 <rows >
+                                    <_ >
+                                       <filename >c:\work\Synergy\Setup\images_for_highres\*.*</>
+                                       <recurse >0</>
+                                       <justfile >0</>
+                                       <emptydir >0</>
+                                       <exclude ></>
+                                    </>
+                                 </>
+                              </>
+                              <varlist >
+                                 <rows ></>
+                              </>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >high_res</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >1</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = copy >
+                        <desc ></>
+                        <srcpath >inst</>
+                        <name >lang-resources\#clang#\Resources</>
+                        <recurse >1</>
+                        <justfile >0</>
+                        <path >inst</>
+                        <custpath ></>
+                        <ifexist >over</>
+                        <if ></>
+                        <nofiles >0</>
+                     </>
+                     <_ tag = 0 id = copy disabled = 1 >
+                        <desc ></>
+                        <srcpath >inst</>
+                        <name >Synergy.chm</>
+                        <recurse >0</>
+                        <justfile >1</>
+                        <path >inst</>
+                        <custpath >lang-resources\#clang#\Root</>
+                        <ifexist >over</>
+                        <if >Sclang == "English"</>
+                        <nofiles >0</>
+                     </>
+                     <_ tag = 0 id = copy >
+                        <desc ></>
+                        <srcpath >inst</>
+                        <name >lang-resources\#clang#\Root\*.*</>
+                        <recurse >0</>
+                        <justfile >0</>
+                        <path >inst</>
+                        <custpath ></>
+                        <ifexist >over</>
+                        <if ></>
+                        <nofiles >0</>
+                     </>
+                     <_ tag = 0 id = regget disabled = 1 >
+                        <desc >Get path to maps</>
+                        <root >curuser</>
+                        <subkey >Software\PalmaRoss\Synergy</>
+                        <wow64 >1</>
+                        <reglist >
+                           <rows >
+                              <_ >
+                                 <valname >MapPath</>
+                                 <varname >mappath</>
+                                 <defval >0</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 2 disabled = 1 >
+                        <children >
+                           <_ tag = 0 id = varset >
+                              <desc ></>
+                              <varlist >
+                                 <rows >
+                                    <_ >
+                                       <varname >mappath</>
+                                       <value >#docpath#\#mymaps1#</>
+                                       <if ></>
+                                    </>
+                                 </>
+                              </>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >mappath</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >0</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 2 disabled = 0 >
+                        <children >
+                           <_ tag = 0 id = unpack >
+                              <desc ></>
+                              <comptype >default</>
+                              <ratio >r5</>
+                              <solid >1</>
+                              <path >inst</>
+                              <custpath ></>
+                              <ifexist >overnewer</>
+                              <if ></>
+                              <srclist >
+                                 <rows >
+                                    <_ >
+                                       <filename >c:\work\Synergy\Setup\$appname$\Synergy17.dll</>
+                                       <recurse >0</>
+                                       <justfile >1</>
+                                       <emptydir >0</>
+                                       <exclude ></>
+                                    </>
+                                 </>
+                              </>
+                              <varlist >
+                                 <rows ></>
+                              </>
+                           </>
+                           <_ tag = 0 id = regset disabled = 0 >
+                              <desc ></>
+                              <root >locmach</>
+                              <subkey >Software\Mindjet\MindManager\17\AddIns\Synergy17.Connect</>
+                              <wow64 >0</>
+                              <reglist >
+                                 <rows >
+                                    <_ >
+                                       <valname >Description</>
+                                       <regtype >str</>
+                                       <value >Synergy Add-in for MindManager 2017</>
+                                    </>
+                                    <_ >
+                                       <valname >FriendlyName</>
+                                       <regtype >str</>
+                                       <value >Synergy</>
+                                    </>
+                                    <_ >
+                                       <valname >LoadBehavior</>
+                                       <regtype >num</>
+                                       <value >3</>
+                                    </>
+                                 </>
+                              </>
+                           </>
+                           <_ tag = 0 id = regset disabled = 0 >
+                              <desc ></>
+                              <root >curuser</>
+                              <subkey >Software\Mindjet\MindManager\17\AddIns\Synergy17.Connect</>
+                              <wow64 >0</>
+                              <reglist >
+                                 <rows >
+                                    <_ >
+                                       <valname >Description</>
+                                       <regtype >str</>
+                                       <value >Synergy Add-in for MindManager 2017</>
+                                    </>
+                                    <_ >
+                                       <valname >FriendlyName</>
+                                       <regtype >str</>
+                                       <value >Synergy</>
+                                    </>
+                                    <_ >
+                                       <valname >LoadBehavior</>
+                                       <regtype >num</>
+                                       <value >2</>
+                                    </>
+                                 </>
+                              </>
+                           </>
+                           <_ tag = 0 id = run disabled = 0 >
+                              <desc ></>
+                              <path >inst</>
+                              <name >regasm.exe</>
+                              <cmdline >Synergy17.dll /codebase /nologo /silent</>
+                              <work >inst</>
+                              <defwork ></>
+                              <wait >1</>
+                              <runas >hide</>
+                              <if ></>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >mm17x32major</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >17</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 2 >
+                        <children >
+                           <_ tag = 0 id = unpack >
+                              <desc ></>
+                              <comptype >default</>
+                              <ratio >r5</>
+                              <solid >1</>
+                              <path >inst</>
+                              <custpath ></>
+                              <ifexist >overnewer</>
+                              <if ></>
+                              <srclist >
+                                 <rows >
+                                    <_ >
+                                       <filename >c:\work\Synergy\Setup\$appname$\Synergy18.dll</>
+                                       <recurse >0</>
+                                       <justfile >1</>
+                                       <emptydir >0</>
+                                       <exclude ></>
+                                    </>
+                                 </>
+                              </>
+                              <varlist >
+                                 <rows ></>
+                              </>
+                           </>
+                           <_ tag = 0 id = regset disabled = 0 >
+                              <desc ></>
+                              <root >locmach</>
+                              <subkey >Software\Mindjet\MindManager\18\AddIns\Synergy18.Connect</>
+                              <wow64 >0</>
+                              <reglist >
+                                 <rows >
+                                    <_ >
+                                       <valname >Description</>
+                                       <regtype >str</>
+                                       <value >Synergy Add-in for MindManager 2018</>
+                                    </>
+                                    <_ >
+                                       <valname >FriendlyName</>
+                                       <regtype >str</>
+                                       <value >Synergy</>
+                                    </>
+                                    <_ >
+                                       <valname >LoadBehavior</>
+                                       <regtype >num</>
+                                       <value >3</>
+                                    </>
+                                 </>
+                              </>
+                           </>
+                           <_ tag = 0 id = regset disabled = 0 >
+                              <desc ></>
+                              <root >curuser</>
+                              <subkey >Software\Mindjet\MindManager\18\AddIns\Synergy18.Connect</>
+                              <wow64 >0</>
+                              <reglist >
+                                 <rows >
+                                    <_ >
+                                       <valname >Description</>
+                                       <regtype >str</>
+                                       <value >Synergy Add-in for MindManager 2018</>
+                                    </>
+                                    <_ >
+                                       <valname >FriendlyName</>
+                                       <regtype >str</>
+                                       <value >Synergy</>
+                                    </>
+                                    <_ >
+                                       <valname >LoadBehavior</>
+                                       <regtype >num</>
+                                       <value >2</>
+                                    </>
+                                 </>
+                              </>
+                           </>
+                           <_ tag = 0 id = run disabled = 0 >
+                              <desc ></>
+                              <path >inst</>
+                              <name >regasm.exe</>
+                              <cmdline >Synergy18.dll /codebase /nologo /silent</>
+                              <work >inst</>
+                              <defwork ></>
+                              <wait >1</>
+                              <runas >hide</>
+                              <if ></>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >mm18x32major</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >18</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 2 disabled = 0 >
+                        <children >
+                           <_ tag = 0 id = unpack >
+                              <desc ></>
+                              <comptype >default</>
+                              <ratio >r5</>
+                              <solid >1</>
+                              <path >inst</>
+                              <custpath ></>
+                              <ifexist >overnewer</>
+                              <if ></>
+                              <srclist >
+                                 <rows >
+                                    <_ >
+                                       <filename >c:\work\Synergy\Setup\$appname$\Synergy17.dll</>
+                                       <recurse >0</>
+                                       <justfile >1</>
+                                       <emptydir >0</>
+                                       <exclude ></>
+                                    </>
+                                 </>
+                              </>
+                              <varlist >
+                                 <rows ></>
+                              </>
+                           </>
+                           <_ tag = 0 id = regset disabled = 0 >
+                              <desc ></>
+                              <root >locmach</>
+                              <subkey >Software\Mindjet\MindManager\17\AddIns\Synergy17.Connect</>
+                              <wow64 >1</>
+                              <reglist >
+                                 <rows >
+                                    <_ >
+                                       <valname >Description</>
+                                       <regtype >str</>
+                                       <value >Synergy Add-in for MindManager 2017</>
+                                    </>
+                                    <_ >
+                                       <valname >FriendlyName</>
+                                       <regtype >str</>
+                                       <value >Synergy</>
+                                    </>
+                                    <_ >
+                                       <valname >LoadBehavior</>
+                                       <regtype >num</>
+                                       <value >2</>
+                                    </>
+                                 </>
+                              </>
+                           </>
+                           <_ tag = 0 id = run disabled = 0 >
+                              <desc ></>
+                              <path >custom</>
+                              <name >#setuppath#\regasm.exe</>
+                              <cmdline >/codebase /nologo /silent Synergy17.dll</>
+                              <work >custom</>
+                              <defwork >#setuppath#</>
+                              <wait >1</>
+                              <runas >hide</>
+                              <if ></>
+                           </>
+                           <_ tag = 0 id = run disabled = 0 >
+                              <desc ></>
+                              <path >custom</>
+                              <name >#setuppath#\regasm64.exe</>
+                              <cmdline >/codebase /nologo /silent Synergy17.dll</>
+                              <work >custom</>
+                              <defwork >#setuppath#</>
+                              <wait >1</>
+                              <runas >hide</>
+                              <if ></>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >os64</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >1</>
+                                 <orand >and</>
+                              </>
+                              <_ >
+                                 <varname >mm17x64major</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >17</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 2 disabled = 0 >
+                        <children >
+                           <_ tag = 0 id = unpack >
+                              <desc ></>
+                              <comptype >default</>
+                              <ratio >r5</>
+                              <solid >1</>
+                              <path >inst</>
+                              <custpath ></>
+                              <ifexist >overnewer</>
+                              <if ></>
+                              <srclist >
+                                 <rows >
+                                    <_ >
+                                       <filename >c:\work\Synergy\Setup\$appname$\Synergy18.dll</>
+                                       <recurse >0</>
+                                       <justfile >1</>
+                                       <emptydir >0</>
+                                       <exclude ></>
+                                    </>
+                                 </>
+                              </>
+                              <varlist >
+                                 <rows ></>
+                              </>
+                           </>
+                           <_ tag = 0 id = regset disabled = 0 >
+                              <desc ></>
+                              <root >locmach</>
+                              <subkey >Software\Mindjet\MindManager\18\AddIns\Synergy18.Connect</>
+                              <wow64 >1</>
+                              <reglist >
+                                 <rows >
+                                    <_ >
+                                       <valname >Description</>
+                                       <regtype >str</>
+                                       <value >Synergy Add-in for MindManager 2018</>
+                                    </>
+                                    <_ >
+                                       <valname >FriendlyName</>
+                                       <regtype >str</>
+                                       <value >Synergy</>
+                                    </>
+                                    <_ >
+                                       <valname >LoadBehavior</>
+                                       <regtype >num</>
+                                       <value >2</>
+                                    </>
+                                 </>
+                              </>
+                           </>
+                           <_ tag = 0 id = run disabled = 0 >
+                              <desc ></>
+                              <path >custom</>
+                              <name >#setuppath#\regasm.exe</>
+                              <cmdline >/codebase /nologo /silent Synergy18.dll</>
+                              <work >custom</>
+                              <defwork >#setuppath#</>
+                              <wait >1</>
+                              <runas >hide</>
+                              <if ></>
+                           </>
+                           <_ tag = 0 id = run disabled = 0 >
+                              <desc ></>
+                              <path >custom</>
+                              <name >#setuppath#\regasm64.exe</>
+                              <cmdline >/codebase /nologo /silent Synergy18.dll</>
+                              <work >custom</>
+                              <defwork >#setuppath#</>
+                              <wait >1</>
+                              <runas >hide</>
+                              <if ></>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >os64</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >1</>
+                                 <orand >and</>
+                              </>
+                              <_ >
+                                 <varname >mm18x64major</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >18</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 0 disabled = 1 >
+                        <children >
+                           <_ tag = 0 id = regset >
+                              <desc ></>
+                              <root >curuser</>
+                              <subkey >Software\PalmaRoss\Synergy</>
+                              <wow64 >0</>
+                              <reglist >
+                                 <rows >
+                                    <_ >
+                                       <valname >doRepairMM</>
+                                       <regtype >str</>
+                                       <value >1</>
+                                    </>
+                                 </>
+                              </>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >doRepairMM</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >1</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = regset >
+                        <desc ></>
+                        <root >curuser</>
+                        <subkey >SOFTWARE\PalmaRoss\MultiMaps</>
+                        <wow64 >0</>
+                        <reglist >
+                           <rows >
+                              <_ >
+                                 <valname >version</>
+                                 <regtype >str</>
+                                 <value >1.0_beta</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ id = uninstexe >
+                        <desc ></>
+                     </>
+                     <_ id = unar >
+                        <desc ></>
+                        <name ></>
+                        <path >inst</>
+                        <ifile ></>
+                     </>
+                  </>
+                  <desc >Go into the item for viewing unpacking actions.</>
+                  <auto >1</>
+                  <buttons >nc</>
+                  <design >left</>
+                  <headlogo ></>
+                  <varlist >
+                     <rows ></>
+                  </>
+                  <head ></>
+                  <headtext ></>
+                  <dlgtext ></>
+                  <if ></>
+               </>
+               <_ id = dlgfin >
+                  <desc ></>
+                  <buttons >c</>
+                  <design >left</>
+                  <headlogo ></>
+                  <chlist >
+                     <rows ></>
+                  </>
+                  <varlist >
+                     <rows ></>
+                  </>
+                  <head ></>
+                  <headtext ></>
+                  <dlgtext ></>
+               </>
+            </>
+            <icofile >default</>
+            <resfile ></>
+            <leftimg >install - 1</>
+            <caption ></>
+            <verinfo >1</>
+            <noadmin >0</>
+            <selfdelete >0</>
+         </>
+      </>
+   </>
+   <uninstallroot sorttype = 0 >
+      <children >
+         <uninstall id = uninstall expanded = 2 >
+            <children >
+               <_ id = dlguconf >
+                  <desc ></>
+                  <buttons >c</>
+                  <design >left</>
+                  <headlogo ></>
+                  <varlist >
+                     <rows ></>
+                  </>
+                  <head ></>
+                  <headtext ></>
+                  <dlgtext ></>
+                  <if ></>
+               </>
+               <_ tag = 0 id = check expanded = 2 disabled = 0 >
+                  <children >
+                     <_ tag = 0 id = message expanded = 0 >
+                        <children >
+                           <_ tag = 0 id = message expanded = 2 >
+                              <children >
+                                 <_ tag = 0 id = exit >
+                                    <desc ></>
+                                    <extype >exit</>
+                                    <code >1</>
+                                    <msg ></>
+                                 </>
+                              </>
+                              <desc ></>
+                              <type >info</>
+                              <caption >Setup is not complete</>
+                              <text >#needrerun#</>
+                              <btns >ok</>
+                              <resvar >msgret</>
+                              <msgif >ok</>
+                           </>
+                        </>
+                        <desc ></>
+                        <type >quest</>
+                        <caption >Need to close app</>
+                        <text >#needclosemm#</>
+                        <btns >okcancel</>
+                        <resvar >msgret</>
+                        <msgif >cancel</>
+                        <if ></>
+                     </>
+                  </>
+                  <desc >mm</>
+                  <checktype >process</>
+                  <name >MindManager.exe</>
+                  <not >0</>
+                  <resvar >mm_running</>
+                  <msg ></>
+               </>
+               <_ tag = 0 id = close >
+                  <desc ></>
+                  <closetype >process</>
+                  <name >MindManager.exe</>
+                  <closelist >
+                     <rows ></>
+                  </>
+               </>
+               <_ id = dlguprog expanded = 2 >
+                  <children >
+                     <_ id = unprocess disabled = 0 >
+                        <desc ></>
+                     </>
+                     <_ tag = 0 id = regget >
+                        <desc ></>
+                        <root >locmach</>
+                        <subkey >Software\Mindjet\MindManager\15\Settings</>
+                        <wow64 >1</>
+                        <reglist >
+                           <rows >
+                              <_ >
+                                 <valname >ProductVersionMajor</>
+                                 <varname >mm15x64major</>
+                                 <defval ></>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = regget >
+                        <desc ></>
+                        <root >locmach</>
+                        <subkey >Software\Mindjet\MindManager\16\Settings</>
+                        <wow64 >1</>
+                        <reglist >
+                           <rows >
+                              <_ >
+                                 <valname >ProductVersionMajor</>
+                                 <varname >mm16x64major</>
+                                 <defval ></>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = regget >
+                        <desc ></>
+                        <root >locmach</>
+                        <subkey >Software\Mindjet\MindManager\17\Settings</>
+                        <wow64 >1</>
+                        <reglist >
+                           <rows >
+                              <_ >
+                                 <valname >ProductVersionMajor</>
+                                 <varname >mm17x64major</>
+                                 <defval ></>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 2 >
+                        <children >
+                           <_ tag = 0 id = regdel >
+                              <desc ></>
+                              <root >locmach</>
+                              <subkey >Software\Mindjet\MindManager\15\AddIns\MultiMaps15.Connect</>
+                              <subdel >1</>
+                              <wow64 >1</>
+                              <reglist >
+                                 <rows ></>
+                              </>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >os64</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >1</>
+                                 <orand >and</>
+                              </>
+                              <_ >
+                                 <varname >mm15x64major</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >15</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 2 >
+                        <children >
+                           <_ tag = 0 id = regdel >
+                              <desc ></>
+                              <root >locmach</>
+                              <subkey >Software\Mindjet\MindManager\16\AddIns\MultiMaps16.Connect</>
+                              <subdel >1</>
+                              <wow64 >1</>
+                              <reglist >
+                                 <rows ></>
+                              </>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >os64</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >1</>
+                                 <orand >and</>
+                              </>
+                              <_ >
+                                 <varname >mm16x64major</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >16</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = if expanded = 2 >
+                        <children >
+                           <_ tag = 0 id = regdel >
+                              <desc ></>
+                              <root >locmach</>
+                              <subkey >Software\Mindjet\MindManager\17\AddIns\MultiMaps17.Connect</>
+                              <subdel >1</>
+                              <wow64 >1</>
+                              <reglist >
+                                 <rows ></>
+                              </>
+                           </>
+                        </>
+                        <desc ></>
+                        <else ></>
+                        <condlist >
+                           <rows >
+                              <_ >
+                                 <varname >os64</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >1</>
+                                 <orand >and</>
+                              </>
+                              <_ >
+                                 <varname >mm17x64major</>
+                                 <iftype >equal</>
+                                 <not >0</>
+                                 <value >17</>
+                                 <orand >and</>
+                              </>
+                           </>
+                        </>
+                     </>
+                  </>
+                  <desc ></>
+                  <buttons >nc</>
+                  <design >left</>
+                  <headlogo ></>
+                  <varlist >
+                     <rows ></>
+                  </>
+                  <auto >1</>
+                  <head ></>
+                  <headtext ></>
+                  <dlgtext ></>
+                  <if ></>
+               </>
+               <_ id = dlgundel >
+                  <desc ></>
+                  <buttons >nc</>
+                  <design >left</>
+                  <headlogo ></>
+                  <varlist >
+                     <rows ></>
+                  </>
+                  <head ></>
+                  <headtext ></>
+                  <dlgtext ></>
+                  <if ></>
+               </>
+               <_ id = dlgufin >
+                  <desc ></>
+                  <buttons >nc</>
+                  <design >left</>
+                  <headlogo ></>
+                  <varlist >
+                     <rows ></>
+                  </>
+                  <head ></>
+                  <headtext ></>
+                  <dlgtext ></>
+                  <feedback ></>
+                  <if ></>
+               </>
+            </>
+            <unicon >uninstall</>
+            <unresfile ></>
+            <leftimg >uninstall - 1</>
+            <caption ></>
+            <noadmin >0</>
+         </>
+      </>
+   </>
+   <phone ></>
+   <shfolder ></>
+   <headcol ></>
+   <headtext ></>
+   <headimg ></>
+   <stretchback >0</>
+   <silentpar >-silent</>
+   <custfont ></>
+   <upinclude >0</>
+   <uppath >inst</>
+   <upexe >synergy-update.exe</>
+   <upurl >http://update.palmaross.com/versions</>
+   <upxml >synergy-update.ini</>
+   <upredir >http://update.palmaross.com/updates</>
+   <csfile ></>
+   <csinst >"<exefilename>"</>
+   <csuninst >"<exefilename>"</>
+   <csupdate >"<exefilename>"</>
+   <crautorun >0</>
+   <autoicon ></>
+   <multilist >
+      <rows >
+         <_ >
+            <varname >exename</>
+            <value1 >SynergySetup</>
+            <value2 >SynergyOL-Setup</>
+            <value3 ></>
+            <value4 ></>
+            <value5 ></>
+            <value6 ></>
+            <value7 ></>
+         </>
+         <_ >
+            <varname >appname</>
+            <value1 >Synergy</>
+            <value2 >SynergyOl</>
+            <value3 ></>
+            <value4 ></>
+            <value5 ></>
+            <value6 ></>
+            <value7 ></>
+         </>
+         <_ >
+            <varname >version</>
+            <value1 >1.0_beta</>
+            <value2 >1.0_beta</>
+            <value3 ></>
+            <value4 ></>
+            <value5 ></>
+            <value6 ></>
+            <value7 ></>
+         </>
+      </>
+   </>
+   <ignnotfound >0</>
+   <tozip >0</>
+   <zipfile ></>
+</>
