@@ -1,10 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Security.Permissions;
-using SynManager;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Threading;
 
 namespace SynManager
 {
