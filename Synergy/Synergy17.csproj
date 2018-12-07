@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.31029</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D3BFE837-26CE-4F4E-848A-0D0D62876A1E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>Synergy17</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE;DEBUG;MINDJET17</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <IncrementalBuild>false</IncrementalBuild>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <IncrementalBuild>false</IncrementalBuild>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Synergy17</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System">
+      <HintPath>System.dll</HintPath>
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>System.Data.dll</HintPath>
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML">
+      <HintPath>System.XML.dll</HintPath>
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <HintPath>Microsoft.CSharp.dll</HintPath>
+      <Name>Microsoft.CSharp</Name>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About\About.cs" />
+    <Compile Include="AppManager\DatabaseWrapper.cs" />
+    <Compile Include="AppManager\Internet.cs" />
+    <Compile Include="AppManager\InternetCheckDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppManager\InternetCheckDlg.Designer.cs">
+      <DependentUpon>InternetCheckDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppManager\l18n.cs" />
+    <Compile Include="AppManager\SynergyDBWrapper.cs" />
+    <Compile Include="AppManager\MMEnums.cs" />
+    <Compile Include="AppManager\Timers.cs" />
+    <Compile Include="AppManager\TransactionsWrapper.cs" />
+    <Compile Include="AppManager\Watcher.cs" />
+    <Compile Include="AppManager\WindowWrapper.cs" />
+    <Compile Include="Changes\LinkToFileDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Changes\LinkToFileDlg.Designer.cs">
+      <DependentUpon>LinkToFileDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Changes\PortraitGet.cs" />
+    <Compile Include="Changes\PortraitSet.cs" />
+    <Compile Include="Changes\ReceiveChanges.cs" />
+    <Compile Include="Changes\SaveChanges.cs" />
+    <Compile Include="Login\FirstUserDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\FirstUserDlg.Designer.cs">
+      <DependentUpon>FirstUserDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\LinkedFilesDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\LinkedFilesDlg.Designer.cs">
+      <DependentUpon>LinkedFilesDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\MapUsersDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\MapUsersDlg.Designer.cs">
+      <DependentUpon>MapUsersDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\ProjectReceivedDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\ProjectReceivedDlg.Designer.cs">
+      <DependentUpon>ProjectReceivedDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\ShareDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\ShareDlg.Designer.cs">
+      <DependentUpon>ShareDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\SubMenus.cs" />
+    <Compile Include="Places\CloudStorageDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Places\CloudStorageDlg.Designer.cs">
+      <DependentUpon>CloudStorageDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Places\NetworkDiskDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Places\NetworkDiskDlg.Designer.cs">
+      <DependentUpon>NetworkDiskDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Places\NewCloudStorageDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Places\NewCloudStorageDlg.Designer.cs">
+      <DependentUpon>NewCloudStorageDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Places\NewNetworkDiskDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Places\NewNetworkDiskDlg.Designer.cs">
+      <DependentUpon>NewNetworkDiskDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Places\NewPlaceDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Places\NewPlaceDlg.Designer.cs">
+      <DependentUpon>NewPlaceDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Places\Places.cs" />
+    <Compile Include="Places\SiteVerificationDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Places\SiteVerificationDlg.Designer.cs">
+      <DependentUpon>SiteVerificationDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\GetPathDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\GetPathDlg.Designer.cs">
+      <DependentUpon>GetPathDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppManager\SUtils.cs" />
+    <Compile Include="INI\Exceptions.cs" />
+    <Compile Include="INI\FileIniParser.cs" />
+    <Compile Include="INI\Helpers.cs" />
+    <Compile Include="INI\IniData.cs" />
+    <Compile Include="INI\KeyData.cs" />
+    <Compile Include="INI\KeyDataCollection.cs" />
+    <Compile Include="INI\SectionData.cs" />
+    <Compile Include="INI\SectionDataCollection.cs" />
+    <Compile Include="INI\StreamIniDataParser.cs" />
+    <Compile Include="INI\StringIniParser.cs" />
+    <Compile Include="AppManager\DocumentStorage.cs" />
+    <Compile Include="AppManager\MapCompanion.cs" />
+    <Compile Include="AppManager\mmEvents.cs" />
+    <Compile Include="AppManager\MMUtils.cs" />
+    <Compile Include="AssemblyInfo17.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Login\Login.cs" />
+    <Compile Include="Login\LogOutDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\LogOutDlg.Designer.cs">
+      <DependentUpon>LogOutDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\LogInDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\LogInDlg.Designer.cs">
+      <DependentUpon>LogInDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\Maps.cs" />
+    <Compile Include="Login\NewUserDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\NewUserDlg.Designer.cs">
+      <DependentUpon>NewUserDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\CreateProjectDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projects\CreateProjectDlg.Designer.cs">
+      <DependentUpon>CreateProjectDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projects\Projects.cs" />
+    <Compile Include="Maps\PublishMapDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\PublishMapDlg.Designer.cs">
+      <DependentUpon>PublishMapDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\MapExistsDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\MapExistsDlg.Designer.cs">
+      <DependentUpon>MapExistsDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\NewMapDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\NewMapDlg.Designer.cs">
+      <DependentUpon>NewMapDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Maps\MapReceivedDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\MapReceivedDlg.Designer.cs">
+      <DependentUpon>MapReceivedDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Synergy17.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MindManager">
+      <Guid>{1E1D4AF9-6640-49C1-A33B-8CE8B47C9785}</Guid>
+      <VersionMajor>17</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppManager\InternetCheckDLG.resx">
+      <DependentUpon>InternetCheckDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Changes\LinkToFileDlg.resx">
+      <DependentUpon>LinkToFileDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\FirstUserDlg.resx">
+      <DependentUpon>FirstUserDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\LogOutDlg.resx">
+      <DependentUpon>LogOutDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\LogInDlg.resx">
+      <DependentUpon>LogInDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\NewUserDlg.resx">
+      <DependentUpon>NewUserDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\LinkedFilesDlg.resx">
+      <DependentUpon>LinkedFilesDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\MapExistsDlg.resx">
+      <DependentUpon>MapExistsDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\MapUsersDlg.resx">
+      <DependentUpon>MapUsersDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\ProjectReceivedDlg.resx">
+      <DependentUpon>ProjectReceivedDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\ShareDlg.resx">
+      <DependentUpon>ShareDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Places\CloudStorageDlg.resx">
+      <DependentUpon>CloudStorageDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Places\NetworkDiskDlg.resx">
+      <DependentUpon>NetworkDiskDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Places\NewCloudStorageDlg.resx">
+      <DependentUpon>NewCloudStorageDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Places\NewNetworkDiskDlg.resx">
+      <DependentUpon>NewNetworkDiskDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Places\NewPlaceDlg.resx">
+      <DependentUpon>NewPlaceDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Places\SiteVerificationDlg.resx">
+      <DependentUpon>SiteVerificationDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\GetPathDlg.resx">
+      <DependentUpon>GetPathDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projects\CreateProjectDlg.resx">
+      <DependentUpon>CreateProjectDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\PublishMapDlg.resx">
+      <DependentUpon>PublishMapDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\NewMapDlg.resx">
+      <DependentUpon>NewMapDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maps\MapReceivedDlg.resx">
+      <DependentUpon>MapReceivedDlg.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SQLite-csharp\Community.CsharpSqlite\Community.CsharpSqlite4.csproj">
+      <Project>{F1653F20-D47D-4F29-8C55-3C835542AF5F}</Project>
+      <Name>Community.CsharpSqlite4</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\progressbar.gif" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions />
+</Project>
