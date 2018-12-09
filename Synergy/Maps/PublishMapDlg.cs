@@ -6,7 +6,7 @@ using SynManager;
 
 namespace Maps
 {
-    partial class PublishMaptDlg : Form
+    internal partial class PublishMaptDlg : Form
     {
         public PublishMaptDlg(Mindjet.MindManager.Interop.Document _doc)
         {
@@ -279,7 +279,7 @@ namespace Maps
                     chBoxSingleMap.Checked = true;
         }
 
-        void GetProjects()
+        private void GetProjects()
         {
             using (ProjectsDB _db = new ProjectsDB())
             {

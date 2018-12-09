@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Mindjet.MindManager.Interop;
 
 namespace SynManager
 {
-    class MMEnums
+    internal class MMEnums
     {
         public static MmConnectionShape RelationshipShape(string value)
         {

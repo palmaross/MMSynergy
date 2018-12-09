@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SynManager
 {
-    partial class InternetCheckDlg : Form
+    internal partial class InternetCheckDlg : Form
     {
         public InternetCheckDlg()
         {

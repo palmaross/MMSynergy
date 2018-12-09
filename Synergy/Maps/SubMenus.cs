@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
 using Mindjet.MindManager.Interop;
 using SynManager;
@@ -9,9 +7,9 @@ using System.IO;
 
 namespace Maps
 {
-    class SubMenus
+    internal class SubMenus
     {
-        string imagePath = MMUtils.imagePath;
+        private string imagePath = MMUtils.imagePath;
         public void AddMapToOpenMenu(string mapGuid, string mapname, string aID)
         {
             m_command = CreateCommand(aID);

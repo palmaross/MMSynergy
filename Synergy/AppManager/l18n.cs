@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IniParser;
+﻿using IniParser;
 using System.IO;
 using Microsoft.Win32;
-using System.Reflection;
 
 namespace SynManager {
-	class I18n {
-		public I18n(string sAddinName="Synergy18", int version=18) {
+    internal class I18n {
+		public I18n(string sAddinName="Synergy19", int version=19) {
 			m_appdata = System.Environment.GetEnvironmentVariable("LOCALAPPDATA") + "\\Mindjet\\MindManager\\" + version.ToString();
 #if PLATFORM_X64
 			m_sDLLName = (sAddinName.ToLower().Replace(".connect", "") + "_x64.dll");
@@ -22,15 +17,15 @@ namespace SynManager {
 			// located in the same folder as our .dll
 			string clsid = "";
 
+            if (version == 19)
+            {
+                clsid = "CLSID\\{3CF1BDBD-D4F6-49A3-90C4-4936244000B7}\\InprocServer32";
+            }
+
             if (version == 18)
             {
                 clsid = "CLSID\\{38155112-4ED9-46D8-8A2D-BCB2ECB9A12F}\\InprocServer32";
             }
-
-			if (version == 17)
-			{
-                clsid = "CLSID\\{7AEA005F-FA38-4421-8F5C-4110A4055AE9}\\InprocServer32";
-			}
 
 			RegistryKey rk = Registry.ClassesRoot.OpenSubKey(clsid, false);
 			if (null == rk)

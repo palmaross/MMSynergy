@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using SynManager;
 
 namespace Maps
 {
-    partial class MapExistsDlg : Form
+    internal partial class MapExistsDlg : Form
     {
         public MapExistsDlg(string _mapname, string _project = "")
         {
@@ -42,7 +36,7 @@ namespace Maps
             this.DialogResult = DialogResult.OK;
         }
 
-        void txtMapName_Click(object sender, EventArgs e)
+        private void txtMapName_Click(object sender, EventArgs e)
         {
             lblMapExists.ForeColor = System.Drawing.Color.Black;
         }

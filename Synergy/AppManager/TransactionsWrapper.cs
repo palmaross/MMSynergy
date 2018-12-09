@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Mindjet.MindManager.Interop;
+﻿using Mindjet.MindManager.Interop;
 
 namespace SynManager
 {
-    class TransactionsWrapper : SUtils
+    internal class TransactionsWrapper : SUtils
     {
         /// <summary>
         /// Set attributes to added topic
@@ -21,7 +17,7 @@ namespace SynManager
             _tr.Start();
         }
 
-        static void TrSetAttributes(Document doc)
+        private static void TrSetAttributes(Document doc)
         {
             string _attrs = TimeStamp + ";" + currentUserName + ";" + currentUserEmail;
             tr_Topic.get_Attributes(SYNERGYNAMESPACE).SetAttributeValue(OGUID, tr_Topic.Guid);
@@ -42,7 +38,7 @@ namespace SynManager
             _tr.Start();
         }
 
-        static void TrSetATTR(Document doc)
+        private static void TrSetATTR(Document doc)
         {
             tr_Topic.get_Attributes(SYNERGYNAMESPACE).SetAttributeValue(tr_attrWhere, tr_attrValue);
             tr_Topic = null; // important!!
@@ -61,7 +57,7 @@ namespace SynManager
             _tr.Start();
         }
 
-        static void TrSetAttributesRel(Document doc)
+        private static void TrSetAttributesRel(Document doc)
         {
             tr_Rel.get_Attributes(SYNERGYNAMESPACE).SetAttributeValue(OGUID, tr_Guid);
             tr_Rel = null;
@@ -80,17 +76,17 @@ namespace SynManager
             _tr.Start();
         }
 
-        static void TrSetAttributesBnd(Document doc)
+        private static void TrSetAttributesBnd(Document doc)
         {
             tr_Bnd.get_Attributes(SYNERGYNAMESPACE).SetAttributeValue(OGUID, tr_Guid);
             tr_Bnd = null;
         }
 
-        static string tr_attrWhere = "";
-        static string tr_attrValue = "";
-        static Topic tr_Topic = null;
-        static Relationship tr_Rel = null;
-        static Boundary tr_Bnd = null;
-        static string tr_Guid = "";
+        private static string tr_attrWhere = "";
+        private static string tr_attrValue = "";
+        private static Topic tr_Topic = null;
+        private static Relationship tr_Rel = null;
+        private static Boundary tr_Bnd = null;
+        private static string tr_Guid = "";
     }
 }

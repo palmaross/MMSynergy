@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Login
 {
-    class LoginToSynergy
+    internal class LoginToSynergy
     {
         protected Timer login_timer = null;
 
@@ -28,7 +28,7 @@ namespace Login
             CreateLogin();
         }
 
-        void Login_timer_Tick(object sender, EventArgs e) 
+        private void Login_timer_Tick(object sender, EventArgs e) 
         {
             login_timer.Stop();
 
@@ -43,7 +43,7 @@ namespace Login
             CreateLogin(logged);
         }
 
-        void CreateLogin(bool _logInSynergy = false)
+        private void CreateLogin(bool _logInSynergy = false)
         {
             string imagePath = MMUtils.imagePath;          
             string _caption = MMUtils.GetString("login.commands.login.caption");
@@ -106,7 +106,7 @@ namespace Login
                         if (result == DialogResult.Cancel)
                             return;
 
-                        System.Windows.Forms.MessageBox.Show(MMUtils.GetString("places.placecreated.message"));
+                        MessageBox.Show(MMUtils.GetString("places.placecreated.message"));
                     }
 
                 SUtils.currentUserName = MMUtils.GetRegistry("", "CurrentUserName");
@@ -156,7 +156,7 @@ namespace Login
             login_timer.Start();
         }
 
-        void m_cmdLogin_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdLogin_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;
@@ -197,8 +197,7 @@ namespace Login
             }
         }
 
-
-        private ribbonTab SynergyRibbon = Maps.MapsGroup.m_myTab;
+        private ribbonTab SynergyRibbon => Maps.MapsGroup.m_myTab;
 
         private Command m_cmdLogin = null;
         private Mindjet.MindManager.Interop.Control m_ctrlLogin = null;

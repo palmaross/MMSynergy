@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Maps
 {
-    class MapsGroup
+    internal class MapsGroup
     {
         private Changes.SaveChanges SC;
         public static Login.LoginToSynergy LOGIN;
@@ -250,7 +250,7 @@ namespace Maps
             }
         }
 
-        void m_cmdPublishMap_Click()
+        private void m_cmdPublishMap_Click()
         {
             using (PublishMaptDlg _dlg = new PublishMaptDlg(MMUtils.ActiveDocument))
             {
@@ -262,7 +262,7 @@ namespace Maps
             }
         }
 
-        void m_cmdPublishMap_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdPublishMap_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             if (MMUtils.MindManager.VisibleDocuments.Count == 0)
             {
@@ -276,13 +276,13 @@ namespace Maps
             }
         }
 
-        void m_cmdShareMaps_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdShareMaps_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;
         }
 
-        void m_cmdShareMap_Click()
+        private void m_cmdShareMap_Click()
         {
             string mapGuid = SUtils.SynergyMapGuid(MMUtils.ActiveDocument);
 
@@ -297,7 +297,7 @@ namespace Maps
             }
         }
 
-        void m_cmdShareMap_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdShareMap_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             if (MMUtils.MindManager.VisibleDocuments.Count == 0)
                 pEnabled = false;
@@ -307,31 +307,31 @@ namespace Maps
             pChecked = false;
         }
 
-        void m_cmdReceiveMap_Click()
+        private void m_cmdReceiveMap_Click()
         {
             using (MapReceivedDlg dlg = new MapReceivedDlg())
                 if (dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd)) == System.Windows.Forms.DialogResult.Cancel)
                     return;
         }
 
-        void m_cmdReceiveMap_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdReceiveMap_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;
         }
 
-        void m_cmdDeleteMap_Click()
+        private void m_cmdDeleteMap_Click()
         {
 
         }
 
-        void m_cmdDeleteMap_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdDeleteMap_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;
         }
 
-        void Reopenmaps_Timer_Tick(object sender, EventArgs e)
+        private void Reopenmaps_Timer_Tick(object sender, EventArgs e)
         {
             reopenmaps_timer.Stop();
             string mapPlacePath = "";
@@ -400,7 +400,7 @@ namespace Maps
             DestroyTimer();
         }
 
-        void DestroyTimer()
+        private void DestroyTimer()
         {
             reopenmaps_timer.Tick -= Reopenmaps_Timer_Tick;
             reopenmaps_timer = null;
@@ -479,8 +479,7 @@ namespace Maps
         public static bool m_UpdateOpenMap = false;
 
         private List<Document> _reopenmaps = new List<Document>();
-
-        SubMenus m_menus;
+        private SubMenus m_menus;
         public List<SubMenus> OpenButtons = new List<SubMenus>();
         private List<Control> Labels = new List<Control>();
 

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SynManager
 {
-    class MMUtils
+    internal class MMUtils
     {
         // Initialize Synergy folders
         protected static Application m_MindManager;

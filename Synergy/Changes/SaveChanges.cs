@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Mindjet.MindManager.Interop;
 using SynManager;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Data;
-using Maps;
 
 namespace Changes
 {
-    class SaveChanges : MMBase
+    internal class SaveChanges : MMBase
     {
         public SaveChanges()
         {
@@ -96,7 +91,7 @@ namespace Changes
             BranchRelationships.Clear();
         }
 
-        void RelationshipTopics(Topic _t, MMEventArgs aArgs)
+        private void RelationshipTopics(Topic _t, MMEventArgs aArgs)
         {
             aArgs.target = _t;
             onObjectAdded(aArgs);
@@ -111,7 +106,7 @@ namespace Changes
         /// <summary>
         /// Set Synergy attributes to all objects in the branch of given topic and collect all relationships
         /// </summary>
-        void ProcessBranch(Topic _topic)
+        private void ProcessBranch(Topic _topic)
         {
             TransactionsWrapper.SetAttributes(_topic);
 

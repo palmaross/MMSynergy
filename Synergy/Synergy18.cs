@@ -1,10 +1,8 @@
 namespace Synergy18
 {
 	using System;
-	using Extensibility;
 	using System.Runtime.InteropServices;
     using Mindjet.MindManager.Interop;
-    using System.Diagnostics;
     using SynManager;
     using Maps;
     using Projects;

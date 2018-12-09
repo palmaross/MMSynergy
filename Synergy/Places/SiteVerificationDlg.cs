@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using SynManager;
 
 namespace Places
 {
-    partial class SiteVerificationDlg : Form
+    internal partial class SiteVerificationDlg : Form
     {
         public SiteVerificationDlg(string _site)
         {

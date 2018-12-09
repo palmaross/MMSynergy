@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SynManager
 {
     using Community.CsharpSqlite;
 
-    class DatabaseWrapper : Object, IDisposable
+    internal class DatabaseWrapper : Object, IDisposable
     {
         public virtual string GetDatabaseName()
         {
@@ -184,7 +181,7 @@ namespace SynManager
     /// <summary>
     /// Container for all opened databases
     /// </summary>
-    class DatabaseContainer
+    internal class DatabaseContainer
     {
 
         protected static Dictionary<String, SQLiteDatabase> m_databases = new Dictionary<string, SQLiteDatabase>();

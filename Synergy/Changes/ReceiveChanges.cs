@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SynManager;
 using Mindjet.MindManager.Interop;
 using System.IO;
 
 namespace Changes
 {
-    class ReceiveChanges : MMEnums
+    internal class ReceiveChanges : MMEnums
     {
         public static void GetChanges(Document _doc, string _filepath) // _filepath to .txt file in share folder
         {

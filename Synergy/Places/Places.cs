@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
 using Mindjet.MindManager.Interop;
 using SynManager;
-using System.IO;
-using System.Data;
 
 namespace Places
 {
-    class PlacesGroup
+    internal class PlacesGroup
     {
         public void Create(ribbonTab myTab)
         {
@@ -45,7 +40,7 @@ namespace Places
             }
         }
 
-        void m_cmdNewPlace_Click() 
+        private void m_cmdNewPlace_Click() 
         {
             using (NewPlaceDlg _dlg = new NewPlaceDlg())
             {
@@ -54,18 +49,18 @@ namespace Places
             }
         }
 
-        void m_cmdNewPlace_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdNewPlace_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;
         }
 
-        void m_cmdManagePlaces_Click()
+        private void m_cmdManagePlaces_Click()
         {
             
         }
 
-        void m_cmdManagePlaces_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdManagePlaces_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;

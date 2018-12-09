@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Linq;
-using System.Text;
 using Mindjet.MindManager.Interop;
 using SynManager;
 
 namespace Projects
 {
-    class ProjectsGroup
+    internal class ProjectsGroup
     {
-        void Create(ribbonTab myTab)
+        public void Create(ribbonTab myTab)
         {
             m_myTab = myTab;
             string imagePath = MMUtils.imagePath;
@@ -58,7 +56,7 @@ namespace Projects
             m_ctrlReceiveProject = m_ctrlShareProjects.Controls.AddButton(m_cmdReceiveProject);
         }
 
-        void m_cmdNewProject_Click()
+        private void m_cmdNewProject_Click()
         {
             using (CreateProjectDlg _dlg = new CreateProjectDlg())
             {
@@ -70,51 +68,51 @@ namespace Projects
             }
         }
 
-        void m_cmdNewProject_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdNewProject_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;
         }
 
-        void m_cmdManageProjects_Click()
+        private void m_cmdManageProjects_Click()
         {
 
         }
 
-        void m_cmdManageProjects_UpdateState(ref bool pEnabled, ref bool pChecked)
-        {
-            pEnabled = true;
-            pChecked = false;
-        }
-
-        void m_cmdShareProjects_Click()
-        {
-
-        }
-
-        void m_cmdShareProjects_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdManageProjects_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;
         }
 
-        void m_cmdShareProject_Click()
+        private void m_cmdShareProjects_Click()
         {
 
         }
 
-        void m_cmdShareProject_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdShareProjects_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;
         }
 
-        void m_cmdReceiveProject_Click()
+        private void m_cmdShareProject_Click()
         {
 
         }
 
-        void m_cmdReceiveProject_UpdateState(ref bool pEnabled, ref bool pChecked)
+        private void m_cmdShareProject_UpdateState(ref bool pEnabled, ref bool pChecked)
+        {
+            pEnabled = true;
+            pChecked = false;
+        }
+
+        private void m_cmdReceiveProject_Click()
+        {
+
+        }
+
+        private void m_cmdReceiveProject_UpdateState(ref bool pEnabled, ref bool pChecked)
         {
             pEnabled = true;
             pChecked = false;

@@ -1,19 +1,13 @@
 ﻿namespace SynManager
 {
     using System;
-    using System.Data;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Microsoft.Win32;
     using Mindjet.MindManager.Interop;
-    using System.Threading;
     using System.IO;
 
     /// <summary>
     /// Class to hold event properties
     /// </summary>
-    class MMEventArgs
+    internal class MMEventArgs
     {
         //TODO needed?
         public enum EventTypeEnum
@@ -81,7 +75,7 @@
         public string extra = "";
     }
 
-    class MMBase
+    internal class MMBase
     {
         public virtual void onTimer200() { }
 

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using System.ComponentModel;
 using System.Windows.Forms;
 using SynManager;
 using System.IO;
 
 namespace Maps
 {
-    partial class MapReceivedDlg : Form
+    internal partial class MapReceivedDlg : Form
     {
         public MapReceivedDlg()
         {
@@ -279,7 +278,7 @@ namespace Maps
             initfolder = dir.FullName.ToString();
         }
 
-        void TxtFolderPath_Click(object sender, EventArgs e)
+        private void TxtFolderPath_Click(object sender, EventArgs e)
         {
             lblReceivedFolderPath.ForeColor = System.Drawing.Color.Black;
         }
@@ -305,9 +304,9 @@ namespace Maps
             return "";
         }
 
-        string aMapFolderPath = "";
-        string initfolder = "";
-        string aStorage = "";
-        string aPlacePath = "";
+        private string aMapFolderPath = "";
+        private string initfolder = "";
+        private string aStorage = "";
+        private string aPlacePath = "";
     }
 }

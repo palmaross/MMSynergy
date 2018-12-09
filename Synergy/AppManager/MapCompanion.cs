@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Mindjet.MindManager.Interop;
 
 namespace SynManager
 {
-    class MapCompanion : Object, IDisposable
+    internal class MapCompanion : Object, IDisposable
     {
         public MapCompanion() { }
         public MapCompanion(Document aDocument)
@@ -85,7 +83,7 @@ namespace SynManager
         }
 
         // Event handlers
-        void m_afterObjectAdded_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
+        private void m_afterObjectAdded_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
         {
             if (received)
                 return;
@@ -110,7 +108,7 @@ namespace SynManager
         }
 
         // For catch delete image event only
-        void m_beforeObjectChanged_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra) //TODO needed?
+        private void m_beforeObjectChanged_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra) //TODO needed?
         {
             if (received)
                 return;
@@ -143,7 +141,7 @@ namespace SynManager
             _topic = null;
         }
 
-        void m_afterObjectChanged_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
+        private void m_afterObjectChanged_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
         {
             if (received)
                return;
@@ -288,7 +286,7 @@ namespace SynManager
                 _parent.onAfterObjectChangedBase(new MMEventArgs(pSource, _what, _extra, this));
         }
 
-        void m_beforeObjectDeleted_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
+        private void m_beforeObjectDeleted_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
         {
             if (received)
                 return;

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using Mindjet.MindManager.Interop;
-using System.IO;
 using SynManager;
 
 namespace Changes
 {
-    class PortraitGet : MMUtils
+    internal class PortraitGet : MMUtils
     {
         public static string TopicPortrait(Topic t, ref string what, string extra, string mapFolderPath)
         {
@@ -230,7 +226,7 @@ namespace Changes
             return "queue";
         }
 
-        static void xRoot(string objXML)
+        private static void xRoot(string objXML)
         {
             xDoc = new XmlDocument();
             xDoc.LoadXml(objXML);

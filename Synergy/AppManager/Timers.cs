@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Mindjet.MindManager.Interop;
 using System.IO;
@@ -9,7 +8,7 @@ using System.IO;
 namespace SynManager
 {
     // When finish, will be completely destroyed in Maps.cs Destroy
-    class Timers
+    internal class Timers
     {
         public Timers(int _secToSaveMap, int _secToWait, int _minLockTime)
         {
@@ -42,7 +41,7 @@ namespace SynManager
         /// Remove map versions but three last
         /// Remove waste files in share folder
         /// </summary>
-        void SaveMap_timer_Tick(object sender, EventArgs e)
+        private void SaveMap_timer_Tick(object sender, EventArgs e)
         {
             if (doc == null)
                 return; // TODO 
@@ -105,7 +104,7 @@ namespace SynManager
             }
         }
 
-        void WaitOnline_timer_Tick(object sender, EventArgs e)
+        private void WaitOnline_timer_Tick(object sender, EventArgs e)
         {
             waitOnline_timer.Stop();
 
@@ -160,7 +159,7 @@ namespace SynManager
                 refresh = true;
         }
 
-        void IP_timer_Tick(object sender, EventArgs e)
+        private void IP_timer_Tick(object sender, EventArgs e)
         {
             if (doc == null)
                 return; // TODO 
@@ -168,17 +167,17 @@ namespace SynManager
             Internet.CheckInternetAndProcess(m_Guid, m_Storage, m_Process, m_Site, m_PlacePath, "IPtimer");
         }
 
-        void Lock_timer_Tick(object sender, EventArgs e)
+        private void Lock_timer_Tick(object sender, EventArgs e)
         {
             
         }
 
-        void CheckOnlineUsers_timer_Tick(object sender, EventArgs e)
+        private void CheckOnlineUsers_timer_Tick(object sender, EventArgs e)
         {
             GetOnlineUsers();
         }
 
-        void RefreshIndicator_timer_Tick(object sender, EventArgs e)
+        private void RefreshIndicator_timer_Tick(object sender, EventArgs e)
         {
             if (doc == null)
                 return; // TODO 

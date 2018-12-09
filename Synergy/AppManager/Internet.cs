@@ -9,7 +9,7 @@ using Mindjet.MindManager.Interop;
 
 namespace SynManager
 {
-    class Internet
+    internal class Internet
     {
         public static string CheckInternetAndProcess(
             string _guid, string _storage, string _process, string _site, string _placepath, string _cause)
@@ -176,7 +176,7 @@ namespace SynManager
             }
         }
 
-        static void SetOnlineStatus(string _guid) // TODO 
+        private static void SetOnlineStatus(string _guid) // TODO 
         {
             foreach (Timers item in Maps.MapsGroup.TIMERS)
                 if (_guid == item.m_Guid)
@@ -195,7 +195,7 @@ namespace SynManager
                 }
         }
 
-        static void SetOfflineStatus(string _guid, string _cause) // TODO 
+        private static void SetOfflineStatus(string _guid, string _cause) // TODO 
         {
             Document _doc = null;
 
@@ -249,8 +249,8 @@ namespace SynManager
                 }
         }
 
-        static List<string> Processes = new List<string>();
-        static List<string> Places = new List<string>();
-        static List<string> Sites = new List<string>();
+        private static List<string> Processes = new List<string>();
+        private static List<string> Places = new List<string>();
+        private static List<string> Sites = new List<string>();
     }
 }

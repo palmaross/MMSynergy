@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SynManager
 {
-    class UsersDB : DatabaseWrapper
+    internal class UsersDB : DatabaseWrapper
     {
         public void KillDatabase()
         {
@@ -31,7 +28,7 @@ namespace SynManager
         }
     }
 
-    class MapsDB : DatabaseWrapper
+    internal class MapsDB : DatabaseWrapper
     {
         public override string GetDatabaseName()
         {
@@ -76,7 +73,7 @@ namespace SynManager
         }
     }
 
-    class StoragesDB : DatabaseWrapper
+    internal class StoragesDB : DatabaseWrapper
     {
         public override string GetDatabaseName()
         {
@@ -108,7 +105,7 @@ namespace SynManager
         }
     }
 
-    class PlacesDB : DatabaseWrapper
+    internal class PlacesDB : DatabaseWrapper
     {
         public override string GetDatabaseName()
         {
@@ -126,7 +123,7 @@ namespace SynManager
         }
     }
 
-    class ProjectsDB : DatabaseWrapper
+    internal class ProjectsDB : DatabaseWrapper
     {
         public override string GetDatabaseName()
         {

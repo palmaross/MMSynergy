@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Mindjet.MindManager.Interop;
 using System.IO;
 using System.Collections;
@@ -9,7 +8,7 @@ using System.Data;
 
 namespace SynManager
 {
-    class SUtils : MMEnums // Synergy Utilites
+    internal class SUtils : MMEnums // Synergy Utilites
     {
         /////// Synergy attributes /////////
 

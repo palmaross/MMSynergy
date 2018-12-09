@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using SynManager;
 
 namespace Places
 {
-    partial class NewPlaceDlg : Form
+    internal partial class NewPlaceDlg : Form
     {
         public NewPlaceDlg(string _storage = "")
         {
@@ -89,7 +83,7 @@ A1:
             }
         }
 
-        string AddNewPlace(string storagetype)
+        private string AddNewPlace(string storagetype)
         {
             using (Maps.GetPathDlg dlg = new Maps.GetPathDlg(aPlaceName, "", "newplace", storagetype))
             {

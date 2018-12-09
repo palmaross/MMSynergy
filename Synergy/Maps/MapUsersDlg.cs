@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using SynManager;
 using Mindjet.MindManager.Interop;
 
 namespace Maps
 {
-    partial class MapUsersDlg : Form
+    internal partial class MapUsersDlg : Form
     {
         public MapUsersDlg()
         {
@@ -19,7 +14,7 @@ namespace Maps
 
             this.ShowInTaskbar = false;
             int a = 190;
-            if (MMUtils.MindManager.Options.WorkbookTabPlacement == Mindjet.MindManager.Interop.MmMdiTabPlacement.mmMdiTabPlacementBottom ||
+            if (MMUtils.MindManager.Options.WorkbookTabPlacement == MmMdiTabPlacement.mmMdiTabPlacementBottom ||
                 MMUtils.MindManager.Options.ShowWorkbookTabs == false) a = 168;
             this.Location = new System.Drawing.Point(MMUtils.MindManager.Left + 6, MMUtils.MindManager.Top + a);
 
@@ -155,7 +150,6 @@ namespace Maps
 
         private List<Label> Users = new List<Label>();
         public static List<string> users = new List<string>();
-
-        int clientSizeHeight;
+        private int clientSizeHeight;
     }
 }

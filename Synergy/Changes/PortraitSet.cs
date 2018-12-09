@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Mindjet.MindManager.Interop;
 using SynManager;
 
 namespace Changes
 {
-    class PortraitSet : MMEnums
+    internal class PortraitSet : MMEnums
     {
         public static void TopicPortrait(Topic t, string what, string _value, string mapFolderPath)
         {

@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using SynManager;
 using Mindjet.MindManager.Interop;
 
 namespace Maps
 {
-    partial class LinkedFilesDlg : Form
+    internal partial class LinkedFilesDlg : Form
     {
         public LinkedFilesDlg(List<string> links, Document _doc)
         {
@@ -89,13 +84,13 @@ namespace Maps
             _links.Clear();
         }
 
-        void checkedListBox_MouseMove(object sender, MouseEventArgs e)
+        private void checkedListBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (ttIndex != checkedListBox.IndexFromPoint(e.Location))
                 ShowToolTip();
         }
 
-        void checkedListBox_MouseHover(object sender, EventArgs e)
+        private void checkedListBox_MouseHover(object sender, EventArgs e)
         {
             ShowToolTip();
         }
@@ -107,9 +102,9 @@ namespace Maps
                 toolTip1.SetToolTip(checkedListBox, _links[ttIndex].ToString());
         }
 
-        List<string> _links;
-        int ttIndex;
-        string aLocalPath;
-        Document doc;
+        private List<string> _links;
+        private int ttIndex;
+        private string aLocalPath;
+        private Document doc;
     }
 }

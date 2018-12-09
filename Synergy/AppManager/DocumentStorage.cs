@@ -103,7 +103,7 @@
             MMUtils.MindManager.AllDocuments.Open(docToOpen);
         }
 
-        static void m_documentEventAfter_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
+        private static void m_documentEventAfter_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
         {
             Document _doc = pSource as Document;
 
@@ -226,7 +226,7 @@
             _doc = null;
         }
 
-        static void m_documentEventBefore_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
+        private static void m_documentEventBefore_Fire(int eventFlag, MmEventTime time, object pSource, ref object pExtra)
         {
             Document _doc = pSource as Document;
             bool _notsynergy = true;          

@@ -345,25 +345,37 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="I18n.default.ini">
+    <Content Include="I18n.default.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\green.png" />
+    </Content>
+    <Content Include="Resources\green.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\red.png" />
+    <Content Include="Resources\red.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\yellow.png" />
+    <Content Include="Resources\yellow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\question.png" />
+    <Content Include="Resources\question.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\black.png" />
+    <Content Include="Resources\black.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\progressbar.gif" />
+    <Content Include="Resources\progressbar.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\audio.png">

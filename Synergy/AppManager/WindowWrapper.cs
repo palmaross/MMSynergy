@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SynManager
 {
-	class WindowWrapper : System.Windows.Forms.IWin32Window
+    internal class WindowWrapper : System.Windows.Forms.IWin32Window
 	{
 		public WindowWrapper(IntPtr handle)
 		{
