@@ -119,6 +119,12 @@
       <DependentUpon>ShareMapDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Maps\SubMenus.cs" />
+    <Compile Include="Maps\SynergyExplorerDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maps\SynergyExplorerDlg.Designer.cs">
+      <DependentUpon>SynergyExplorerDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Places\CloudStorageDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -300,6 +306,9 @@
     <EmbeddedResource Include="Maps\ShareMapDlg.resx">
       <DependentUpon>ShareMapDlg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Maps\SynergyExplorerDlg.resx">
+      <DependentUpon>SynergyExplorerDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Places\CloudStorageDlg.resx">
       <DependentUpon>CloudStorageDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -400,6 +409,9 @@
     <Content Include="images\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="res\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

@@ -17,7 +17,7 @@ namespace About
             m_cmdHelp = MMUtils.MindManager.Commands.Add(MMUtils.AddinName, "SynergyHelp");
             m_cmdHelp.Caption = MMUtils.GetString("about.commands.help.caption");
             m_cmdHelp.ToolTip = MMUtils.GetString("about.commands.help.tooltip") + "\n" + m_cmdHelp.Caption;
-            m_cmdHelp.LargeImagePath = MMUtils.imagePath + "common_stock.png";
+            m_cmdHelp.LargeImagePath = MMUtils.imagePath + "about.png";
             m_cmdHelp.ImagePath = imagePath + "audio.png";
             m_cmdHelp.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdHelp_UpdateState);
             m_cmdHelp.Click += new ICommandEvents_ClickEventHandler(m_cmdHelp_Click);
@@ -29,7 +29,12 @@ namespace About
             string instPath = MMUtils.GetRegistry("", "InstPath");
             string chmPath = instPath + "\\Synergy.chm";
 
-            System.Diagnostics.Process.Start(chmPath);
+            if (System.IO.File.Exists(chmPath))
+                System.Diagnostics.Process.Start(chmPath);
+            else
+            {
+                // TODO сообщить пользователю?
+            }
         }
 
         public void m_cmdHelp_UpdateState(ref bool pEnabled, ref bool pChecked)

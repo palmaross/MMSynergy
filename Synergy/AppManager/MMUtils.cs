@@ -33,7 +33,8 @@ namespace SynManager
                     try
                     {
                         Directory.CreateDirectory(m_SynergyAppDataPath);
-                        Directory.CreateDirectory(m_SynergyLocalPath);
+                        Directory.CreateDirectory(m_SynergyLocalPath + "Maps");
+                        Directory.CreateDirectory(m_SynergyLocalPath + "Projects");
                         Directory.CreateDirectory(m_SynergyTempPath);
                     }
                     catch
@@ -190,9 +191,19 @@ namespace SynManager
 
         }
 
-        public static string m_SynergyAppDataPath;   // User/Appdata/Roaming/Palmaross/Synergy/ - with trailed slash!
-        public static string m_SynergyLocalPath;  // User/Appdata/Roaming/Palmaross/Synergy/Local Storage/ - with trailed slash!
-        public static string m_SynergyTempPath;      // User/Appdata/Local/Palmaross/Synergy/Temp/ - with trailed slash!
+        /// <summary>
+        /// User/Appdata/Roaming/Palmaross/Synergy/ - with trailed slash!
+        /// </summary>
+        public static string m_SynergyAppDataPath;
+        /// <summary>
+        /// User/Appdata/Roaming/Palmaross/Synergy/Local Storage/ - with trailed slash!
+        /// </summary>
+        public static string m_SynergyLocalPath;
+        /// <summary>
+        /// User/Appdata/Local/Palmaross/Synergy/Temp/ - with trailed slash!
+        /// </summary>
+        public static string m_SynergyTempPath;
+
         public static string instPath = "";
         public static string imagePath = "";
         protected static I18n m_i18n;

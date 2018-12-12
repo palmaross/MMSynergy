@@ -41,7 +41,7 @@ namespace Synergy18
 		public void OnConnection(object application, Extensibility.ext_ConnectMode connectMode, object addInInst, ref System.Array custom)
 		{
             addInInstance = addInInst;
-            MMUtils.AddinName = T_AddInName;
+            MMUtils.AddinName = TS_AddInName;
             MMUtils.Version = 18;
             MMUtils.MindManager = (Application)application;
             DocumentStorage.Init();
@@ -51,13 +51,13 @@ namespace Synergy18
             MAPS = new MapsGroup();
             ABOUT = new AboutGroup();
 
-            m_myTab = MMUtils.MindManager.Ribbon.Tabs.Add(0, MMUtils.GetString("main.name"), "www.sergioross.com/api/documentation/demos/ribbontab");
-            m_myTab.Visible = false;
+            m_synergyTab = MMUtils.MindManager.Ribbon.Tabs.Add(0, MMUtils.GetString("main.name"), "www.palmaross.com/api/documentation/synergytab");
+            m_synergyTab.Visible = false;
 
-            PLACES.Create(m_myTab);
-            PROJECTS.Create(m_myTab);
-            MAPS.Create(m_myTab);
-            ABOUT.Create(m_myTab);
+            PLACES.Create(m_synergyTab);
+            PROJECTS.Create(m_synergyTab);
+            MAPS.Create(m_synergyTab);
+            ABOUT.Create(m_synergyTab);
 		}
 
 		/// <summary>
@@ -80,8 +80,8 @@ namespace Synergy18
             ABOUT.Destroy();
             DocumentStorage.Destroy();
             MMUtils.MindManager = null;
-            m_myTab.Delete();
-            m_myTab = null;
+            m_synergyTab.Delete();
+            m_synergyTab = null;
 
             System.GC.Collect();
 		}
@@ -123,8 +123,9 @@ namespace Synergy18
 		}
 
         private object addInInstance;
-        private string T_AddInName = "Synergy18.Connect";
-        public static ribbonTab m_myTab;
+        private string TS_AddInName = "Synergy18.Connect";
+        public static ribbonTab m_synergyTab;
+
         private MapsGroup MAPS;
         private ProjectsGroup PROJECTS;
         private PlacesGroup PLACES;

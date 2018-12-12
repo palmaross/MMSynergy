@@ -50,11 +50,12 @@ namespace SynManager
         /// </summary>
         /// <param name="aStorage">Storage name</param>
         /// <param name="aPlace">Place name</param>
-        /// <param name="aProject"> Project name</param>
+        /// <param name="aProject">Project name</param>
         /// <param name="aGuid">Map Synergy guid</param>
         /// <param name="aMapName">Map file name</param>
         /// <param name="aPathToPlace">Path to map folder in Place - with backslash!</param>
         /// <param name="aLocalPath">Path to map in Local Storage</param>
+        /// <param name="pubAttrs">date stamp + current user name + current user email</param>
         public static void AddMapToDB(string aStorage, string aPlace, string aProject, string aGuid, string aMapName,
                                       string aPathToPlace, string aLocalPath, string pubAttrs)
         {

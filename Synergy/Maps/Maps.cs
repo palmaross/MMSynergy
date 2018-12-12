@@ -41,17 +41,23 @@ namespace Maps
                 m_cmdOpenMaps = MMUtils.MindManager.Commands.Add(MMUtils.AddinName, "OpenMap");
                 m_cmdOpenMaps.Caption = MMUtils.GetString("maps.commands.open.caption");
                 m_cmdOpenMaps.ToolTip = MMUtils.GetString("maps.commands.open.tooltip") + "\n" + m_cmdOpenMaps.Caption;
-                m_cmdOpenMaps.LargeImagePath = MMUtils.imagePath + "common_stock.png";
-                m_cmdOpenMaps.ImagePath = imagePath + "audio.png";
+                m_cmdOpenMaps.LargeImagePath = MMUtils.imagePath + "openmap.png";
+                m_cmdOpenMaps.ImagePath = imagePath + "explorer.png";
                 m_cmdOpenMaps.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdOpenMaps_UpdateState);
                 m_cmdOpenMaps.Click += new ICommandEvents_ClickEventHandler(m_cmdOpenMaps_Click);
                 m_ctrlOpenMaps = m_rgMaps.GroupControls.AddButton(m_cmdOpenMaps);
+
+                m_cmdSynergyExplorer = MMUtils.MindManager.Commands.Add(MMUtils.AddinName, "SynergyExplorer");
+                m_cmdSynergyExplorer.Caption = MMUtils.GetString("maps.commands.synergyexplorer.caption");
+                m_cmdSynergyExplorer.ImagePath = imagePath + "explorer.png";
+                m_cmdSynergyExplorer.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdSynergyExplorer_UpdateState);
+                m_cmdSynergyExplorer.Click += new ICommandEvents_ClickEventHandler(m_cmdSynergyExplorer_Click);               
                 m_UpdateOpenMap = true;
 
                 m_cmdPublishMap = MMUtils.MindManager.Commands.Add(MMUtils.AddinName, "PublishMap");
                 m_cmdPublishMap.Caption = MMUtils.GetString("maps.commands.publish.caption");
                 m_cmdPublishMap.ToolTip = MMUtils.GetString("maps.commands.publish.tooltip") + "\n" + m_cmdPublishMap.Caption;
-                m_cmdPublishMap.LargeImagePath = imagePath + "common_stock.png";
+                m_cmdPublishMap.LargeImagePath = imagePath + "publish.png";
                 m_cmdPublishMap.ImagePath = imagePath + "audio.png";
                 m_cmdPublishMap.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdPublishMap_UpdateState);
                 m_cmdPublishMap.Click += new ICommandEvents_ClickEventHandler(m_cmdPublishMap_Click);
@@ -60,7 +66,7 @@ namespace Maps
                 m_cmdShareMaps = MMUtils.MindManager.Commands.Add(MMUtils.AddinName, "ShareMaps");
                 m_cmdShareMaps.Caption = MMUtils.GetString("maps.commands.share.caption");
                 m_cmdShareMaps.ToolTip = MMUtils.GetString("maps.commands.share.tooltip") + "\n" + m_cmdShareMaps.Caption;
-                m_cmdShareMaps.LargeImagePath = imagePath + "common_stock.png";
+                m_cmdShareMaps.LargeImagePath = imagePath + "share.png";
                 m_cmdShareMaps.ImagePath = imagePath + "common_stock_s.png";
                 m_cmdShareMaps.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdShareMaps_UpdateState);
                 //m_cmdShareMaps.Click += new ICommandEvents_ClickEventHandler(m_cmdShareMaps_Click);
@@ -79,16 +85,6 @@ namespace Maps
                 m_cmdReceiveMap.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdReceiveMap_UpdateState);
                 m_cmdReceiveMap.Click += new ICommandEvents_ClickEventHandler(m_cmdReceiveMap_Click);
                 m_ctrlReceiveMap = m_ctrlShareMaps.Controls.AddButton(m_cmdReceiveMap);
-
-                //m_cmdDeleteMap = MMUtils.MindManager.Commands.Add(MMUtils.AddinName, "DeleteMap");
-                //m_cmdDeleteMap.Caption = MMUtils.getString("maps.commands.delete.caption");
-                //m_cmdDeleteMap.ToolTip = MMUtils.getString("maps.commands.delete.tooltip") + "\n" + m_cmdDeleteMap.Caption;
-                //m_cmdDeleteMap.LargeImagePath = imagePath + "common_stock.png";
-                //m_cmdDeleteMap.ImagePath = imagePath + "common_stock_s.png";
-                //m_cmdDeleteMap.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdDeleteMap_UpdateState);
-                //m_cmdDeleteMap.Click += new ICommandEvents_ClickEventHandler(m_cmdDeleteMap_Click);
-                //m_ctrlDeleteMap = m_rgMaps.GroupControls.AddButton(m_cmdDeleteMap);
-
             }
             catch (Exception ex)
             {
@@ -150,7 +146,22 @@ namespace Maps
             _allmaps.Clear();
         }
 
-        private void m_cmdOpenMaps_Click() 
+        private void m_cmdSynergyExplorer_Click()
+        {
+            using (SynergyExplorerDlg _dlg = new SynergyExplorerDlg())
+            {
+                _dlg.Init(true);
+                System.Windows.Forms.DialogResult result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
+            }
+        }
+
+        private void m_cmdSynergyExplorer_UpdateState(ref bool pEnabled, ref bool pChecked)
+        {
+            pEnabled = true;
+            pChecked = false;
+        }
+
+        private void m_cmdOpenMaps_Click()
         {
             if (OpenButtons.Count == 0)
                 System.Windows.Forms.MessageBox.Show(MMUtils.GetString("maps.nomapsyet.message"));
@@ -168,7 +179,9 @@ namespace Maps
             int a = 1;
 
             List<string> aProjects = new List<string>();
-            List<string> aSingleMaps = new List<string>();
+            //List<string> aSingleMaps = new List<string>();
+
+            m_ctrlSynergyExplorer = m_ctrlOpenMaps.Controls.AddButton(m_cmdSynergyExplorer);
 
             if (OpenButtons.Count != 0)
             {
@@ -190,12 +203,12 @@ namespace Maps
                         aProjects.Add(_row["PROJECTNAME"].ToString());
             }
 
-            using (PlacesDB _db = new PlacesDB())
-            {
-                DataTable _dt = _db.ExecuteQuery("select * from PLACES order by PLACENAME");
-                foreach (DataRow _row in _dt.Rows)
-                        aSingleMaps.Add(_row["PLACENAME"].ToString());
-            }
+            //using (PlacesDB _db = new PlacesDB())
+            //{
+            //    DataTable _dt = _db.ExecuteQuery("select * from PLACES order by PLACENAME");
+            //    foreach (DataRow _row in _dt.Rows)
+            //            aSingleMaps.Add(_row["PLACENAME"].ToString());
+            //}
 
             using (MapsDB _db = new MapsDB())
             {
@@ -223,17 +236,16 @@ namespace Maps
                     _label = true;
                 }
 
-                //_label = true;
                 // Get single maps
-                foreach (string _place in aSingleMaps)
-                {
-                    DataTable _dt = _db.ExecuteQuery("select * from MAPS where PROJECTNAME = `" + "" + "` and PLACENAME=`" + _place + "` order by MAPNAME");
-                    //DataTable __dt = _db.ExecuteQuery("select * from MAPS");
-                    foreach (DataRow _row in _dt.Rows)
+                //foreach (string _place in aSingleMaps)
+                //{
+                    //DataTable _dt = _db.ExecuteQuery("select * from MAPS where PROJECTNAME = `" + "" + "` and PLACENAME=`" + _place + "` order by MAPNAME");
+                    DataTable _dt1 = _db.ExecuteQuery("select * from MAPS where PROJECTNAME = `" + "" + "` order by MAPNAME");
+                    foreach (DataRow _row in _dt1.Rows)
                     {
                         if (_label)
                         {
-                            m_label = m_ctrlOpenMaps.Controls.AddLabel(_place + ": " + SUtils.SingleMaps);
+                            m_label = m_ctrlOpenMaps.Controls.AddLabel(SUtils.SingleMaps);//_place + ": " + 
                             _label = false;
                             Labels.Add(m_label);
                         }
@@ -243,10 +255,10 @@ namespace Maps
                         m_menus.AddMapToOpenMenu(_row["MAPGUID"].ToString(), _row["MAPNAME"].ToString(), "map" + a++);
                     }
                     _label = true;
-                }
+                //}
 
                 aProjects.Clear();
-                aSingleMaps.Clear();
+                //aSingleMaps.Clear();
             }
         }
 
@@ -439,6 +451,9 @@ namespace Maps
             InternetChecking.Dispose();
             InternetChecking = null;
 
+            m_ctrlSynergyExplorer.Delete(); Marshal.ReleaseComObject(m_ctrlSynergyExplorer); m_ctrlSynergyExplorer = null;
+            Marshal.ReleaseComObject(m_cmdSynergyExplorer); m_cmdSynergyExplorer = null;
+
             m_ctrlOpenMaps.Delete(); Marshal.ReleaseComObject(m_ctrlOpenMaps); m_ctrlOpenMaps = null;
             Marshal.ReleaseComObject(m_cmdOpenMaps); m_cmdOpenMaps = null;
 
@@ -463,6 +478,8 @@ namespace Maps
 
         private Command m_cmdOpenMaps = null;
         public static Control m_ctrlOpenMaps = null;
+        private Command m_cmdSynergyExplorer = null;
+        public static Control m_ctrlSynergyExplorer = null;
         private Command m_cmdPublishMap = null;
         private Control m_ctrlPublishMap = null;
 

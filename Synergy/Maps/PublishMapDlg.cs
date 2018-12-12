@@ -116,10 +116,10 @@ namespace Maps
             // TODO предложить выбрать сохранение под другим именем
             if (Directory.Exists(aPath)) // map with this name is stored already in this place
             {
-                System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show(
+                DialogResult result = MessageBox.Show(
                     MMUtils.GetString("publishmapdlg.mapexists.message"),
                     MMUtils.GetString("publishmapdlg.mapexists.caption"),
-                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Exclamation);
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -138,11 +138,11 @@ namespace Maps
                 else if (fail == "placefail") { _message = messagePlace; arg = aPath; }
                 else if (fail == "sitefail")  { _message = messageSite; arg = aSite; }
 
-                if (System.Windows.Forms.MessageBox.Show(
+                if (MessageBox.Show(
                     String.Format(_message, arg) + endMessage, 
                     String.Format(MMUtils.GetString("internet.failed.caption"), _docName),
-                    System.Windows.Forms.MessageBoxButtons.RetryCancel, System.Windows.Forms.MessageBoxIcon.Exclamation)
-                    == System.Windows.Forms.DialogResult.Cancel)
+                    MessageBoxButtons.RetryCancel,MessageBoxIcon.Exclamation)
+                    == DialogResult.Cancel)
                 {
                     this.DialogResult = DialogResult.Cancel;
                     publishDoc = null;

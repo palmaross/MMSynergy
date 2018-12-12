@@ -53,9 +53,9 @@ namespace Synergy19
             DocumentStorage.Init();
             m_synergyTab = MMUtils.MindManager.Ribbon.Tabs.Add(0, MMUtils.GetString("main.name"), "www.palmaross.com/api/documentation/synergytab");
             
-            MAPS.Create(m_synergyTab);
             PLACES.Create(m_synergyTab);
             PROJECTS.Create(m_synergyTab);
+            MAPS.Create(m_synergyTab);
             ABOUT.Create(m_synergyTab);
 
             m_synergyTab.Visible = false;

@@ -29,6 +29,7 @@ namespace Maps
             string aStorage = "";
             string _mapLocalPath = "";
             bool mapnotfound = true;
+            string aProject = "";
 
             using (MapsDB _db = new MapsDB())
             {
@@ -39,6 +40,7 @@ namespace Maps
                     _mapLocalPath = _dt.Rows[0]["LOCALPATH"].ToString();
                     _mapPlacePath = _dt.Rows[0]["PATHTOPLACE"].ToString();
                     aStorage = _dt.Rows[0]["STORAGE"].ToString();
+                    aProject = _dt.Rows[0]["PROJECTNAME"].ToString();
                 }
             }
 
@@ -75,7 +77,7 @@ namespace Maps
             }
 
             DocumentStorage.reopenmap = false;
-            System.IO.File.SetAttributes(_mapLocalPath, System.IO.FileAttributes.Normal);
+            File.SetAttributes(_mapLocalPath, FileAttributes.Normal);
             MMUtils.MindManager.AllDocuments.Open(_mapLocalPath);
         }
 

@@ -116,7 +116,7 @@
             // 
             // HelpRecommend
             // 
-            this.HelpRecommend.Image = global::Synergy18.Properties.Resources.question;
+            this.HelpRecommend.Image = global::Synergy19.Properties.Resources.question;
             this.HelpRecommend.Location = new System.Drawing.Point(299, 272);
             this.HelpRecommend.Name = "HelpRecommend";
             this.HelpRecommend.Size = new System.Drawing.Size(16, 16);
@@ -136,7 +136,7 @@
             // 
             // HelpPlace
             // 
-            this.HelpPlace.Image = global::Synergy18.Properties.Resources.question;
+            this.HelpPlace.Image = global::Synergy19.Properties.Resources.question;
             this.HelpPlace.Location = new System.Drawing.Point(299, 34);
             this.HelpPlace.Name = "HelpPlace";
             this.HelpPlace.Size = new System.Drawing.Size(16, 16);
@@ -233,7 +233,7 @@
             // 
             // HelpWhatToDo
             // 
-            this.HelpWhatToDo.Image = global::Synergy18.Properties.Resources.question;
+            this.HelpWhatToDo.Image = global::Synergy19.Properties.Resources.question;
             this.HelpWhatToDo.Location = new System.Drawing.Point(299, 213);
             this.HelpWhatToDo.Name = "HelpWhatToDo";
             this.HelpWhatToDo.Size = new System.Drawing.Size(16, 16);

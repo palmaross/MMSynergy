@@ -109,7 +109,7 @@ namespace Maps
             this.chBoxSingleMap.UseVisualStyleBackColor = true;
             this.chBoxSingleMap.CheckedChanged += new System.EventHandler(this.ChBoxSingleMap_CheckedChanged);
             // 
-            // PublishProjectDlg
+            // PublishMaptDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -125,8 +125,9 @@ namespace Maps
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "PublishProjectDlg";
+            this.Name = "PublishMaptDlg";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Publish map";
             this.ResumeLayout(false);
