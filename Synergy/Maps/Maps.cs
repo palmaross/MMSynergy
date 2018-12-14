@@ -45,13 +45,20 @@ namespace Maps
                 m_cmdOpenMaps.ImagePath = imagePath + "explorer.png";
                 m_cmdOpenMaps.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdOpenMaps_UpdateState);
                 m_cmdOpenMaps.Click += new ICommandEvents_ClickEventHandler(m_cmdOpenMaps_Click);
-                m_ctrlOpenMaps = m_rgMaps.GroupControls.AddButton(m_cmdOpenMaps);
+                m_ctrlOpenMaps = m_rgMaps.GroupControls.AddTwoPartButton(m_cmdOpenMaps);
 
                 m_cmdSynergyExplorer = MMUtils.MindManager.Commands.Add(MMUtils.AddinName, "SynergyExplorer");
                 m_cmdSynergyExplorer.Caption = MMUtils.GetString("maps.commands.synergyexplorer.caption");
                 m_cmdSynergyExplorer.ImagePath = imagePath + "explorer.png";
                 m_cmdSynergyExplorer.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdSynergyExplorer_UpdateState);
-                m_cmdSynergyExplorer.Click += new ICommandEvents_ClickEventHandler(m_cmdSynergyExplorer_Click);               
+                m_cmdSynergyExplorer.Click += new ICommandEvents_ClickEventHandler(m_cmdSynergyExplorer_Click);
+
+                m_cmdPinMap = MMUtils.MindManager.Commands.Add(MMUtils.AddinName, "PinMap");
+                m_cmdPinMap.Caption = MMUtils.GetString("maps.commands.pinmap.caption");
+                m_cmdPinMap.ImagePath = imagePath + "unpin.png";
+                m_cmdPinMap.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_cmdPinMap_UpdateState);
+                m_cmdPinMap.Click += new ICommandEvents_ClickEventHandler(m_cmdPinMap_Click);
+
                 m_UpdateOpenMap = true;
 
                 m_cmdPublishMap = MMUtils.MindManager.Commands.Add(MMUtils.AddinName, "PublishMap");
@@ -161,10 +168,43 @@ namespace Maps
             pChecked = false;
         }
 
+        private void m_cmdPinMap_Click()
+        {
+            if (m_cmdPinMap.Caption == MMUtils.GetString("maps.commands.pinmap.caption"))
+            {
+                m_cmdPinMap.Caption = MMUtils.GetString("maps.commands.unpinmap.caption");
+                m_cmdPinMap.ImagePath = MMUtils.imagePath + "pin.png";
+            }
+            else
+            {
+                m_cmdPinMap.Caption = MMUtils.GetString("maps.commands.pinmap.caption");
+                m_cmdPinMap.ImagePath = MMUtils.imagePath + "unpin.png";
+            }
+            // TODO добавить/убрать в базу данных атрибут
+            // TODO добавить/убрать карту в меню Закрепленные
+        }
+
+        private void m_cmdPinMap_UpdateState(ref bool pEnabled, ref bool pChecked)
+        {
+            if (MMUtils.MindManager.VisibleDocuments.Count == 0)
+            {
+                pEnabled = false;
+                pChecked = false;
+            }
+            else
+            {
+                pEnabled = MMUtils.ActiveDocument.ContainsAttributesNamespace(SUtils.SYNERGYNAMESPACE);
+                pChecked = m_cmdPinMap.Caption == MMUtils.GetString("maps.commands.unpinmap.caption");
+            }
+        }
+
         private void m_cmdOpenMaps_Click()
         {
-            if (OpenButtons.Count == 0)
-                System.Windows.Forms.MessageBox.Show(MMUtils.GetString("maps.nomapsyet.message"));
+            using (SynergyExplorerDlg _dlg = new SynergyExplorerDlg())
+            {
+                _dlg.Init(true);
+                System.Windows.Forms.DialogResult result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
+            }
         }
 
         public void m_cmdOpenMaps_UpdateState(ref bool pEnabled, ref bool pChecked)
@@ -182,6 +222,7 @@ namespace Maps
             //List<string> aSingleMaps = new List<string>();
 
             m_ctrlSynergyExplorer = m_ctrlOpenMaps.Controls.AddButton(m_cmdSynergyExplorer);
+            m_ctrlPinMap = m_ctrlOpenMaps.Controls.AddButton(m_cmdPinMap);
 
             if (OpenButtons.Count != 0)
             {
@@ -453,6 +494,8 @@ namespace Maps
 
             m_ctrlSynergyExplorer.Delete(); Marshal.ReleaseComObject(m_ctrlSynergyExplorer); m_ctrlSynergyExplorer = null;
             Marshal.ReleaseComObject(m_cmdSynergyExplorer); m_cmdSynergyExplorer = null;
+            m_ctrlPinMap.Delete(); Marshal.ReleaseComObject(m_ctrlPinMap); m_ctrlPinMap = null;
+            Marshal.ReleaseComObject(m_cmdPinMap); m_cmdPinMap = null;
 
             m_ctrlOpenMaps.Delete(); Marshal.ReleaseComObject(m_ctrlOpenMaps); m_ctrlOpenMaps = null;
             Marshal.ReleaseComObject(m_cmdOpenMaps); m_cmdOpenMaps = null;
@@ -480,6 +523,9 @@ namespace Maps
         public static Control m_ctrlOpenMaps = null;
         private Command m_cmdSynergyExplorer = null;
         public static Control m_ctrlSynergyExplorer = null;
+        private Command m_cmdPinMap = null;
+        public static Control m_ctrlPinMap = null;
+
         private Command m_cmdPublishMap = null;
         private Control m_ctrlPublishMap = null;
 

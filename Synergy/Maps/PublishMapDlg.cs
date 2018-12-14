@@ -216,13 +216,9 @@ namespace Maps
             }
 
             MapsDB.AddMapToDB(
-                aStorage, 
-                aPlaceName, 
-                _projectName, 
-                aGuid, _docName,
-                aPath,  // aPath - map directory in Place, with backslash
-                aLocalPath,
-                DateTime.UtcNow.ToString() + ";" + SUtils.currentUserName + ";" + SUtils.currentUserEmail
+                _projectName, aGuid, _docName,
+                aPath, aLocalPath, SUtils.currentUserName, // aPath - map directory in Place, with backslash
+                0, Convert.ToInt32(DateTime.UtcNow), Convert.ToInt32(DateTime.UtcNow)
                 );
 
             MapsGroup.m_UpdateOpenMap = true; // update Open Map submenu

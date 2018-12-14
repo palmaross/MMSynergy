@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NetworkDiskDlg));
             this.lblPlace = new System.Windows.Forms.Label();
             this.txtNetworkDiskName = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -35,23 +36,26 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.lblPlaceNameExists = new System.Windows.Forms.Label();
             this.aHelpProvider = new System.Windows.Forms.HelpProvider();
-            this.btnAddNewDisk = new System.Windows.Forms.Button();
-            this.comboDisks = new System.Windows.Forms.ComboBox();
-            this.lblChooseND = new System.Windows.Forms.Label();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.txtFolderPath = new System.Windows.Forms.TextBox();
+            this.helpPath = new System.Windows.Forms.PictureBox();
+            this.lblPath = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.helpPath)).BeginInit();
             this.SuspendLayout();
             // 
             // lblPlace
             // 
             this.lblPlace.AutoSize = true;
-            this.lblPlace.Location = new System.Drawing.Point(9, 68);
+            this.lblPlace.Location = new System.Drawing.Point(8, 20);
             this.lblPlace.Name = "lblPlace";
-            this.lblPlace.Size = new System.Drawing.Size(189, 13);
+            this.lblPlace.Size = new System.Drawing.Size(66, 13);
             this.lblPlace.TabIndex = 0;
-            this.lblPlace.Text = "Имя Места на этом сетевом диске:";
+            this.lblPlace.Text = "Имя места:";
             // 
             // txtNetworkDiskName
             // 
-            this.txtNetworkDiskName.Location = new System.Drawing.Point(12, 84);
+            this.txtNetworkDiskName.Location = new System.Drawing.Point(11, 36);
             this.txtNetworkDiskName.Name = "txtNetworkDiskName";
             this.txtNetworkDiskName.Size = new System.Drawing.Size(268, 20);
             this.txtNetworkDiskName.TabIndex = 1;
@@ -60,7 +64,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(43, 137);
+            this.btnCancel.Location = new System.Drawing.Point(11, 142);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 8;
@@ -70,7 +74,7 @@
             // btnBack
             // 
             this.btnBack.DialogResult = System.Windows.Forms.DialogResult.Retry;
-            this.btnBack.Location = new System.Drawing.Point(124, 137);
+            this.btnBack.Location = new System.Drawing.Point(120, 142);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(75, 23);
             this.btnBack.TabIndex = 7;
@@ -79,7 +83,7 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(205, 137);
+            this.btnNext.Location = new System.Drawing.Point(224, 142);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 6;
@@ -91,47 +95,67 @@
             // 
             this.lblPlaceNameExists.AutoSize = true;
             this.lblPlaceNameExists.ForeColor = System.Drawing.Color.Red;
-            this.lblPlaceNameExists.Location = new System.Drawing.Point(8, 107);
+            this.lblPlaceNameExists.Location = new System.Drawing.Point(12, 59);
             this.lblPlaceNameExists.Name = "lblPlaceNameExists";
             this.lblPlaceNameExists.Size = new System.Drawing.Size(59, 13);
             this.lblPlaceNameExists.TabIndex = 9;
             this.lblPlaceNameExists.Text = "placeexists";
             // 
-            // btnAddNewDisk
+            // btnBrowse
             // 
-            this.btnAddNewDisk.Location = new System.Drawing.Point(214, 33);
-            this.btnAddNewDisk.Name = "btnAddNewDisk";
-            this.btnAddNewDisk.Size = new System.Drawing.Size(68, 23);
-            this.btnAddNewDisk.TabIndex = 12;
-            this.btnAddNewDisk.Text = "Add";
-            this.btnAddNewDisk.UseVisualStyleBackColor = true;
-            this.btnAddNewDisk.Click += new System.EventHandler(this.btnAddNewDisk_Click);
+            this.btnBrowse.Location = new System.Drawing.Point(237, 95);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(40, 22);
+            this.btnBrowse.TabIndex = 58;
+            this.btnBrowse.Text = "...";
+            this.btnBrowse.UseVisualStyleBackColor = true;
             // 
-            // comboDisks
+            // txtFolderPath
             // 
-            this.comboDisks.FormattingEnabled = true;
-            this.comboDisks.Location = new System.Drawing.Point(12, 33);
-            this.comboDisks.Name = "comboDisks";
-            this.comboDisks.Size = new System.Drawing.Size(196, 21);
-            this.comboDisks.TabIndex = 11;
+            this.txtFolderPath.Location = new System.Drawing.Point(11, 96);
+            this.txtFolderPath.Name = "txtFolderPath";
+            this.txtFolderPath.Size = new System.Drawing.Size(220, 20);
+            this.txtFolderPath.TabIndex = 57;
             // 
-            // lblChooseND
+            // helpPath
             // 
-            this.lblChooseND.AutoSize = true;
-            this.lblChooseND.Location = new System.Drawing.Point(8, 17);
-            this.lblChooseND.Name = "lblChooseND";
-            this.lblChooseND.Size = new System.Drawing.Size(237, 13);
-            this.lblChooseND.TabIndex = 10;
-            this.lblChooseND.Text = "Выберите сетевой диск или добавьте новый:";
+            this.helpPath.Image = ((System.Drawing.Image)(resources.GetObject("helpPath.Image")));
+            this.helpPath.Location = new System.Drawing.Point(283, 101);
+            this.helpPath.Name = "helpPath";
+            this.helpPath.Size = new System.Drawing.Size(16, 16);
+            this.helpPath.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.helpPath.TabIndex = 56;
+            this.helpPath.TabStop = false;
+            // 
+            // lblPath
+            // 
+            this.lblPath.AutoSize = true;
+            this.lblPath.Location = new System.Drawing.Point(8, 80);
+            this.lblPath.Name = "lblPath";
+            this.lblPath.Size = new System.Drawing.Size(76, 13);
+            this.lblPath.TabIndex = 59;
+            this.lblPath.Text = "Путь к месту:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(12, 119);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.TabIndex = 60;
+            this.label1.Text = "placeexists";
             // 
             // NetworkDiskDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 171);
-            this.Controls.Add(this.btnAddNewDisk);
-            this.Controls.Add(this.comboDisks);
-            this.Controls.Add(this.lblChooseND);
+            this.ClientSize = new System.Drawing.Size(314, 178);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblPath);
+            this.Controls.Add(this.btnBrowse);
+            this.Controls.Add(this.txtFolderPath);
+            this.Controls.Add(this.helpPath);
             this.Controls.Add(this.lblPlaceNameExists);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnBack);
@@ -143,7 +167,8 @@
             this.MinimizeBox = false;
             this.Name = "NetworkDiskDlg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Новое место: имя";
+            this.Text = "Новое место: сетевой диск";
+            ((System.ComponentModel.ISupportInitialize)(this.helpPath)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -152,14 +177,16 @@
         #endregion
 
         private System.Windows.Forms.Label lblPlace;
-        private System.Windows.Forms.TextBox txtNetworkDiskName;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Label lblPlaceNameExists;
         private System.Windows.Forms.HelpProvider aHelpProvider;
-        private System.Windows.Forms.Button btnAddNewDisk;
-        public System.Windows.Forms.ComboBox comboDisks;
-        private System.Windows.Forms.Label lblChooseND;
+        private System.Windows.Forms.Button btnBrowse;
+        public System.Windows.Forms.TextBox txtFolderPath;
+        private System.Windows.Forms.PictureBox helpPath;
+        private System.Windows.Forms.Label lblPath;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox txtNetworkDiskName;
     }
 }

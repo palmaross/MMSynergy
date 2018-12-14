@@ -31,22 +31,23 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewCloudStorageDlg));
             this.lblNewStorageName = new System.Windows.Forms.Label();
-            this.txtNewStorageName = new System.Windows.Forms.TextBox();
+            this.txtPlaceName = new System.Windows.Forms.TextBox();
             this.lblProcess = new System.Windows.Forms.Label();
-            this.txtProcess = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.helpProcess = new System.Windows.Forms.PictureBox();
             this.lblNameExists = new System.Windows.Forms.Label();
-            this.tltHelpProcess = new System.Windows.Forms.ToolTip(this.components);
-            this.helpSite = new System.Windows.Forms.PictureBox();
-            this.txtSiteUrl = new System.Windows.Forms.TextBox();
-            this.lblSiteUrl = new System.Windows.Forms.Label();
-            this.tltHelpSite = new System.Windows.Forms.ToolTip(this.components);
+            this.helpPath = new System.Windows.Forms.PictureBox();
             this.aHelpProvider = new System.Windows.Forms.HelpProvider();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.txtFolderPath = new System.Windows.Forms.TextBox();
+            this.lblPath = new System.Windows.Forms.Label();
+            this.lblPlaceTaken = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.comboBoxProcesses = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.helpProcess)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.helpSite)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.helpPath)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNewStorageName
@@ -54,39 +55,31 @@
             this.lblNewStorageName.AutoSize = true;
             this.lblNewStorageName.Location = new System.Drawing.Point(12, 13);
             this.lblNewStorageName.Name = "lblNewStorageName";
-            this.lblNewStorageName.Size = new System.Drawing.Size(177, 13);
+            this.lblNewStorageName.Size = new System.Drawing.Size(66, 13);
             this.lblNewStorageName.TabIndex = 0;
-            this.lblNewStorageName.Text = "Имя этого облачного хранилища:";
+            this.lblNewStorageName.Text = "Имя места:";
             // 
-            // txtNewStorageName
+            // txtPlaceName
             // 
-            this.txtNewStorageName.Location = new System.Drawing.Point(15, 29);
-            this.txtNewStorageName.Name = "txtNewStorageName";
-            this.txtNewStorageName.Size = new System.Drawing.Size(267, 20);
-            this.txtNewStorageName.TabIndex = 1;
-            this.txtNewStorageName.Click += new System.EventHandler(this.txtNewStorageName_Click);
+            this.txtPlaceName.Location = new System.Drawing.Point(15, 29);
+            this.txtPlaceName.Name = "txtPlaceName";
+            this.txtPlaceName.Size = new System.Drawing.Size(267, 20);
+            this.txtPlaceName.TabIndex = 1;
+            this.txtPlaceName.Click += new System.EventHandler(this.txtNewStorageName_Click);
             // 
             // lblProcess
             // 
             this.lblProcess.AutoSize = true;
-            this.lblProcess.Location = new System.Drawing.Point(12, 71);
+            this.lblProcess.Location = new System.Drawing.Point(12, 131);
             this.lblProcess.Name = "lblProcess";
-            this.lblProcess.Size = new System.Drawing.Size(158, 13);
+            this.lblProcess.Size = new System.Drawing.Size(248, 13);
             this.lblProcess.TabIndex = 2;
-            this.lblProcess.Text = "Исполняемый файл/процесс:";
-            // 
-            // txtProcess
-            // 
-            this.txtProcess.Location = new System.Drawing.Point(15, 87);
-            this.txtProcess.Name = "txtProcess";
-            this.txtProcess.Size = new System.Drawing.Size(267, 20);
-            this.txtProcess.TabIndex = 3;
-            this.txtProcess.Click += new System.EventHandler(this.txtProcess_Click);
+            this.lblProcess.Text = "Исполняемый файл/процесс этого хранилища:";
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(45, 196);
+            this.btnCancel.Location = new System.Drawing.Point(15, 195);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 11;
@@ -105,7 +98,7 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(207, 196);
+            this.btnNext.Location = new System.Drawing.Point(231, 196);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 9;
@@ -116,7 +109,7 @@
             // helpProcess
             // 
             this.helpProcess.Image = ((System.Drawing.Image)(resources.GetObject("helpProcess.Image")));
-            this.helpProcess.Location = new System.Drawing.Point(265, 69);
+            this.helpProcess.Location = new System.Drawing.Point(289, 151);
             this.helpProcess.Name = "helpProcess";
             this.helpProcess.Size = new System.Drawing.Size(16, 16);
             this.helpProcess.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -129,53 +122,82 @@
             this.lblNameExists.ForeColor = System.Drawing.Color.Red;
             this.lblNameExists.Location = new System.Drawing.Point(12, 52);
             this.lblNameExists.Name = "lblNameExists";
-            this.lblNameExists.Size = new System.Drawing.Size(68, 13);
+            this.lblNameExists.Size = new System.Drawing.Size(59, 13);
             this.lblNameExists.TabIndex = 50;
-            this.lblNameExists.Text = "storageexists";
+            this.lblNameExists.Text = "placeexists";
             // 
-            // helpSite
+            // helpPath
             // 
-            this.helpSite.Image = ((System.Drawing.Image)(resources.GetObject("helpSite.Image")));
-            this.helpSite.Location = new System.Drawing.Point(265, 127);
-            this.helpSite.Name = "helpSite";
-            this.helpSite.Size = new System.Drawing.Size(16, 16);
-            this.helpSite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.helpSite.TabIndex = 53;
-            this.helpSite.TabStop = false;
+            this.helpPath.Image = ((System.Drawing.Image)(resources.GetObject("helpPath.Image")));
+            this.helpPath.Location = new System.Drawing.Point(289, 94);
+            this.helpPath.Name = "helpPath";
+            this.helpPath.Size = new System.Drawing.Size(16, 16);
+            this.helpPath.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.helpPath.TabIndex = 53;
+            this.helpPath.TabStop = false;
             // 
-            // txtSiteUrl
+            // btnBrowse
             // 
-            this.txtSiteUrl.Location = new System.Drawing.Point(15, 145);
-            this.txtSiteUrl.Name = "txtSiteUrl";
-            this.txtSiteUrl.Size = new System.Drawing.Size(267, 20);
-            this.txtSiteUrl.TabIndex = 52;
-            this.txtSiteUrl.Click += new System.EventHandler(this.txtSiteUrl_Click);
+            this.btnBrowse.Location = new System.Drawing.Point(240, 88);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(40, 22);
+            this.btnBrowse.TabIndex = 55;
+            this.btnBrowse.Text = "...";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
-            // lblSiteUrl
+            // txtFolderPath
             // 
-            this.lblSiteUrl.AutoSize = true;
-            this.lblSiteUrl.Location = new System.Drawing.Point(12, 129);
-            this.lblSiteUrl.Name = "lblSiteUrl";
-            this.lblSiteUrl.Size = new System.Drawing.Size(73, 13);
-            this.lblSiteUrl.TabIndex = 51;
-            this.lblSiteUrl.Text = "Адрес сайта:";
+            this.txtFolderPath.Location = new System.Drawing.Point(14, 89);
+            this.txtFolderPath.Name = "txtFolderPath";
+            this.txtFolderPath.Size = new System.Drawing.Size(220, 20);
+            this.txtFolderPath.TabIndex = 54;
+            // 
+            // lblPath
+            // 
+            this.lblPath.AutoSize = true;
+            this.lblPath.Location = new System.Drawing.Point(11, 73);
+            this.lblPath.Name = "lblPath";
+            this.lblPath.Size = new System.Drawing.Size(76, 13);
+            this.lblPath.TabIndex = 56;
+            this.lblPath.Text = "Путь к месту:";
+            // 
+            // lblPlaceTaken
+            // 
+            this.lblPlaceTaken.AutoSize = true;
+            this.lblPlaceTaken.ForeColor = System.Drawing.Color.Red;
+            this.lblPlaceTaken.Location = new System.Drawing.Point(12, 112);
+            this.lblPlaceTaken.Name = "lblPlaceTaken";
+            this.lblPlaceTaken.Size = new System.Drawing.Size(67, 13);
+            this.lblPlaceTaken.TabIndex = 57;
+            this.lblPlaceTaken.Text = "placeistaken";
+            // 
+            // comboBoxProcesses
+            // 
+            this.comboBoxProcesses.FormattingEnabled = true;
+            this.comboBoxProcesses.Location = new System.Drawing.Point(14, 147);
+            this.comboBoxProcesses.Name = "comboBoxProcesses";
+            this.comboBoxProcesses.Size = new System.Drawing.Size(266, 21);
+            this.comboBoxProcesses.TabIndex = 58;
             // 
             // NewCloudStorageDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 230);
-            this.Controls.Add(this.helpSite);
-            this.Controls.Add(this.txtSiteUrl);
-            this.Controls.Add(this.lblSiteUrl);
+            this.ClientSize = new System.Drawing.Size(318, 230);
+            this.Controls.Add(this.comboBoxProcesses);
+            this.Controls.Add(this.lblPlaceTaken);
+            this.Controls.Add(this.lblPath);
+            this.Controls.Add(this.btnBrowse);
+            this.Controls.Add(this.txtFolderPath);
+            this.Controls.Add(this.helpPath);
             this.Controls.Add(this.lblNameExists);
             this.Controls.Add(this.helpProcess);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.txtProcess);
             this.Controls.Add(this.lblProcess);
-            this.Controls.Add(this.txtNewStorageName);
+            this.Controls.Add(this.txtPlaceName);
             this.Controls.Add(this.lblNewStorageName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -183,9 +205,9 @@
             this.Name = "NewCloudStorageDlg";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Новое облачное хранилище";
+            this.Text = "Новое место: облачное хранилище";
             ((System.ComponentModel.ISupportInitialize)(this.helpProcess)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.helpSite)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.helpPath)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,19 +216,20 @@
         #endregion
 
         private System.Windows.Forms.Label lblNewStorageName;
-        public System.Windows.Forms.TextBox txtNewStorageName;
+        public System.Windows.Forms.TextBox txtPlaceName;
         private System.Windows.Forms.Label lblProcess;
-        public System.Windows.Forms.TextBox txtProcess;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.PictureBox helpProcess;
         private System.Windows.Forms.Label lblNameExists;
-        private System.Windows.Forms.ToolTip tltHelpProcess;
-        private System.Windows.Forms.PictureBox helpSite;
-        public System.Windows.Forms.TextBox txtSiteUrl;
-        private System.Windows.Forms.Label lblSiteUrl;
-        private System.Windows.Forms.ToolTip tltHelpSite;
+        private System.Windows.Forms.PictureBox helpPath;
         private System.Windows.Forms.HelpProvider aHelpProvider;
+        private System.Windows.Forms.Button btnBrowse;
+        public System.Windows.Forms.TextBox txtFolderPath;
+        private System.Windows.Forms.Label lblPath;
+        private System.Windows.Forms.Label lblPlaceTaken;
+        private System.Windows.Forms.ToolTip toolTip1;
+        public System.Windows.Forms.ComboBox comboBoxProcesses;
     }
 }

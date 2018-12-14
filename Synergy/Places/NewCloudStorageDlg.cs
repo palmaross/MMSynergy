@@ -20,81 +20,80 @@ namespace Places
             lblNewStorageName.Text = MMUtils.GetString("newcloudstoragedlg.lblNewStorageName.text");
             lblNameExists.ForeColor = System.Drawing.Color.Red;
             lblNameExists.Text = "";
+            lblPath.Text = MMUtils.GetString("newcloudstoragedlg.lblPath.text");
+            lblPlaceTaken.Text = "";
             lblProcess.Text = MMUtils.GetString("newcloudstoragedlg.lblProcess.text");
-            lblSiteUrl.Text = MMUtils.GetString("newcloudstoragedlg.lblSiteUrl.text");
             btnCancel.Text = MMUtils.GetString("buttonCancel.text");
             btnNext.Text = MMUtils.GetString("buttonNext.text");
             btnBack.Text = MMUtils.GetString("buttonBack.text");
 
-            tltHelpProcess.SetToolTip(helpProcess, MMUtils.GetString("newcloudstoragedlg.tltHelpProcess.text"));
-            tltHelpSite.SetToolTip(helpSite, MMUtils.GetString("newcloudstoragedlg.tltHelpSite.text"));
+            toolTip1.SetToolTip(helpProcess, MMUtils.GetString("newcloudstoragedlg.tltHelpProcess.text"));
+            toolTip1.SetToolTip(helpPath, MMUtils.GetString("newcloudstoragedlg.tltHelpPath.text"));
+
+            System.Diagnostics.Process[] processes;
+            processes = System.Diagnostics.Process.GetProcesses();
+
+            comboBoxProcesses.Items.Add(MMUtils.GetString("newcloudstoragedlg.processignore.text"));
+            foreach (System.Diagnostics.Process instance in processes)
+            {
+                comboBoxProcesses.Items.Add(instance.ProcessName);
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
            // Storage name is empty
-            if (txtNewStorageName.Text == "")
+            if (txtPlaceName.Text == "")
             {
                 lblNewStorageName.ForeColor = System.Drawing.Color.Red;
                 return;
             }
-
-            // Process field is empty
-            if (txtProcess.Text == "")
+            if (txtFolderPath.Text == "")
             {
-                lblProcess.ForeColor = System.Drawing.Color.Red;
+                lblPath.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
-            // Site url is empty
-            if (txtSiteUrl.Text == "")
-            {
-                lblSiteUrl.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
-
-            string aProcess = txtProcess.Text;
-            string aStorageName = txtNewStorageName.Text;
+            string aProcess = comboBoxProcesses.Text;
+            string aPlaceName = txtPlaceName.Text;
 
             if (aProcess.Length > 4 && aProcess.Substring(aProcess.Length - 4) == ".exe")
                 aProcess = aProcess.Substring(0, aProcess.Length - 4);
 
             // If Storage with this name exists
-            using (StoragesDB _db = new StoragesDB())
+            using (PlacesDB _db = new PlacesDB())
             {
-                DataTable _dt = _db.ExecuteQuery("select * from STORAGES where STORAGENAME=`" + aStorageName + "`");
-                if (_dt.Rows.Count != 0)
+                DataTable _dt = _db.ExecuteQuery("select * from PLACES"); // where PLACENAME=`" + aPlaceName + "`");
+                if (_dt.Rows.Count > 0)
                 {
-                    lblNameExists.Text = MMUtils.GetString("newcloudstoragedlg.lblNameExists.text");
-                    return;
-                }               
+                    foreach (DataRow _row in _dt.Rows)
+                    {
+                        if (_row["PLACENAME"].ToString() == txtPlaceName.Text)
+                        {
+                            lblNameExists.Text = MMUtils.GetString("newcloudstoragedlg.lblNameExists.text");
+                            return;
+                        }
+                        if (_row["PLACEPATH"].ToString() == txtFolderPath.Text)
+                        {
+                            lblPlaceTaken.Text = MMUtils.GetString("newcloudstoragedlg.lblPlaceTaken.text");
+                            return;
+                        }
+                        if (!System.IO.Directory.Exists(_row["PLACEPATH"].ToString()))
+                        {
+                            lblPlaceTaken.Text = MMUtils.GetString("newcloudstoragedlg.directorynotexists.text");
+                            return;
+                        }
+                    }                   
+                }
             }
 
             // Storage App verification failed
-            if (!System.Diagnostics.Process.GetProcessesByName(aProcess).Any())
+            if (aProcess == MMUtils.GetString("newcloudstoragedlg.processignore.text"))
             {
-                MessageBox.Show(
-                    String.Format(MMUtils.GetString("newcloudstoragedlg.messagebox.text"), aStorageName),
+                MessageBox.Show(MMUtils.GetString("newcloudstoragedlg.messagebox.text"),
                     MMUtils.GetString("newcloudstoragedlg.messagebox.caption"),
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            // Verify website 
-            using (SiteVerificationDlg _dlg = new SiteVerificationDlg(txtSiteUrl.Text))
-            {
-                if (_dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd)) == DialogResult.Cancel)
-                    return;
-            }
-
-            using (StoragesDB _db = new StoragesDB())
-            {
-                string _type = "cloud";
-                _db.ExecuteNonQuery("INSERT INTO STORAGES VALUES(" +
-                        "`" + aStorageName + "`," +
-                        "`" + aProcess + "`," +
-                        "`" + txtSiteUrl.Text + "`," +
-                        "`" + _type + "`, ``, ``, 0, 0)");
+                aProcess = "";
             }
 
             this.DialogResult = DialogResult.OK;
@@ -106,14 +105,12 @@ namespace Places
             lblNameExists.Text = "";
         }
 
-        private void txtProcess_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Folder path with backslash
+        /// </summary>
+        private void btnBrowse_Click(object sender, EventArgs e)
         {
-            lblProcess.ForeColor = System.Drawing.Color.Black;
-        }
-
-        private void txtSiteUrl_Click(object sender, EventArgs e)
-        {
-            lblSiteUrl.ForeColor = System.Drawing.Color.Black;
+            txtFolderPath.Text = MMUtils.GetFolderPath();
         }
     }
 }

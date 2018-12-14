@@ -29,32 +29,27 @@ namespace Places
         private void btnNext_Click(object sender, EventArgs e)
         {
             DialogResult result;
-A1:
+
             ////////// Cloud Storage ///////////
             if (rbtnCloudStorage.Checked)
             {
-             
-                using (CloudStorageDlg _dlg = new CloudStorageDlg())
+                using (NewCloudStorageDlg _dlg = new NewCloudStorageDlg())
                 {
                     result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
-                    aPlaceName = _dlg.aPlaceName;
-                    aStorage = _dlg.aStorage;
+                    aPlaceName = _dlg.txtPlaceName.ToString();
+                    aPlacePath = _dlg.txtFolderPath.ToString();
+                    aProcess = _dlg.comboBoxProcesses.Text.ToString();
                 }
 
                 if (result == DialogResult.Cancel)
-                    this.DialogResult = DialogResult.Cancel;
+                    DialogResult = DialogResult.Cancel;
 
                 if (result == DialogResult.OK) // button Next pressed
                 {
-                    string _res = AddNewPlace("cloud");
-
-                    if (_res == "back")
-                        goto A1;
-
-                    if (_res == "cancel")
-                        this.DialogResult = DialogResult.Cancel;
+                    if (AddNewPlace("cloud", aPlacePath, aProcess))
+                        DialogResult = DialogResult.OK;
                     else
-                        this.DialogResult = DialogResult.OK;
+                        DialogResult = DialogResult.Cancel;
                 }
             }
 
@@ -65,65 +60,46 @@ A1:
                 {
                     result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
                     aPlaceName = _dlg.aPlaceName;
-                    aStorage = "ND";
+                    aPlacePath = _dlg.txtFolderPath.ToString();
                 }
                 if (result == DialogResult.Cancel)
-                    this.DialogResult = DialogResult.Cancel;
+                    DialogResult = DialogResult.Cancel;
 
                 if (result == DialogResult.OK)
                 {
-                    string _res = AddNewPlace("nd");
-                    this.DialogResult = DialogResult.OK;
+                    if (AddNewPlace("ND", aPlacePath))
+                        DialogResult = DialogResult.OK;
+                    else
+                        DialogResult = DialogResult.Cancel;
                 }
             }
 
+            ////////// Website ///////////
             if (rbtnWebSite.Checked)
             {
-                
+                // TODO 
             }
         }
 
-        private string AddNewPlace(string storagetype)
+        private bool AddNewPlace(string placetype, string placepath, string process = "", string site = "")
         {
-            using (Maps.GetPathDlg dlg = new Maps.GetPathDlg(aPlaceName, "", "newplace", storagetype))
+            if (placetype == "site")
             {
-                DialogResult result = dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
-                aPlacePath = dlg.aFolder;
-
-                if (result == DialogResult.Cancel)
-                    return "cancel";
-                if (result == DialogResult.Retry)
-                    return "back";             
-            }
-
-            aPlacePath = aPlacePath + "Synergy\\";
-
-            try
-            {
-                System.IO.Directory.CreateDirectory(MMUtils.m_SynergyLocalPath + aPlaceName);
-                System.IO.Directory.CreateDirectory(aPlacePath);
-            }
-            catch (Exception _e) // TODO cause!!! read-only, etc...
-            {
-                MessageBox.Show(this, "Error " + _e.Message, "title", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.DialogResult = DialogResult.Cancel; // TODO 
+                // TODO 
             }
 
             using (PlacesDB _db = new PlacesDB())
-                _db.ExecuteNonQuery(
-                    "INSERT INTO PLACES VALUES(" +
-                    "`" + aStorage + "`," +
-                    "`" + aPlaceName + "`," +
-                    "`" + aPlacePath + "`, ``, ``, 0, 0)");
+                _db.AddPlaceToDB(aPlaceName, placetype, placepath, process, site);
 
-            if (storagetype == "cloud")
+            if (placetype == "cloud" || placetype == "ND")
                 MessageBox.Show(MMUtils.GetString("newplacedlg.cloudstorage.message"), MMUtils.GetString("newplacedlg.cloudstorage.caption"));
 
-            return "ok";
+            return true;
         }
 
         public string aPlaceName = "";
         private string aPlacePath = "";
-        private string aStorage = "";
+        private string aProcess = "";
+        private string aSite = "";
     }
 }

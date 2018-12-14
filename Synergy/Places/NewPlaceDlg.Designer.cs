@@ -79,7 +79,6 @@
             this.rbtnWebSite.TabStop = true;
             this.rbtnWebSite.Text = "Сайт";
             this.rbtnWebSite.UseVisualStyleBackColor = true;
-            this.rbtnWebSite.Visible = false;
             // 
             // btnNext
             // 
@@ -94,7 +93,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(123, 133);
+            this.btnCancel.Location = new System.Drawing.Point(116, 133);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;

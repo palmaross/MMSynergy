@@ -70,7 +70,7 @@ namespace Places
             using (NewCloudStorageDlg _dlg = new NewCloudStorageDlg())
             {
                 DialogResult result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
-                aStorage = _dlg.txtNewStorageName.Text;
+                aStorage = _dlg.txtPlaceName.Text;
 
                 if (result == DialogResult.Cancel)
                     this.DialogResult = DialogResult.Cancel;

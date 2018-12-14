@@ -39,37 +39,41 @@ namespace SynManager
         {
             base.CreateDatabase();
             m_db.ExecuteNonQuery("BEGIN EXCLUSIVE");
-            m_db.ExecuteNonQuery("CREATE TABLE MAPS(STORAGE text, PLACENAME text, PROJECTNAME text, MAPGUID text, MAPNAME text," +
-                                 "PATHTOPLACE text, LOCALPATH text, PUBATTRS text," +
-                                 "reserved1 text, reserved2 integer, reserved3 text, reserved4 integer);");
+            m_db.ExecuteNonQuery("CREATE TABLE MAPS(PROJECTNAME text, MAPGUID text, MAPNAME text," +
+                                 "PATHTOPLACE text, LOCALPATH text, AUTHOR text," +
+                                 "VERSION integer, CREATED integer, MODIFIED integer" +
+                                 "reserved1 text, reserved2 text, reserved3 integer, reserved4 integer);");
             m_db.ExecuteNonQuery("END");
         }
 
         /// <summary>
         /// Add map to MapsDB
         /// </summary>
-        /// <param name="aStorage">Storage name</param>
-        /// <param name="aPlace">Place name</param>
         /// <param name="aProject">Project name</param>
         /// <param name="aGuid">Map Synergy guid</param>
         /// <param name="aMapName">Map file name</param>
         /// <param name="aPathToPlace">Path to map folder in Place - with backslash!</param>
         /// <param name="aLocalPath">Path to map in Local Storage</param>
-        /// <param name="pubAttrs">date stamp + current user name + current user email</param>
-        public static void AddMapToDB(string aStorage, string aPlace, string aProject, string aGuid, string aMapName,
-                                      string aPathToPlace, string aLocalPath, string pubAttrs)
+        /// <param name="aAuthor">map creator</param>
+        /// <param name="aCreated">data map created</param>
+        /// <param name="aModified">data map aModified</param>
+        /// <param name="aVersion">map version (if any)</param>
+        public static void AddMapToDB(string aProject, string aGuid, string aMapName,
+                                      string aPathToPlace, string aLocalPath, string aAuthor,
+                                      int aVersion, int aCreated, int aModified)
         {
             using (MapsDB _db = new MapsDB())
             {
                 _db.ExecuteNonQuery("INSERT INTO MAPS VALUES(" +
-                "`" + aStorage + "`," +
-                "`" + aPlace + "`," +
                 "`" + aProject + "`," +
                 "`" + aGuid + "`," +
                 "`" + aMapName + "`," +
                 "`" + aPathToPlace + "`," +
                 "`" + aLocalPath + "`," +
-                "`" + pubAttrs + "`, ``, 0, ``, 0)");
+                "`" + aAuthor + "`," +
+                "`" + aCreated.ToString() + "`," +
+                "`" + aModified.ToString() + "`," +
+                "`" + aVersion.ToString() + "`, ``, ``, 0, 0)");
             }
         }
     }
@@ -113,14 +117,36 @@ namespace SynManager
             return MMUtils.m_SynergyAppDataPath + "places.db";
         }
 
+        /// <summary>
+        /// STORAGE - 
+        /// </summary>
         public override void CreateDatabase()
         {
             base.CreateDatabase();
             m_db.ExecuteNonQuery("BEGIN EXCLUSIVE");
-            m_db.ExecuteNonQuery("CREATE TABLE PLACES(STORAGE text, PLACENAME text, PLACEPATH text," +
-                                 "reserved1 text, reserved2 text, reserved3 integer, reserved4 integer);");
+            m_db.ExecuteNonQuery("CREATE TABLE PLACES(PLACENAME text, TYPE text, PLACEPATH text," +
+                "PROCESS text, SITE text," +
+                "reserved1 text, reserved2 text, reserved3 integer, reserved4 integer);");
 
             m_db.ExecuteNonQuery("END");
+        }
+
+        /// <summary>
+        /// Add Place to DB
+        /// </summary>
+        /// <param name="aName">Place name</param>
+        /// <param name="aType">Place type: cloud, ND, site</param>
+        /// <param name="aPath">Path to place for cloud and disk, for site - </param>
+        /// <param name="aProcess">Process for cloud storage</param>
+        /// <param name="aSite">Site URL for given place</param>
+        public void AddPlaceToDB(string aName, string aType, string aPath, string aProcess, string aSite)
+        {
+            m_db.ExecuteNonQuery("INSERT INTO PLACES VALUES(" +
+                    "`" + aName + "`," +
+                    "`" + aType + "`," +
+                    "`" + aPath + "`," +
+                    "`" + aProcess + "`," +
+                    "`" + aSite + "`, ``, ``, 0, 0)");
         }
     }
 

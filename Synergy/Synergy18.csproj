@@ -143,9 +143,7 @@
     <Compile Include="Places\NewCloudStorageDlg.Designer.cs">
       <DependentUpon>NewCloudStorageDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Places\NewNetworkDiskDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Places\NewNetworkDiskDlg.cs" />
     <Compile Include="Places\NewNetworkDiskDlg.Designer.cs">
       <DependentUpon>NewNetworkDiskDlg.cs</DependentUpon>
     </Compile>
@@ -156,9 +154,7 @@
       <DependentUpon>NewPlaceDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Places\Places.cs" />
-    <Compile Include="Places\SiteVerificationDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Places\SiteVerificationDlg.cs" />
     <Compile Include="Places\SiteVerificationDlg.Designer.cs">
       <DependentUpon>SiteVerificationDlg.cs</DependentUpon>
     </Compile>
@@ -360,8 +356,6 @@
     <Content Include="Resources\green.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="res\folder_closed.png" />
-    <Content Include="res\folder_opened.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\red.png">
@@ -410,6 +404,9 @@
     <Content Include="images\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="res\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>

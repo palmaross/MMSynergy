@@ -186,6 +186,33 @@ namespace SynManager
             return "";
         }
 
+        /// <summary>
+        /// Folder path with backslash
+        /// </summary>
+        /// <returns></returns>
+        public static string GetFolderPath()
+        {
+            using (System.Windows.Forms.FolderBrowserDialog _fd = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                //_fd.Description = "Описание";
+                _fd.ShowNewFolderButton = true;
+
+                //if (aCause == "receivemap")
+                //    _fd.SelectedPath = aPlace;
+                //else
+                //    _fd.RootFolder = Environment.SpecialFolder.MyComputer;
+
+                if (_fd.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                    return "";
+
+                string slash = "\\";
+                if (_fd.SelectedPath.Substring(_fd.SelectedPath.Length - 1) == "\\")
+                    slash = "";
+
+                return _fd.SelectedPath + slash;
+            }
+        }
+
         public static void CopyPlaceToLocal()
         {
 
