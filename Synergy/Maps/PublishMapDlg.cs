@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using SynManager;
+using System.Collections.Generic;
 
 namespace Maps
 {
@@ -18,8 +19,7 @@ namespace Maps
 
             Text                = MMUtils.GetString("publishmapdlg.dlgtitle.text");
             lblPickPlace.Text   = MMUtils.GetString("publishmapdlg.lblPickPlace.text");
-            chBoxSingleMap.Text = MMUtils.GetString("publishmapdlg.chBoxSingleMap.text");
-            lblPickProject.Text = MMUtils.GetString("publishmapdlg.lblPickProject.text");
+            lblPickFolder.Text  = MMUtils.GetString("publishmapdlg.lblPickFolder.text");
             btnPublish.Text     = MMUtils.GetString("publishmapdlg.btn_publish.text");
             btnCancel.Text      = MMUtils.GetString("buttonCancel.text");
 
@@ -27,69 +27,23 @@ namespace Maps
             {
                 DataTable _dt = _db.ExecuteQuery("select * from PLACES order by PLACENAME");
                 foreach (DataRow _row in _dt.Rows)
-                    comboMyPlaces.Items.Add(_row["PLACENAME"]);
+                    comboPlaces.Items.Add(_row["PLACENAME"]);
             }
 
-            comboMyPlaces.SelectedIndex = 0;
-
-            GetProjects();
-
-            if (comboMyProjects.Items.Count != 0)
-            {
-                comboMyProjects.Text = comboMyProjects.Items[0].ToString();
-                hasProjects = true;
-            }
-            else
-            {
-                comboMyProjects.Items.Add(MMUtils.GetString("publishmapdlg.noprojects"));
-                comboMyProjects.SelectedIndex = 0;
-                comboMyProjects.Enabled = false;
-                hasProjects = false;
-            }
-
+            comboPlaces.SelectedIndex = 0;
             publishDoc = _doc;
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
             string _docName = publishDoc.Name;
-            string aPlaceName = comboMyPlaces.Text;
+            string aPlaceName = comboPlaces.Text;
             string aGuid = publishDoc.Guid;
-            string aLocalPath = "";
+            string aLocalPath = ""; // path to map in Local Storage
             string aPath = "";        // full path to published map
             string aSite = "";        // website to check for Internet connection
             string aProcess = "";     // cloud app process to check if started
             string _projectName = "";
-            string aStorage = "";     // name of cloud app          
-            string aProjectPath = "";
-            bool singleMap = chBoxSingleMap.Checked;
-
-            if (!singleMap)
-                _projectName = comboMyProjects.Text;
-
-            // Single Maps
-            if (singleMap)
-            {
-                using (PlacesDB _db = new PlacesDB())
-                {
-                    DataTable _dt = _db.ExecuteQuery("select * from PLACES where PLACENAME='" + aPlaceName + "'");
-                    aProjectPath = _dt.Rows[0]["PLACEPATH"].ToString();
-                    aStorage = _dt.Rows[0]["STORAGE"].ToString();
-                    aLocalPath = MMUtils.m_SynergyLocalPath + aPlaceName + "\\";
-                }
-            }
-            // Projects
-            else
-            {
-                using (ProjectsDB _db = new ProjectsDB())
-                {
-                    DataTable _dt = _db.ExecuteQuery(
-                        "select * from PROJECTS where PROJECTNAME='" + _projectName + "' and PLACENAME='" + aPlaceName + "'");
-                    aProjectPath = _dt.Rows[0]["PROJECTPATH"].ToString();
-                    aStorage = _dt.Rows[0]["STORAGE"].ToString();
-                    aLocalPath = MMUtils.m_SynergyLocalPath + aPlaceName + "\\" + _projectName + "\\";
-                }
-            }
 
             if (publishDoc.Path == "") // new map not saved yet
             {
@@ -101,17 +55,7 @@ namespace Maps
                 }
             }
 
-            aLocalPath = aLocalPath + _docName;
-
-            using (StoragesDB _db = new StoragesDB())
-            {
-                DataTable _dt = _db.ExecuteQuery("select * from STORAGES where STORAGENAME='" + aStorage + "'");
-                aProcess = _dt.Rows[0]["PROCESS"].ToString();
-                aSite = _dt.Rows[0]["SITE"].ToString();
-            }
-
-            // Full path to map in Place
-            aPath = Path.Combine(aProjectPath, _docName);
+            aLocalPath = MMUtils.m_SynergyLocalPath + comboPlaces.SelectedItem + _docName;
 
             // TODO предложить выбрать сохранение под другим именем
             if (Directory.Exists(aPath)) // map with this name is stored already in this place
@@ -130,11 +74,11 @@ namespace Maps
             string messagePlace = MMUtils.GetString("internet.placefail.message");
             string endMessage = MMUtils.GetString("internet.failed.endpubmessage");
 
-            while ((fail = Internet.CheckInternetAndProcess(aGuid, aStorage, aProcess, aSite, "", "publish")) != "")
+            while ((fail = Internet.CheckInternetAndProcess(aGuid, "", aProcess, aSite, "", "publish")) != "")
             {
                 string _message = "", arg = "";
 
-                if (fail == "processfail")    { _message = messageProcess; arg = aStorage; }
+                if (fail == "processfail")    { _message = messageProcess; arg = ""; }
                 else if (fail == "placefail") { _message = messagePlace; arg = aPath; }
                 else if (fail == "sitefail")  { _message = messageSite; arg = aSite; }
 
@@ -166,8 +110,6 @@ namespace Maps
             }
 
             //// Publish Map = set attributes to map, topics, relationships and boundaries and process links ////
-            SUtils.singleMap = singleMap;
-
             Mindjet.MindManager.Interop.Transaction _tr = publishDoc.NewTransaction("");
             _tr.IsUndoable = false;
             _tr.Execute += new Mindjet.MindManager.Interop.ITransactionEvents_ExecuteEventHandler(SUtils.PublishMap);
@@ -200,7 +142,7 @@ namespace Maps
                 File.Copy(aLocalPath, aPath + mapFile); // copy as file!!!
 
                 StreamWriter sw = new StreamWriter(File.Create(aPath + "info.ini"));
-                sw.WriteLine(aStorage); // чтобы если нет Интернета или Процесса, выдать сообщение с именем хранилища 
+                //sw.WriteLine(aStorage); // чтобы если нет Интернета или Процесса, выдать сообщение с именем хранилища 
                 sw.WriteLine(_projectName); // чтобы находить карту из Места в локальной папке Synergy
                 sw.WriteLine(aGuid);
                 sw.WriteLine(aProcess); // чтобы проверить Интернет и Процесс
@@ -216,7 +158,7 @@ namespace Maps
             }
 
             MapsDB.AddMapToDB(
-                _projectName, aGuid, _docName,
+                "", _projectName, aGuid, _docName,
                 aPath, aLocalPath, SUtils.currentUserName, // aPath - map directory in Place, with backslash
                 0, Convert.ToInt32(DateTime.UtcNow), Convert.ToInt32(DateTime.UtcNow)
                 );
@@ -240,59 +182,45 @@ namespace Maps
             e.KeyChar = (char)Keys.None;
         }
 
-        private void LinkNewProject_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            using (Projects.CreateProjectDlg _dlg = new Projects.CreateProjectDlg())
-            {
-                DialogResult result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
-                if (DialogResult == DialogResult.Cancel)
-                    return;
-                if (!comboMyProjects.Enabled)
-                    comboMyProjects.Items.Remove(MMUtils.GetString("publishmapdlg.noprojects"));
-
-                comboMyProjects.Items.Add(_dlg.txtProjectName.Text);
-                comboMyProjects.SelectedIndex = comboMyProjects.Items.Count - 1;
-                comboMyProjects.Enabled = true;
-            }   
-        }
-
         private void ComboMyPlaces_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboMyPlaces.SelectedIndex == selIndex)
+            if (comboPlaces.SelectedIndex == selIndex)
                 return;
-            selIndex = comboMyPlaces.SelectedIndex;
-            GetProjects();
+            selIndex = comboPlaces.SelectedIndex;
         }
 
-        private void ChBoxSingleMap_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Fill folder subtree
+        /// </summary>
+        /// <param name="pNode">Root node</param>
+        /// <param name="aPath">Stored full path to root node</param>
+        private void FillFoldersRecursive(TreeNode pNode, String aPath)
         {
-            if (chBoxSingleMap.Checked == true)
-                comboMyProjects.Enabled = false;
-            else
-                if (hasProjects)
-                    comboMyProjects.Enabled = true;
-                else
-                    chBoxSingleMap.Checked = true;
-        }
-
-        private void GetProjects()
-        {
-            using (ProjectsDB _db = new ProjectsDB())
+            DirectoryInfo _thisDir = new DirectoryInfo(aPath);
+            SortedList<String, DirectoryInfo> _dirs = new SortedList<String, DirectoryInfo>();
+            IEnumerable<DirectoryInfo> _dirinfos;
+            try
             {
-                DataTable _dt = _db.ExecuteQuery("select * from PROJECTS where PLACENAME=`" + comboMyPlaces.Text + "` order by PROJECTNAME");
-                if (_dt.Rows.Count != 0)
-                {
-                    foreach (DataRow _row in _dt.Rows)
-                        comboMyProjects.Items.Add(_row["PROJECTNAME"]);
+                _dirinfos = _thisDir.EnumerateDirectories();
+            }
+            catch (Exception _e)
+            {
+#if DEBUG
+                MessageBox.Show("Exception: " + _e.Message + "\r\nSource: " + _e.Source + "\r\nStack: " + _e.StackTrace);
+#endif
+                return;
+            }
 
-                    comboMyProjects.Enabled = true;
-                    chBoxSingleMap.Checked = false;
-                }
-                else
-                {
-                    comboMyProjects.Enabled = false;
-                    chBoxSingleMap.Checked = true;
-                }
+            foreach (DirectoryInfo _dir in _dirinfos)
+                _dirs.Add(_dir.Name, _dir);
+
+            foreach (String _name in _dirs.Keys)
+            {
+                TreeNode _newNode = new TreeNode(_name);
+                TreeViewItem _tag = new TreeViewItem(_name, true);
+                _newNode.Tag = _tag;
+                pNode.Nodes.Add(_newNode);
+                FillFoldersRecursive(_newNode, aPath + "\\" + _name + "\\");
             }
         }
 

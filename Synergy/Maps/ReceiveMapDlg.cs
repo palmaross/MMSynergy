@@ -209,7 +209,7 @@ namespace Maps
 
             string _attrs = SUtils.TimeStamp + ";" + SUtils.currentUserName + ";" + SUtils.currentUserEmail;
 
-            MapsDB.AddMapToDB(aStorage, aPlaceName, aProject, aGuid, aMapName, aPlacePath, aLocalPath, _attrs);
+            MapsDB.AddMapToDB(aPlaceName, aProject, aGuid, aMapName, aPlacePath, aLocalPath, "", 0, 0, 0); // TODO 
             Maps.MapsGroup.m_UpdateOpenMap = true;
 
             MMUtils.MindManager.AllDocuments.Open(aLocalPath);

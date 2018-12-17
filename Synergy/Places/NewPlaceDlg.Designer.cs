@@ -60,7 +60,6 @@
             // rbtnNetworkDisk
             // 
             this.rbtnNetworkDisk.AutoSize = true;
-            this.rbtnNetworkDisk.Enabled = false;
             this.rbtnNetworkDisk.Location = new System.Drawing.Point(15, 64);
             this.rbtnNetworkDisk.Name = "rbtnNetworkDisk";
             this.rbtnNetworkDisk.Size = new System.Drawing.Size(94, 17);
@@ -72,6 +71,7 @@
             // rbtnWebSite
             // 
             this.rbtnWebSite.AutoSize = true;
+            this.rbtnWebSite.Enabled = false;
             this.rbtnWebSite.Location = new System.Drawing.Point(15, 87);
             this.rbtnWebSite.Name = "rbtnWebSite";
             this.rbtnWebSite.Size = new System.Drawing.Size(49, 17);

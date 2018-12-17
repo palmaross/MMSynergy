@@ -153,11 +153,12 @@ namespace Maps
             _allmaps.Clear();
         }
 
+        // Command in dropdown menu
         private void m_cmdSynergyExplorer_Click()
         {
             using (SynergyExplorerDlg _dlg = new SynergyExplorerDlg())
             {
-                _dlg.Init(true);
+                _dlg.Init();
                 System.Windows.Forms.DialogResult result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
             }
         }
@@ -202,7 +203,7 @@ namespace Maps
         {
             using (SynergyExplorerDlg _dlg = new SynergyExplorerDlg())
             {
-                _dlg.Init(true);
+                _dlg.Init();
                 System.Windows.Forms.DialogResult result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
             }
         }
@@ -492,9 +493,12 @@ namespace Maps
             InternetChecking.Dispose();
             InternetChecking = null;
 
-            m_ctrlSynergyExplorer.Delete(); Marshal.ReleaseComObject(m_ctrlSynergyExplorer); m_ctrlSynergyExplorer = null;
-            Marshal.ReleaseComObject(m_cmdSynergyExplorer); m_cmdSynergyExplorer = null;
-            m_ctrlPinMap.Delete(); Marshal.ReleaseComObject(m_ctrlPinMap); m_ctrlPinMap = null;
+            if (m_ctrlSynergyExplorer != null)
+            {
+                m_ctrlSynergyExplorer.Delete(); Marshal.ReleaseComObject(m_ctrlSynergyExplorer); m_ctrlSynergyExplorer = null;
+                m_ctrlPinMap.Delete(); Marshal.ReleaseComObject(m_ctrlPinMap); m_ctrlPinMap = null;
+            }
+            Marshal.ReleaseComObject(m_cmdSynergyExplorer); m_cmdSynergyExplorer = null;           
             Marshal.ReleaseComObject(m_cmdPinMap); m_cmdPinMap = null;
 
             m_ctrlOpenMaps.Delete(); Marshal.ReleaseComObject(m_ctrlOpenMaps); m_ctrlOpenMaps = null;

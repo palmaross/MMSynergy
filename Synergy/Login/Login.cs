@@ -21,7 +21,7 @@ namespace Login
             // Init databases
             MapsDB _dbMaps = new MapsDB(); _dbMaps.Dispose();
             UsersDB _dbUsers = new UsersDB(); _dbUsers.Dispose();
-            StoragesDB _dbStorages = new StoragesDB(); _dbStorages.Dispose();
+            //StoragesDB _dbStorages = new StoragesDB(); _dbStorages.Dispose();
             PlacesDB _dbMyPlaces = new PlacesDB(); _dbMyPlaces.Dispose();
             ProjectsDB _dbMyProjects = new ProjectsDB(); _dbMyProjects.Dispose();
 
@@ -124,7 +124,7 @@ namespace Login
                 {
                     result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
                 }
-                if (result == System.Windows.Forms.DialogResult.Cancel)
+                if (result == DialogResult.Cancel)
                     return;
 
                 // Close all Synergy maps

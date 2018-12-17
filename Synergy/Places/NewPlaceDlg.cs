@@ -36,9 +36,9 @@ namespace Places
                 using (NewCloudStorageDlg _dlg = new NewCloudStorageDlg())
                 {
                     result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
-                    aPlaceName = _dlg.txtPlaceName.ToString();
-                    aPlacePath = _dlg.txtFolderPath.ToString();
-                    aProcess = _dlg.comboBoxProcesses.Text.ToString();
+                    aPlaceName = _dlg.txtPlaceName.Text;
+                    aPlacePath = _dlg.txtFolderPath.Text;
+                    aProcess = _dlg.comboBoxProcesses.Text;
                 }
 
                 if (result == DialogResult.Cancel)
@@ -88,6 +88,17 @@ namespace Places
                 // TODO 
             }
 
+            // Create folder in Local Storage with place name
+            try
+            {
+                System.IO.Directory.CreateDirectory(MMUtils.m_SynergyLocalPath + aPlaceName + "\\Maps");
+                System.IO.Directory.CreateDirectory(MMUtils.m_SynergyLocalPath + aPlaceName + "\\Projects");
+            }
+            catch
+            {
+                // TODO 
+            }
+
             using (PlacesDB _db = new PlacesDB())
                 _db.AddPlaceToDB(aPlaceName, placetype, placepath, process, site);
 
@@ -100,6 +111,5 @@ namespace Places
         public string aPlaceName = "";
         private string aPlacePath = "";
         private string aProcess = "";
-        private string aSite = "";
     }
 }

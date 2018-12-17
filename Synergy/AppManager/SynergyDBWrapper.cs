@@ -39,7 +39,7 @@ namespace SynManager
         {
             base.CreateDatabase();
             m_db.ExecuteNonQuery("BEGIN EXCLUSIVE");
-            m_db.ExecuteNonQuery("CREATE TABLE MAPS(PROJECTNAME text, MAPGUID text, MAPNAME text," +
+            m_db.ExecuteNonQuery("CREATE TABLE MAPS(PLACE text, PROJECTNAME text, MAPGUID text, MAPNAME text," +
                                  "PATHTOPLACE text, LOCALPATH text, AUTHOR text," +
                                  "VERSION integer, CREATED integer, MODIFIED integer" +
                                  "reserved1 text, reserved2 text, reserved3 integer, reserved4 integer);");
@@ -49,6 +49,7 @@ namespace SynManager
         /// <summary>
         /// Add map to MapsDB
         /// </summary>
+        /// <param name="aPlace">Place name</param>
         /// <param name="aProject">Project name</param>
         /// <param name="aGuid">Map Synergy guid</param>
         /// <param name="aMapName">Map file name</param>
@@ -58,13 +59,14 @@ namespace SynManager
         /// <param name="aCreated">data map created</param>
         /// <param name="aModified">data map aModified</param>
         /// <param name="aVersion">map version (if any)</param>
-        public static void AddMapToDB(string aProject, string aGuid, string aMapName,
+        public static void AddMapToDB(string aPlace, string aProject, string aGuid, string aMapName,
                                       string aPathToPlace, string aLocalPath, string aAuthor,
                                       int aVersion, int aCreated, int aModified)
         {
             using (MapsDB _db = new MapsDB())
             {
                 _db.ExecuteNonQuery("INSERT INTO MAPS VALUES(" +
+                "`" + aPlace + "`," +
                 "`" + aProject + "`," +
                 "`" + aGuid + "`," +
                 "`" + aMapName + "`," +

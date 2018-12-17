@@ -143,10 +143,6 @@
     <Compile Include="Places\NewCloudStorageDlg.Designer.cs">
       <DependentUpon>NewCloudStorageDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Places\NewNetworkDiskDlg.cs" />
-    <Compile Include="Places\NewNetworkDiskDlg.Designer.cs">
-      <DependentUpon>NewNetworkDiskDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="Places\NewPlaceDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,10 +150,6 @@
       <DependentUpon>NewPlaceDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Places\Places.cs" />
-    <Compile Include="Places\SiteVerificationDlg.cs" />
-    <Compile Include="Places\SiteVerificationDlg.Designer.cs">
-      <DependentUpon>SiteVerificationDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="Maps\GetPathDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -314,14 +306,8 @@
       <DependentUpon>NewCloudStorageDlg.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Places\NewNetworkDiskDlg.resx">
-      <DependentUpon>NewNetworkDiskDlg.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Places\NewPlaceDlg.resx">
       <DependentUpon>NewPlaceDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Places\SiteVerificationDlg.resx">
-      <DependentUpon>SiteVerificationDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Maps\GetPathDlg.resx">
       <DependentUpon>GetPathDlg.cs</DependentUpon>

@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using SynManager;
+using System.Collections.Generic;
 
 namespace Places
 {
@@ -33,16 +34,21 @@ namespace Places
             System.Diagnostics.Process[] processes;
             processes = System.Diagnostics.Process.GetProcesses();
 
-            comboBoxProcesses.Items.Add(MMUtils.GetString("newcloudstoragedlg.processignore.text"));
+            List<string> Processes = new List<string>();
+
             foreach (System.Diagnostics.Process instance in processes)
-            {
-                comboBoxProcesses.Items.Add(instance.ProcessName);
-            }
+                if (!Processes.Contains(instance.ProcessName))
+                    Processes.Add(instance.ProcessName);
+
+            Processes.Sort();
+            Processes.Insert(0, MMUtils.GetString("newcloudstoragedlg.processignore.text"));
+            comboBoxProcesses.DataSource = Processes;
+            Processes.Clear();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-           // Storage name is empty
+            // Place name is empty
             if (txtPlaceName.Text == "")
             {
                 lblNewStorageName.ForeColor = System.Drawing.Color.Red;
@@ -60,7 +66,7 @@ namespace Places
             if (aProcess.Length > 4 && aProcess.Substring(aProcess.Length - 4) == ".exe")
                 aProcess = aProcess.Substring(0, aProcess.Length - 4);
 
-            // If Storage with this name exists
+            // If Place with this name exists
             using (PlacesDB _db = new PlacesDB())
             {
                 DataTable _dt = _db.ExecuteQuery("select * from PLACES"); // where PLACENAME=`" + aPlaceName + "`");
@@ -68,7 +74,7 @@ namespace Places
                 {
                     foreach (DataRow _row in _dt.Rows)
                     {
-                        if (_row["PLACENAME"].ToString() == txtPlaceName.Text)
+                        if (_row["PLACENAME"].ToString() == aPlaceName)
                         {
                             lblNameExists.Text = MMUtils.GetString("newcloudstoragedlg.lblNameExists.text");
                             return;

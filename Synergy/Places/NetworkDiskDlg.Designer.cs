@@ -28,26 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NetworkDiskDlg));
             this.lblPlace = new System.Windows.Forms.Label();
             this.txtNetworkDiskName = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
-            this.lblPlaceNameExists = new System.Windows.Forms.Label();
+            this.lblPlaceExists = new System.Windows.Forms.Label();
             this.aHelpProvider = new System.Windows.Forms.HelpProvider();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtFolderPath = new System.Windows.Forms.TextBox();
             this.helpPath = new System.Windows.Forms.PictureBox();
             this.lblPath = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPlaceTaken = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.helpPath)).BeginInit();
             this.SuspendLayout();
             // 
             // lblPlace
             // 
             this.lblPlace.AutoSize = true;
-            this.lblPlace.Location = new System.Drawing.Point(8, 20);
+            this.lblPlace.Location = new System.Drawing.Point(8, 19);
             this.lblPlace.Name = "lblPlace";
             this.lblPlace.Size = new System.Drawing.Size(66, 13);
             this.lblPlace.TabIndex = 0;
@@ -91,15 +93,15 @@
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // lblPlaceNameExists
+            // lblPlaceExists
             // 
-            this.lblPlaceNameExists.AutoSize = true;
-            this.lblPlaceNameExists.ForeColor = System.Drawing.Color.Red;
-            this.lblPlaceNameExists.Location = new System.Drawing.Point(12, 59);
-            this.lblPlaceNameExists.Name = "lblPlaceNameExists";
-            this.lblPlaceNameExists.Size = new System.Drawing.Size(59, 13);
-            this.lblPlaceNameExists.TabIndex = 9;
-            this.lblPlaceNameExists.Text = "placeexists";
+            this.lblPlaceExists.AutoSize = true;
+            this.lblPlaceExists.ForeColor = System.Drawing.Color.Red;
+            this.lblPlaceExists.Location = new System.Drawing.Point(12, 59);
+            this.lblPlaceExists.Name = "lblPlaceExists";
+            this.lblPlaceExists.Size = new System.Drawing.Size(59, 13);
+            this.lblPlaceExists.TabIndex = 9;
+            this.lblPlaceExists.Text = "placeexists";
             // 
             // btnBrowse
             // 
@@ -109,6 +111,7 @@
             this.btnBrowse.TabIndex = 58;
             this.btnBrowse.Text = "...";
             this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // txtFolderPath
             // 
@@ -130,33 +133,33 @@
             // lblPath
             // 
             this.lblPath.AutoSize = true;
-            this.lblPath.Location = new System.Drawing.Point(8, 80);
+            this.lblPath.Location = new System.Drawing.Point(8, 78);
             this.lblPath.Name = "lblPath";
             this.lblPath.Size = new System.Drawing.Size(76, 13);
             this.lblPath.TabIndex = 59;
             this.lblPath.Text = "Путь к месту:";
             // 
-            // label1
+            // lblPlaceTaken
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(12, 119);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
-            this.label1.TabIndex = 60;
-            this.label1.Text = "placeexists";
+            this.lblPlaceTaken.AutoSize = true;
+            this.lblPlaceTaken.ForeColor = System.Drawing.Color.Red;
+            this.lblPlaceTaken.Location = new System.Drawing.Point(12, 119);
+            this.lblPlaceTaken.Name = "lblPlaceTaken";
+            this.lblPlaceTaken.Size = new System.Drawing.Size(60, 13);
+            this.lblPlaceTaken.TabIndex = 60;
+            this.lblPlaceTaken.Text = "placetaken";
             // 
             // NetworkDiskDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(314, 178);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblPlaceTaken);
             this.Controls.Add(this.lblPath);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtFolderPath);
             this.Controls.Add(this.helpPath);
-            this.Controls.Add(this.lblPlaceNameExists);
+            this.Controls.Add(this.lblPlaceExists);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnNext);
@@ -180,13 +183,14 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnNext;
-        private System.Windows.Forms.Label lblPlaceNameExists;
+        private System.Windows.Forms.Label lblPlaceExists;
         private System.Windows.Forms.HelpProvider aHelpProvider;
         private System.Windows.Forms.Button btnBrowse;
         public System.Windows.Forms.TextBox txtFolderPath;
         private System.Windows.Forms.PictureBox helpPath;
         private System.Windows.Forms.Label lblPath;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPlaceTaken;
         public System.Windows.Forms.TextBox txtNetworkDiskName;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -17,6 +17,7 @@ namespace Login
             btnOK.Text      = MMUtils.GetString("firstuserdlg.btnOK.text");
             btnCancel.Text  = MMUtils.GetString("buttonCancel.text");
             lblWelcome.Text = MMUtils.GetString("firstuserdlg.lblWelcome.text");
+            lblMessage.Text = MMUtils.GetString("firstuserdlg.lblMessage.text");
         }
 
         private void btnOK_Click(object sender, EventArgs e)

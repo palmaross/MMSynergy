@@ -53,7 +53,7 @@
             // lblNewStorageName
             // 
             this.lblNewStorageName.AutoSize = true;
-            this.lblNewStorageName.Location = new System.Drawing.Point(12, 13);
+            this.lblNewStorageName.Location = new System.Drawing.Point(12, 12);
             this.lblNewStorageName.Name = "lblNewStorageName";
             this.lblNewStorageName.Size = new System.Drawing.Size(66, 13);
             this.lblNewStorageName.TabIndex = 0;
@@ -70,7 +70,7 @@
             // lblProcess
             // 
             this.lblProcess.AutoSize = true;
-            this.lblProcess.Location = new System.Drawing.Point(12, 131);
+            this.lblProcess.Location = new System.Drawing.Point(12, 130);
             this.lblProcess.Name = "lblProcess";
             this.lblProcess.Size = new System.Drawing.Size(248, 13);
             this.lblProcess.TabIndex = 2;
@@ -156,7 +156,7 @@
             // lblPath
             // 
             this.lblPath.AutoSize = true;
-            this.lblPath.Location = new System.Drawing.Point(11, 73);
+            this.lblPath.Location = new System.Drawing.Point(11, 71);
             this.lblPath.Name = "lblPath";
             this.lblPath.Size = new System.Drawing.Size(76, 13);
             this.lblPath.TabIndex = 56;
