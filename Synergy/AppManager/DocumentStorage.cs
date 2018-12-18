@@ -143,14 +143,14 @@
                     return;
                 }
 
-                if (MapsGroup.LOGIN.logged == false) // user not logged in Synergy yet
+                if (Login.LoginToSynergy.logged == false) // user not logged in Synergy yet
                 {                   
-                    if (System.Windows.Forms.MessageBox.Show(MMUtils.GetString("maps.openmapnosynergy.message"),
+                    if (MessageBox.Show(MMUtils.GetString("maps.openmapnosynergy.message"),
                     MMUtils.GetString("maps.synergywarning.caption"), MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                     == DialogResult.Yes)
-                        MapsGroup.LOGIN.m_cmdLogin_Click();
+                        Login.LoginToSynergy.m_cmdLogin_Click();
 
-                    if (MapsGroup.LOGIN.logged == false)  
+                    if (Login.LoginToSynergy.logged == false)  
                         {
                             reopentimer = false;
                             docToClose = _doc;

@@ -88,6 +88,7 @@
     <Compile Include="Changes\LinkToFileDlg.Designer.cs">
       <DependentUpon>LinkToFileDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Explorer\FileExplorer.cs" />
     <Compile Include="Login\FirstUserDlg.cs">
       <SubType>Form</SubType>
     </Compile>

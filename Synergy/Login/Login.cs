@@ -10,9 +10,9 @@ namespace Login
 {
     internal class LoginToSynergy
     {
-        protected Timer login_timer = null;
+        protected static Timer login_timer = null;
 
-        public void Init()
+        public void Init(ribbonTab myTab)
         {
             login_timer = new Timer();
             login_timer.Interval = 50;
@@ -43,7 +43,7 @@ namespace Login
             CreateLogin(logged);
         }
 
-        private void CreateLogin(bool _logInSynergy = false)
+        public void CreateLogin(bool _logInSynergy = false)
         {
             string imagePath = MMUtils.imagePath;          
             string _caption = MMUtils.GetString("login.commands.login.caption");
@@ -70,7 +70,7 @@ namespace Login
             m_ctrlLogin = MMUtils.MindManager.StatusBarControls.AddButton(m_cmdLogin);
         }
 
-        public void m_cmdLogin_Click()
+        public static void m_cmdLogin_Click()
         {           
             DialogResult result = DialogResult.None;
 
@@ -197,14 +197,13 @@ namespace Login
             }
         }
 
-        private ribbonTab SynergyRibbon => Maps.MapsGroup.m_myTab;
+        private static ribbonTab SynergyRibbon => Maps.MapsGroup.m_myTab;
 
         private Command m_cmdLogin = null;
         private Mindjet.MindManager.Interop.Control m_ctrlLogin = null;
 
-        private List<Document> docstoclose = new List<Document>();
+        private static List<Document> docstoclose = new List<Document>();
 
-        public bool logged = false;
-
+        public static bool logged = false;
     }
 }

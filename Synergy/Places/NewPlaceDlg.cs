@@ -60,7 +60,7 @@ namespace Places
                 {
                     result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
                     aPlaceName = _dlg.aPlaceName;
-                    aPlacePath = _dlg.txtFolderPath.ToString();
+                    aPlacePath = _dlg.txtFolderPath.Text;
                 }
                 if (result == DialogResult.Cancel)
                     DialogResult = DialogResult.Cancel;

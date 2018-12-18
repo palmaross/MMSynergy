@@ -8,6 +8,7 @@ namespace Synergy19
     using Projects;
     using Places;
     using About;
+    using Login;
 
 	/// <summary>
 	///   The object for implementing an Add-in.
@@ -43,8 +44,9 @@ namespace Synergy19
             MMUtils.AddinName = TS_AddInName;
             MMUtils.Version = 19;
             MMUtils.MindManager = (Application)application;
-            addInInstance = addInInst;            
+            addInInstance = addInInst;
 
+            LOGIN = new LoginToSynergy();
             PLACES = new PlacesGroup();
             PROJECTS = new ProjectsGroup();
             MAPS = new MapsGroup();
@@ -52,7 +54,8 @@ namespace Synergy19
 
             DocumentStorage.Init();
             m_synergyTab = MMUtils.MindManager.Ribbon.Tabs.Add(0, MMUtils.GetString("main.name"), "www.palmaross.com/api/documentation/synergytab");
-            
+
+            LOGIN.Init(m_synergyTab);
             PLACES.Create(m_synergyTab);
             PROJECTS.Create(m_synergyTab);
             MAPS.Create(m_synergyTab);
@@ -77,6 +80,7 @@ namespace Synergy19
             addInInstance = null;
             PLACES.Destroy();
             MAPS.Destroy();
+            LOGIN.Destroy();
             PROJECTS.Destroy();
             ABOUT.Destroy();
             DocumentStorage.Destroy();
@@ -127,6 +131,7 @@ namespace Synergy19
         private string TS_AddInName = "Synergy19.Connect";
         private ribbonTab m_synergyTab;
 
+        private LoginToSynergy LOGIN;
         private MapsGroup MAPS;
         private ProjectsGroup PROJECTS;
         private PlacesGroup PLACES;

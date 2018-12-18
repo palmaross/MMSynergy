@@ -12,7 +12,6 @@ namespace Maps
     internal class MapsGroup
     {
         private Changes.SaveChanges SC;
-        public static Login.LoginToSynergy LOGIN;
 
         public void Create(ribbonTab myTab)
         {
@@ -20,9 +19,6 @@ namespace Maps
 
             // Init SaveChanges
             SC = new Changes.SaveChanges();
-
-            LOGIN = new Login.LoginToSynergy();
-            LOGIN.Init();
 
             // There are the only exemplares of these dialogs!
             dlgUsersOnline = new MapUsersDlg();
@@ -125,14 +121,14 @@ namespace Maps
                     continue;
                 }
 
-                if (LOGIN.logged == false) // user not logged in Synergy yet
+                if (Login.LoginToSynergy.logged == false) // user not logged in Synergy yet
                 {
                     if (System.Windows.Forms.MessageBox.Show(
                     MMUtils.GetString("maps.usernotlogged.message"), MMUtils.GetString("maps.synergywarning.caption"),
                     System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-                        LOGIN.m_cmdLogin_Click();
+                        Login.LoginToSynergy.m_cmdLogin_Click();
 
-                    if (LOGIN.logged == false) // user don't want to log in Synergy
+                    if (Login.LoginToSynergy.logged == false) // user don't want to log in Synergy
                     {
                         _closeSynergyMaps = true;
                         DocumentStorage.closeMap = true;
@@ -462,8 +458,6 @@ namespace Maps
 
         public void Destroy()
         {
-            LOGIN.Destroy();
-            LOGIN = null;
             SC.Destroy();
 
             foreach (SubMenus item in OpenButtons)
