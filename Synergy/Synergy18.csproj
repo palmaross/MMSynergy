@@ -67,7 +67,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About\About.cs" />
     <Compile Include="AppManager\DatabaseWrapper.cs" />
     <Compile Include="AppManager\Internet.cs" />
     <Compile Include="AppManager\InternetCheckDlg.cs">
@@ -94,6 +93,12 @@
     <Compile Include="Login\FirstUserDlg.Designer.cs">
       <DependentUpon>FirstUserDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\SynergyMenuDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\SynergyMenuDlg.Designer.cs">
+      <DependentUpon>SynergyMenuDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Maps\LinkedFilesDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,11 +117,11 @@
     <Compile Include="Maps\ProjectReceivedDlg.Designer.cs">
       <DependentUpon>ProjectReceivedDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Maps\ShareMapDlg.cs">
+    <Compile Include="Maps\ShareDlg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Maps\ShareMapDlg.Designer.cs">
-      <DependentUpon>ShareMapDlg.cs</DependentUpon>
+    <Compile Include="Maps\ShareDlg.Designer.cs">
+      <DependentUpon>ShareDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Maps\SubMenus.cs" />
     <Compile Include="Maps\SynergyExplorerDlg.cs">
@@ -124,12 +129,6 @@
     </Compile>
     <Compile Include="Maps\SynergyExplorerDlg.Designer.cs">
       <DependentUpon>SynergyExplorerDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Places\CloudStorageDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Places\CloudStorageDlg.Designer.cs">
-      <DependentUpon>CloudStorageDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Places\NetworkDiskDlg.cs">
       <SubType>Form</SubType>
@@ -149,7 +148,6 @@
     <Compile Include="Places\NewPlaceDlg.Designer.cs">
       <DependentUpon>NewPlaceDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Places\Places.cs" />
     <Compile Include="Maps\GetPathDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,12 +174,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Login\Login.cs" />
-    <Compile Include="Login\LogOutDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Login\LogOutDlg.Designer.cs">
-      <DependentUpon>LogOutDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="Login\LogInDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,13 +188,6 @@
       <DependentUpon>NewUserDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Changes\PortraitSet.cs" />
-    <Compile Include="Projects\CreateProjectDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Projects\CreateProjectDlg.Designer.cs">
-      <DependentUpon>CreateProjectDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Projects\Projects.cs" />
     <Compile Include="Maps\PublishMapDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,14 +254,14 @@
     <EmbeddedResource Include="Login\FirstUserDlg.resx">
       <DependentUpon>FirstUserDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login\LogOutDlg.resx">
-      <DependentUpon>LogOutDlg.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Login\LogInDlg.resx">
       <DependentUpon>LogInDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\NewUserDlg.resx">
       <DependentUpon>NewUserDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\SynergyMenuDlg.resx">
+      <DependentUpon>SynergyMenuDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Maps\LinkedFilesDlg.resx">
       <DependentUpon>LinkedFilesDlg.cs</DependentUpon>
@@ -290,14 +275,11 @@
     <EmbeddedResource Include="Maps\ProjectReceivedDlg.resx">
       <DependentUpon>ProjectReceivedDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Maps\ShareMapDlg.resx">
-      <DependentUpon>ShareMapDlg.cs</DependentUpon>
+    <EmbeddedResource Include="Maps\ShareDlg.resx">
+      <DependentUpon>ShareDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Maps\SynergyExplorerDlg.resx">
       <DependentUpon>SynergyExplorerDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Places\CloudStorageDlg.resx">
-      <DependentUpon>CloudStorageDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Places\NetworkDiskDlg.resx">
       <DependentUpon>NetworkDiskDlg.cs</DependentUpon>
@@ -311,9 +293,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Maps\GetPathDlg.resx">
       <DependentUpon>GetPathDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Projects\CreateProjectDlg.resx">
-      <DependentUpon>CreateProjectDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Maps\PublishMapDlg.resx">
       <DependentUpon>PublishMapDlg.cs</DependentUpon>

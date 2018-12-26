@@ -61,6 +61,7 @@
             this.txtNetworkDiskName.Name = "txtNetworkDiskName";
             this.txtNetworkDiskName.Size = new System.Drawing.Size(268, 20);
             this.txtNetworkDiskName.TabIndex = 1;
+            this.txtNetworkDiskName.Text = "MindManager Network";
             this.txtNetworkDiskName.Click += new System.EventHandler(this.txtNetworkDiskName_Click);
             // 
             // btnCancel
@@ -123,7 +124,7 @@
             // helpPath
             // 
             this.helpPath.Image = ((System.Drawing.Image)(resources.GetObject("helpPath.Image")));
-            this.helpPath.Location = new System.Drawing.Point(283, 101);
+            this.helpPath.Location = new System.Drawing.Point(283, 100);
             this.helpPath.Name = "helpPath";
             this.helpPath.Size = new System.Drawing.Size(16, 16);
             this.helpPath.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;

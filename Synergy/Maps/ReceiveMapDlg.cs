@@ -46,13 +46,6 @@ namespace Maps
             }
             rbtnLeaveInPlace.Text = LeaveInPlace;
 
-            using (ProjectsDB _db = new ProjectsDB())
-            {
-                DataTable _dt = _db.ExecuteQuery("select * from PROJECTS where PLACENAME=`" + comboPlaces.Text + "` order by PROJECTNAME");
-                foreach (DataRow _row in _dt.Rows)
-                    comboProjects.Items.Add(_row["PROJECTNAME"]);
-            }
-
             if (comboProjects.Items.Count == 0)
             {
                 comboProjects.Items.Add(MMUtils.GetString("receivedmapdlg.noprojects"));
@@ -209,7 +202,7 @@ namespace Maps
 
             string _attrs = SUtils.TimeStamp + ";" + SUtils.currentUserName + ";" + SUtils.currentUserEmail;
 
-            MapsDB.AddMapToDB(aPlaceName, aProject, aGuid, aMapName, aPlacePath, aLocalPath, "", 0, 0, 0); // TODO 
+            MapsDB.AddMapToDB(aPlaceName, aGuid, aMapName, aPlacePath, aLocalPath, "", 0, 0, 0); // TODO 
             Maps.MapsGroup.m_UpdateOpenMap = true;
 
             MMUtils.MindManager.AllDocuments.Open(aLocalPath);

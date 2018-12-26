@@ -18,13 +18,14 @@ namespace Places
             Text = MMUtils.GetString("networkdiskdlg.dlgtitle");
             lblPlace.Text = MMUtils.GetString("networkdiskdlg.lblNetworkDisk.text");
             lblPlaceExists.Text = "";
+            txtNetworkDiskName.Text = MMUtils.GetString("networkdiskdlg.NetworkDiskName.text");
             lblPath.Text = MMUtils.GetString("newcloudstoragedlg.lblPath.text");
             lblPlaceTaken.Text = "";
             btnCancel.Text = MMUtils.GetString("buttonCancel.text");
             btnNext.Text = MMUtils.GetString("buttonNext.text");
             btnBack.Text = MMUtils.GetString("buttonBack.text");
 
-            toolTip1.SetToolTip(helpPath, MMUtils.GetString("networkdiskdlg.tltHelpPath.text"));
+            toolTip1.SetToolTip(helpPath, MMUtils.GetString("networkdiskdlg.helpPath.tooltip"));
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -82,7 +83,7 @@ namespace Places
         public string aStorage = "";
 
         /// <summary>
-        /// Folder path with backslash
+        /// Folder path with trail backslash
         /// </summary>
         private void btnBrowse_Click(object sender, EventArgs e)
         {

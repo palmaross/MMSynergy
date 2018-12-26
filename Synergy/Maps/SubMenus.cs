@@ -18,7 +18,7 @@ namespace Maps
             m_command.ImagePath = imagePath + "mapfile.png";
             m_command.UpdateState += new ICommandEvents_UpdateStateEventHandler(m_command_UpdateState);
             m_command.Click += new ICommandEvents_ClickEventHandler(m_command_Click);
-            m_control = MapsGroup.m_ctrlOpenMaps.Controls.AddButton(m_command);
+            //m_control = MapsGroup.m_ctrlOpenMaps.Controls.AddButton(m_command);
         }
 
         public void m_command_Click() // open map

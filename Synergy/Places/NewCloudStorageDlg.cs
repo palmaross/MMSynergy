@@ -18,7 +18,8 @@ namespace Places
             aHelpProvider.SetHelpKeyword(this, "publishmap.htm"); // TODO
 
             Text = MMUtils.GetString("newcloudstoragedlg.dlgtitle");
-            lblNewStorageName.Text = MMUtils.GetString("newcloudstoragedlg.lblNewStorageName.text");
+            lblStorageName.Text = MMUtils.GetString("newcloudstoragedlg.lblStorageName.text");
+            lblPlaceName.Text = MMUtils.GetString("newcloudstoragedlg.lblPlaceName.text");
             lblNameExists.ForeColor = System.Drawing.Color.Red;
             lblNameExists.Text = "";
             lblPath.Text = MMUtils.GetString("newcloudstoragedlg.lblPath.text");
@@ -28,8 +29,10 @@ namespace Places
             btnNext.Text = MMUtils.GetString("buttonNext.text");
             btnBack.Text = MMUtils.GetString("buttonBack.text");
 
-            toolTip1.SetToolTip(helpProcess, MMUtils.GetString("newcloudstoragedlg.tltHelpProcess.text"));
-            toolTip1.SetToolTip(helpPath, MMUtils.GetString("newcloudstoragedlg.tltHelpPath.text"));
+            toolTip1.SetToolTip(helpStorage, MMUtils.GetString("newcloudstoragedlg.helpStorage.tooltip"));
+            toolTip1.SetToolTip(helpPlaceName, MMUtils.GetString("newcloudstoragedlg.helpPlaceName.tooltip"));
+            toolTip1.SetToolTip(helpProcess, MMUtils.GetString("newcloudstoragedlg.helpProcess.tooltip"));
+            toolTip1.SetToolTip(helpPath, MMUtils.GetString("newcloudstoragedlg.helpPath.tooltip"));
 
             System.Diagnostics.Process[] processes;
             processes = System.Diagnostics.Process.GetProcesses();
@@ -42,7 +45,12 @@ namespace Places
 
             Processes.Sort();
             Processes.Insert(0, MMUtils.GetString("newcloudstoragedlg.processignore.text"));
-            comboBoxProcesses.DataSource = Processes;
+
+            foreach (string process in Processes)
+                comboBoxProcesses.Items.Add(process);
+
+            //comboBoxProcesses.DataSource = Processes;
+            comboBoxProcesses.SelectedIndex = 0;
             Processes.Clear();
         }
 
@@ -51,12 +59,17 @@ namespace Places
             // Place name is empty
             if (txtPlaceName.Text == "")
             {
-                lblNewStorageName.ForeColor = System.Drawing.Color.Red;
+                lblPlaceName.ForeColor = System.Drawing.Color.Red;
                 return;
             }
             if (txtFolderPath.Text == "")
             {
                 lblPath.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+            if (txtStorageName.Text == "")
+            {
+                lblStorageName.ForeColor = System.Drawing.Color.Red;
                 return;
             }
 
@@ -105,10 +118,15 @@ namespace Places
             this.DialogResult = DialogResult.OK;
         }
 
-        private void txtNewStorageName_Click(object sender, EventArgs e)
+        private void txtPlaceName_Click(object sender, EventArgs e)
         {
-            lblNewStorageName.ForeColor = System.Drawing.Color.Black;
+            lblPlaceName.ForeColor = System.Drawing.Color.Black;
             lblNameExists.Text = "";
+        }
+
+        private void txtStorageName_Click(object sender, EventArgs e)
+        {
+            lblStorageName.ForeColor = System.Drawing.Color.Black;
         }
 
         /// <summary>

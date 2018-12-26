@@ -157,18 +157,16 @@ namespace Maps
                 return;
             }
 
-            MapsDB.AddMapToDB(
-                "", _projectName, aGuid, _docName,
-                aPath, aLocalPath, SUtils.currentUserName, // aPath - map directory in Place, with backslash
-                0, Convert.ToInt32(DateTime.UtcNow), Convert.ToInt32(DateTime.UtcNow)
-                );
+            MapsDB.AddMapToDB("", aGuid, _docName, aPath, // aPath - map directory in Place, with backslash
+                aLocalPath, SUtils.currentUserName, 0, Convert.ToInt32(DateTime.UtcNow), Convert.ToInt32(DateTime.UtcNow)
+            );
 
             MapsGroup.m_UpdateOpenMap = true; // update Open Map submenu
 
             SUtils.ProcessMap(publishDoc);
 
             // Share map
-            using (ShareMapDlg _dlg = new ShareMapDlg(MMUtils.ActiveDocument.Name, aPath))
+            using (ShareDlg _dlg = new ShareDlg(MMUtils.ActiveDocument.Name, aPath, "", "")) // TODO !
             {
                 _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
             }
@@ -214,17 +212,16 @@ namespace Maps
             foreach (DirectoryInfo _dir in _dirinfos)
                 _dirs.Add(_dir.Name, _dir);
 
-            foreach (String _name in _dirs.Keys)
-            {
-                TreeNode _newNode = new TreeNode(_name);
-                TreeViewItem _tag = new TreeViewItem(_name, true);
-                _newNode.Tag = _tag;
-                pNode.Nodes.Add(_newNode);
-                FillFoldersRecursive(_newNode, aPath + "\\" + _name + "\\");
-            }
+            //foreach (String _name in _dirs.Keys)
+            //{
+            //    TreeNode _newNode = new TreeNode(_name);
+            //    TreeViewItem _tag = new TreeViewItem(_name, true);
+            //    _newNode.Tag = _tag;
+            //    pNode.Nodes.Add(_newNode);
+            //    FillFoldersRecursive(_newNode, aPath + "\\" + _name + "\\");
+            //}
         }
 
-        private bool hasProjects = false;
         private int selIndex = 0;
 
         private Mindjet.MindManager.Interop.Document publishDoc;

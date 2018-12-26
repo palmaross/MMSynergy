@@ -203,27 +203,8 @@ namespace SynManager
                 }
             }
 
-            if (aProjectName != "")
-            {
-                using (ProjectsDB _db = new ProjectsDB())
-                {
-                    DataTable _dt = _db.ExecuteQuery("select * from PROJECTS where PROJECTNAME=`" + aProjectName + "`");
-                    aProjectPath = _dt.Rows[0]["PROJECTPATH"].ToString();
-                }
-            }
-
             if (aStorage == "ND")
                 return;
-
-            using (StoragesDB _db = new StoragesDB())
-            {
-                DataTable _dt = _db.ExecuteQuery("select * from STORAGES where STORAGENAME=`" + aStorage + "`");
-                if (_dt.Rows.Count != 0)
-                {
-                    aProcess = _dt.Rows[0]["PROCESS"].ToString();
-                    aSite = _dt.Rows[0]["SITE"].ToString();
-                }
-            }
         }
 
         /// <summary>
@@ -536,7 +517,7 @@ namespace SynManager
             if (doc == null)
                 doc = MMUtils.ActiveDocument;
 
-            return doc.get_Attributes(SUtils.SYNERGYNAMESPACE).GetAttributeValue(MGUID);
+            return doc.get_Attributes(SYNERGYNAMESPACE).GetAttributeValue(MGUID);
         }
 
         public static List<string> links = new List<string>();

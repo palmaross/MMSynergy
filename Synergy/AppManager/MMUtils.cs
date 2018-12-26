@@ -185,7 +185,7 @@ namespace SynManager
         }
 
         /// <summary>
-        /// Folder path with backslash
+        /// Folder path with trailing backslash
         /// </summary>
         /// <returns></returns>
         public static string GetFolderPath()

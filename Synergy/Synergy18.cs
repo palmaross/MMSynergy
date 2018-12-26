@@ -5,15 +5,13 @@ namespace Synergy18
     using Mindjet.MindManager.Interop;
     using SynManager;
     using Maps;
-    using Projects;
-    using Places;
-    using About;
+    using Login;
 
-	/// <summary>
-	///   The object for implementing an Add-in.
-	/// </summary>
-	/// <seealso class='IDTExtensibility2' />
-	[GuidAttribute("38155112-4ED9-46D8-8A2D-BCB2ECB9A12F"), ProgId("Synergy18.Connect")]
+    /// <summary>
+    ///   The object for implementing an Add-in.
+    /// </summary>
+    /// <seealso class='IDTExtensibility2' />
+    [GuidAttribute("38155112-4ED9-46D8-8A2D-BCB2ECB9A12F"), ProgId("Synergy18.Connect")]
 	public class Connect : Object, Extensibility.IDTExtensibility2
 	{
 		/// <summary>
@@ -43,21 +41,14 @@ namespace Synergy18
             addInInstance = addInInst;
             MMUtils.AddinName = TS_AddInName;
             MMUtils.Version = 18;
-            MMUtils.MindManager = (Application)application;
-            DocumentStorage.Init();
+            MMUtils.MindManager = (Application)application;           
 
-            PLACES = new PlacesGroup();
-            PROJECTS = new ProjectsGroup();
+            LOGIN = new LoginToSynergy();
             MAPS = new MapsGroup();
-            ABOUT = new AboutGroup();
 
-            m_synergyTab = MMUtils.MindManager.Ribbon.Tabs.Add(0, MMUtils.GetString("main.name"), "www.palmaross.com/api/documentation/synergytab");
-            m_synergyTab.Visible = false;
-
-            PLACES.Create(m_synergyTab);
-            PROJECTS.Create(m_synergyTab);
-            MAPS.Create(m_synergyTab);
-            ABOUT.Create(m_synergyTab);
+            DocumentStorage.Init();
+            LOGIN.Init();
+            MAPS.Init();
 		}
 
 		/// <summary>
@@ -74,14 +65,10 @@ namespace Synergy18
 		public void OnDisconnection(Extensibility.ext_DisconnectMode disconnectMode, ref System.Array custom)
 		{
             addInInstance = null;
-            PLACES.Destroy();
             MAPS.Destroy();
-            PROJECTS.Destroy();
-            ABOUT.Destroy();
+            LOGIN.Destroy();
             DocumentStorage.Destroy();
             MMUtils.MindManager = null;
-            m_synergyTab.Delete();
-            m_synergyTab = null;
 
             System.GC.Collect();
 		}
@@ -124,11 +111,7 @@ namespace Synergy18
 
         private object addInInstance;
         private string TS_AddInName = "Synergy18.Connect";
-        public static ribbonTab m_synergyTab;
-
+        private LoginToSynergy LOGIN;
         private MapsGroup MAPS;
-        private ProjectsGroup PROJECTS;
-        private PlacesGroup PLACES;
-        private AboutGroup ABOUT;
 	}
 }

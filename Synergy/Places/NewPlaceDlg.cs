@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Windows.Forms;
 using SynManager;
+using System.Text;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace Places
 {
     internal partial class NewPlaceDlg : Form
     {
-        public NewPlaceDlg(string _storage = "")
+        public NewPlaceDlg()
         {
             InitializeComponent();
 
@@ -27,18 +30,20 @@ namespace Places
         }
 
         private void btnNext_Click(object sender, EventArgs e)
-        {
+        {            
             DialogResult result;
 
             ////////// Cloud Storage ///////////
             if (rbtnCloudStorage.Checked)
             {
+                string aStorage, aProcess;
                 using (NewCloudStorageDlg _dlg = new NewCloudStorageDlg())
                 {
                     result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
                     aPlaceName = _dlg.txtPlaceName.Text;
                     aPlacePath = _dlg.txtFolderPath.Text;
                     aProcess = _dlg.comboBoxProcesses.Text;
+                    aStorage = _dlg.txtStorageName.Text;
                 }
 
                 if (result == DialogResult.Cancel)
@@ -46,7 +51,7 @@ namespace Places
 
                 if (result == DialogResult.OK) // button Next pressed
                 {
-                    if (AddNewPlace("cloud", aPlacePath, aProcess))
+                    if (AddNewPlace(aStorage, aProcess))
                         DialogResult = DialogResult.OK;
                     else
                         DialogResult = DialogResult.Cancel;
@@ -67,7 +72,7 @@ namespace Places
 
                 if (result == DialogResult.OK)
                 {
-                    if (AddNewPlace("ND", aPlacePath))
+                    if (AddNewPlace("ND"))
                         DialogResult = DialogResult.OK;
                     else
                         DialogResult = DialogResult.Cancel;
@@ -81,18 +86,20 @@ namespace Places
             }
         }
 
-        private bool AddNewPlace(string placetype, string placepath, string process = "", string site = "")
+        private bool AddNewPlace(string storage = "", string process = "", string site = "")
         {
-            if (placetype == "site")
+            if (storage == "site")
             {
                 // TODO 
             }
 
-            // Create folder in Local Storage with place name
+            // Create folder with current user structure in the Place
             try
             {
-                System.IO.Directory.CreateDirectory(MMUtils.m_SynergyLocalPath + aPlaceName + "\\Maps");
-                System.IO.Directory.CreateDirectory(MMUtils.m_SynergyLocalPath + aPlaceName + "\\Projects");
+                string _path = aPlacePath + SUtils.currentUserName + "\\";
+                Directory.CreateDirectory(_path + MMUtils.GetString("synergy.maps"));
+                Directory.CreateDirectory(_path + MMUtils.GetString("synergy.projects"));
+                Directory.CreateDirectory(_path + MMUtils.GetString("synergy.files"));
             }
             catch
             {
@@ -100,16 +107,69 @@ namespace Places
             }
 
             using (PlacesDB _db = new PlacesDB())
-                _db.AddPlaceToDB(aPlaceName, placetype, placepath, process, site);
+            {
+                _db.ExecuteNonQuery("INSERT INTO PLACES VALUES(" +
+                "`" + aPlaceName + "`," +
+                "`" + storage + "`," +
+                "`" + aPlacePath + "`," +
+                "`" + process + "`," +
+                "`" + site + "`, ``, ``, 0, 0)");
+            }
 
-            if (placetype == "cloud" || placetype == "ND")
+            if (storage != "synergysite" && storage != "usersite") // cloud or network disk
                 MessageBox.Show(MMUtils.GetString("newplacedlg.cloudstorage.message"), MMUtils.GetString("newplacedlg.cloudstorage.caption"));
 
             return true;
         }
 
         public string aPlaceName = "";
-        private string aPlacePath = "";
-        private string aProcess = "";
+        public string aPlacePath = "";
+    }
+
+    public static class EncryptionHelper
+    {
+        public static string Encrypt(string clearText)
+        {
+            string EncryptionKey = "abc123";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
+        }
+        public static string Decrypt(string cipherText)
+        {
+            string EncryptionKey = "abc123";
+            cipherText = cipherText.Replace(" ", "+");
+            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
+                    }
+                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                }
+            }
+            return cipherText;
+        }
     }
 }

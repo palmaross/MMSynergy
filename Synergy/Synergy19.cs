@@ -5,9 +5,6 @@ namespace Synergy19
     using Mindjet.MindManager.Interop;
     using SynManager;
     using Maps;
-    using Projects;
-    using Places;
-    using About;
     using Login;
 
 	/// <summary>
@@ -47,21 +44,11 @@ namespace Synergy19
             addInInstance = addInInst;
 
             LOGIN = new LoginToSynergy();
-            PLACES = new PlacesGroup();
-            PROJECTS = new ProjectsGroup();
             MAPS = new MapsGroup();
-            ABOUT = new AboutGroup();
 
             DocumentStorage.Init();
-            m_synergyTab = MMUtils.MindManager.Ribbon.Tabs.Add(0, MMUtils.GetString("main.name"), "www.palmaross.com/api/documentation/synergytab");
-
-            LOGIN.Init(m_synergyTab);
-            PLACES.Create(m_synergyTab);
-            PROJECTS.Create(m_synergyTab);
-            MAPS.Create(m_synergyTab);
-            ABOUT.Create(m_synergyTab);
-
-            m_synergyTab.Visible = false;
+            LOGIN.Init();
+            MAPS.Init();
         }
 
         /// <summary>
@@ -78,15 +65,10 @@ namespace Synergy19
         public void OnDisconnection(Extensibility.ext_DisconnectMode disconnectMode, ref System.Array custom)
 		{
             addInInstance = null;
-            PLACES.Destroy();
             MAPS.Destroy();
             LOGIN.Destroy();
-            PROJECTS.Destroy();
-            ABOUT.Destroy();
             DocumentStorage.Destroy();
             MMUtils.MindManager = null;
-            m_synergyTab.Delete();
-            m_synergyTab = null;
 
             System.GC.Collect();
 		}
@@ -129,12 +111,8 @@ namespace Synergy19
 
         private object addInInstance;
         private string TS_AddInName = "Synergy19.Connect";
-        private ribbonTab m_synergyTab;
 
         private LoginToSynergy LOGIN;
         private MapsGroup MAPS;
-        private ProjectsGroup PROJECTS;
-        private PlacesGroup PLACES;
-        private AboutGroup ABOUT;
 	}
 }

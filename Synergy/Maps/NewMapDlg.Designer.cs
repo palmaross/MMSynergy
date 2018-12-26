@@ -48,7 +48,7 @@
             // 
             this.textBox_MapName.Location = new System.Drawing.Point(15, 51);
             this.textBox_MapName.Name = "textBox_MapName";
-            this.textBox_MapName.Size = new System.Drawing.Size(182, 20);
+            this.textBox_MapName.Size = new System.Drawing.Size(227, 20);
             this.textBox_MapName.TabIndex = 1;
             // 
             // btnOK
@@ -64,7 +64,7 @@
             // btn_cancel
             // 
             this.btn_cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_cancel.Location = new System.Drawing.Point(160, 93);
+            this.btn_cancel.Location = new System.Drawing.Point(206, 93);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(75, 23);
             this.btn_cancel.TabIndex = 3;
@@ -74,7 +74,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(197, 58);
+            this.label2.Location = new System.Drawing.Point(243, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 4;
@@ -84,7 +84,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(252, 134);
+            this.ClientSize = new System.Drawing.Size(296, 134);
             this.ControlBox = false;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_cancel);

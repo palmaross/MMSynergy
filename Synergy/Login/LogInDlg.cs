@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 using SynManager;
+using System.Drawing;
 
 namespace Login
 {
@@ -26,7 +27,7 @@ namespace Login
             lblUserNoExists.Text = "";
             lblPasswordNoMatch.Text = "";
 
-            this.Location = new System.Drawing.Point(MMUtils.MindManager.Left + MMUtils.MindManager.Width - this.Width-280,
+            this.Location = new Point(MMUtils.MindManager.Left + MMUtils.MindManager.Width - this.Width-280,
                             MMUtils.MindManager.Top + MMUtils.MindManager.Height - this.Height-17);
         }
 
@@ -38,9 +39,9 @@ namespace Login
             aEmail = txtEmail.Text;
 
             if (txtEmail.Text == "")
-                lblEmail.ForeColor = System.Drawing.Color.Red;
+                lblEmail.ForeColor = Color.Red;
             else if (txtPassword.Text == "")
-                lblPassword.ForeColor = System.Drawing.Color.Red;
+                lblPassword.ForeColor = Color.Red;
             else
             {
                 if (Internet.EmailIsValid(txtEmail.Text) == true)
@@ -108,13 +109,13 @@ namespace Login
 
         private void txtEmail_Click(object sender, EventArgs e)
         {
-            lblEmail.ForeColor = System.Drawing.Color.Black;
+            lblEmail.ForeColor = Color.Black;
             lblUserNoExists.Text = "";
         }
 
         private void txtPassword_Click(object sender, EventArgs e)
         {
-            lblPassword.ForeColor = System.Drawing.Color.Black;
+            lblPassword.ForeColor = Color.Black;
             lblPasswordNoMatch.Text = "";
         }
 
