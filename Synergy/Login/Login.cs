@@ -5,6 +5,7 @@ using SynManager;
 using System.Data;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Net.Mail;
 
 namespace Login
 {
@@ -136,6 +137,19 @@ namespace Login
                 login_timer.Stop();
                 login_timer.Tick -= Login_timer_Tick;
                 login_timer = null;
+            }
+        }
+
+        public static bool EmailIsValid(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
             }
         }
 

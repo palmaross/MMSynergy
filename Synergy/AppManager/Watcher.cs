@@ -99,7 +99,7 @@ namespace SynManager
 
                 if (_whathappen == "created")
                 {
-                    foreach (Timers _item in Maps.MapsGroup.TIMERS)
+                    foreach (MapTimers _item in Maps.MapsGroup.TIMERS)
                         if (_item.m_Guid == aMapGuid)
                         {
                             if (!_item.UsersOnline.Contains(_username))
@@ -119,7 +119,7 @@ namespace SynManager
 
                 if (_whathappen == "deleted")
                 {
-                    foreach (Timers _item in Maps.MapsGroup.TIMERS)
+                    foreach (MapTimers _item in Maps.MapsGroup.TIMERS)
                         if (_item.m_Guid == aMapGuid)
                         {
                             if (_item.UsersOnline.Contains(_username))

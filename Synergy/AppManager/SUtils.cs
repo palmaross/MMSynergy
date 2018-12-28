@@ -214,7 +214,7 @@ namespace SynManager
         /// <returns>fail</returns>
         public static string ProcessMap(Document _doc)
         {
-            string _guid = SUtils.SynergyMapGuid(_doc);
+            string _guid = SynergyMapGuid(_doc);
             string _storage = "", _process = "", _site = "",
             _placemapfolderpath = "", // full path to map folder in its Place
             _placename = "",        // place name - for Frozen Path
@@ -288,7 +288,7 @@ namespace SynManager
                 _frozenPath = _frozenPath + _projectname + "\\" + _docName;
             }
 
-            Timers timer = new Timers(_secToSaveMap, _secToWait, _minLockTime)
+            MapTimers timer = new MapTimers(_secToSaveMap, _secToWait, _minLockTime)
             {
                 doc = _doc,
                 m_Guid = _guid,

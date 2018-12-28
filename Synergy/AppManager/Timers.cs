@@ -8,9 +8,9 @@ using System.IO;
 namespace SynManager
 {
     // When finish, will be completely destroyed in Maps.cs Destroy
-    internal class Timers
+    internal class MapTimers
     {
-        public Timers(int _secToSaveMap, int _secToWait, int _minLockTime)
+        public MapTimers(int _secToSaveMap, int _secToWait, int _minLockTime)
         {
             secToSaveMap = _secToSaveMap;
             secToWait = _secToWait;
@@ -22,11 +22,8 @@ namespace SynManager
             checkOnlineUsers_timer = new Timer() { Interval = 60000 * 5 }; // 5 min
             checkOnlineUsers_timer.Tick += new EventHandler(CheckOnlineUsers_timer_Tick);
 
-            waitOnline_timer = new Timer() { Interval = 1000 * secToWait };
-            waitOnline_timer.Tick += new EventHandler(WaitOnline_timer_Tick);
-
-            IP_timer = new Timer() { Interval = 60000 * 2 }; // 2 min
-            IP_timer.Tick += new EventHandler(IP_timer_Tick);
+            waitingOnline_timer = new Timer() { Interval = 1000 * secToWait };
+            waitingOnline_timer.Tick += new EventHandler(WaitOnline_timer_Tick);
 
             lock_timer = new Timer() { Interval = minLockTime * 60000 };
             lock_timer.Tick += new EventHandler(Lock_timer_Tick);
@@ -60,7 +57,7 @@ namespace SynManager
             }
             catch (Exception _e)
             {
-                System.Windows.Forms.MessageBox.Show("Exception: " + _e.Message, "Timers:SaveMap_timer_Tick");
+                MessageBox.Show("Exception: " + _e.Message, "Timers:SaveMap_timer_Tick");
                 return;
             }
 
@@ -106,7 +103,7 @@ namespace SynManager
 
         private void WaitOnline_timer_Tick(object sender, EventArgs e)
         {
-            waitOnline_timer.Stop();
+            waitingOnline_timer.Stop();
 
             if (Internet.CheckInternetAndProcess(m_Guid, m_Storage, m_Process, m_Site, m_PlacePath, "wait_timer") != "")
                 return;
@@ -157,14 +154,6 @@ namespace SynManager
 
             if (doc == MMUtils.ActiveDocument)
                 refresh = true;
-        }
-
-        private void IP_timer_Tick(object sender, EventArgs e)
-        {
-            if (doc == null)
-                return; // TODO 
-
-            Internet.CheckInternetAndProcess(m_Guid, m_Storage, m_Process, m_Site, m_PlacePath, "IPtimer");
         }
 
         private void Lock_timer_Tick(object sender, EventArgs e)
@@ -252,13 +241,9 @@ namespace SynManager
             checkOnlineUsers_timer.Tick -= CheckOnlineUsers_timer_Tick;
             checkOnlineUsers_timer = null;         
 
-            waitOnline_timer.Stop();
-            waitOnline_timer.Tick -= WaitOnline_timer_Tick;
-            waitOnline_timer = null;
-
-            IP_timer.Stop();
-            IP_timer.Tick -= IP_timer_Tick;
-            IP_timer = null;
+            waitingOnline_timer.Stop();
+            waitingOnline_timer.Tick -= WaitOnline_timer_Tick;
+            waitingOnline_timer = null;
 
             lock_timer.Stop();
             lock_timer.Tick -= Lock_timer_Tick;
@@ -272,10 +257,10 @@ namespace SynManager
             UsersOnline.Clear();
         }
 
+        // Timers
         public Timer checkOnlineUsers_timer = null; // confirm current user online state and check rest users if they are online
-        public Timer waitOnline_timer = null; // to wait Synergy maps set online after "karantin"
-        public Timer saveMap_timer    = null; // to save opened Synergy map every N seconds
-        public Timer IP_timer         = null; // IP = Internet & Process
+        public Timer waitingOnline_timer = null; // to wait Synergy maps set online after "karantin"
+        public Timer saveMap_timer    = null; // to save opened Synergy map every N seconds       
         public Timer lock_timer       = null; // time to unlock map
         public Timer refreshIndicator_timer = null;
 
@@ -304,5 +289,96 @@ namespace SynManager
         public string MapBlocker { get; set; }
 
         public bool refresh { get; set; }
+    }
+
+    internal class CheckTimers
+    {
+        public CheckTimers()
+        {
+            // Internet connection
+            IP_timer = new Timer() { Interval = 60000 * 1 }; // 1 min
+            IP_timer.Tick += new EventHandler(IP_timer_Tick);
+
+            // Cloud storage process running
+            Process_timer = new Timer() { Interval = 60000 * 1 }; // 1 min
+            Process_timer.Tick += new EventHandler(IP_timer_Tick);
+
+            // Network connection
+            Network_timer = new Timer() { Interval = 60000 * 1 }; // 1 min
+            Network_timer.Tick += new EventHandler(IP_timer_Tick);
+        }
+
+
+        private void IP_timer_Tick(object sender, EventArgs e)
+        {
+            if (doc == null)
+                return; // TODO 
+
+            Internet.CheckInternetAndProcess(m_Guid, m_Storage, m_Process, m_Site, m_PlacePath, "IPtimer");
+        }
+
+        private void Process_timer_Tick(object sender, EventArgs e)
+        {
+            // If running process disappeared - set corresponding maps offline
+            foreach (string _process in GoodProcesses)
+            {
+                if (!CloudStorage.ProcessIsRunnig(_process))
+                {
+                    Maps.MapStatus.SetOfflineStatus("process", _process);
+                    if (!BadProcesses.Contains(_process))
+                        BadProcesses.Add(_process);
+                    GoodProcesses.Remove(_process);
+                }
+            }
+
+            // If not running process is started up - set corresponding maps online
+            foreach (string _process in BadProcesses)
+            {
+                if (CloudStorage.ProcessIsRunnig(_process))
+                {
+                    Maps.MapStatus.SetOnlineStatus("process", _process);
+                    if (!GoodProcesses.Contains(_process))
+                        GoodProcesses.Add(_process);
+                    BadProcesses.Remove(_process);
+                }
+            }
+        }
+
+        private void Network_timer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        public void Destroy()
+        {
+            IP_timer.Stop();
+            IP_timer.Tick -= IP_timer_Tick;
+            IP_timer = null;
+
+            Process_timer.Stop();
+            Process_timer.Tick -= Process_timer_Tick;
+            Process_timer = null;
+
+            Network_timer.Stop();
+            Network_timer.Tick -= Network_timer_Tick;
+            Network_timer = null;
+        }
+
+        public Timer IP_timer = null;       // Internet check
+        public Timer Process_timer = null;  // Cloud storage process check
+        public Timer Network_timer = null;  // Network connection check
+
+        /////////////////////// Lists of items to check 
+        /////////////////////// Good - should be runned/accessible and they are.
+        /////////////////////// Bad - should be runned/accessible but they are not.
+
+        private List<string> GoodProcesses = new List<string>();
+        private List<string> BadProcesses = new List<string>();
+
+        private List<string> GoodNetworkDrives = new List<string>();
+        private List<string> BadNetworkDrives = new List<string>();
+
+        private List<string> GoodWebsites = new List<string>();
+        private List<string> BadWebsites = new List<string>();
     }
 }

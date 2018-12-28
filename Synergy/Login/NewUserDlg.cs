@@ -2,7 +2,6 @@
 using System.Data;
 using System.Windows.Forms;
 using SynManager;
-using System.Net.Mail;
 
 namespace Login
 {
@@ -44,7 +43,7 @@ namespace Login
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (Internet.EmailIsValid(txtEmail.Text) == false)
+            if (LoginToSynergy.EmailIsValid(txtEmail.Text) == false)
             {
                 lblRequired.Text = MMUtils.GetString("newuserDlg.wrongemail.text"); //wrong email format
             }

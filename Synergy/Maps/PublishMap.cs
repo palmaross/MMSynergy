@@ -7,19 +7,21 @@ using Mindjet.MindManager.Interop;
 using SynManager;
 using System.Windows.Forms;
 using System.IO;
+using System.Data;
 
 namespace Maps
 {
     internal class PublishMap
     {
-        public bool Publish(Document publishDoc, string aPlacePath)
+        public bool Publish(Document publishDoc, string aPlace, string aMapPathInPlace)
         {
             string _docName = publishDoc.Name;
             string aGuid = publishDoc.Guid;
             string aLocalPath = ""; // path to map in Local Storage
-            string aPath = "";        // full path to published map
-            string aSite = "";        // website to check for Internet connection
-            string aProcess = "";     // cloud app process to check if started
+            string aPath = "";      // full path to published map
+            string aSite = "";      // website to check for Internet connection
+            string aProcess = "";   // cloud app process to check if started
+            string aPlacePath = "", aStorage = "";
 
             if (publishDoc.Path == "") // new map not saved yet
             {
@@ -31,8 +33,16 @@ namespace Maps
                 }
             }
 
-            // TODO если карта в этой папке уже есть, предложить выбрать сохранение под другим именем
-            if (File.Exists(aPlacePath + _docName)) // map with this name is stored already in this place
+            using (PlacesDB _db = new PlacesDB())
+            {
+                DataTable _dt = _db.ExecuteQuery("select * from PLACES where PLACENAME=`" + aPlace + "`");
+                aPlacePath = _dt.Rows[0]["PLACEPATH"].ToString();
+                aSite = _dt.Rows[0]["SITE"].ToString();
+                aProcess = _dt.Rows[0]["PROCESS"].ToString();
+                aStorage = _dt.Rows[0]["STORAGE"].ToString();
+            }
+
+            if (File.Exists(aMapPathInPlace + _docName)) // map with this name is stored already in this place
             {
                 MessageBox.Show(
                     MMUtils.GetString("publishmapdlg.mapexists.message"),
@@ -48,15 +58,28 @@ namespace Maps
 
             string messageSite = MMUtils.GetString("internet.sitefailed.message");
             string messageProcess = MMUtils.GetString("internet.processfailed.message");
-            string messagePlace = MMUtils.GetString("internet.placefail.message");
+            string messagePlace = MMUtils.GetString("internet.network.message");
             string endMessage = MMUtils.GetString("internet.failed.endpubmessage");
 
-            while ((fail = Internet.CheckInternetAndProcess(aGuid, "", aProcess, aSite, "", "publish")) != "")
+            if (aStorage == "ND") // Network disk
+            {
+
+            }
+            else if (aStorage == "synergysite" || aStorage == "usersite")
+            {
+
+            }
+            else // Cloud storage
+            {
+
+            }
+
+                while ((fail = Internet.CheckInternetAndProcess(aGuid, aStorage, aProcess, aSite, aPlacePath, "publish")) != "")
             {
                 string _message = "", arg = "";
 
-                if (fail == "processfail") { _message = messageProcess; arg = ""; }
-                else if (fail == "placefail") { _message = messagePlace; arg = aPath; }
+                if (fail == "processfail") { _message = messageProcess; arg = aProcess; }
+                else if (fail == "networkfail") { _message = messagePlace; arg = aPlacePath; }
                 else if (fail == "sitefail") { _message = messageSite; arg = aSite; }
 
                 if (MessageBox.Show(
@@ -83,9 +106,9 @@ namespace Maps
             }
 
             //// Publish Map = set attributes to map, topics, relationships and boundaries and process links ////
-            Mindjet.MindManager.Interop.Transaction _tr = publishDoc.NewTransaction("");
+            Transaction _tr = publishDoc.NewTransaction("");
             _tr.IsUndoable = false;
-            _tr.Execute += new Mindjet.MindManager.Interop.ITransactionEvents_ExecuteEventHandler(SUtils.PublishMap);
+            _tr.Execute += new ITransactionEvents_ExecuteEventHandler(SUtils.PublishMap);
             _tr.Start();
             ///////////////////////////////////////////////////////////////////////////////////
 
@@ -98,9 +121,7 @@ namespace Maps
                     DialogResult result = _dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
                     SUtils.links.Clear();
                     if (result == DialogResult.Cancel)
-                    {
                         return false;
-                    }
                 }
             }
 
@@ -129,9 +150,9 @@ namespace Maps
                 aLocalPath, SUtils.currentUserName, 0, Convert.ToInt32(DateTime.UtcNow), Convert.ToInt32(DateTime.UtcNow)
             );
 
-            MapsGroup.m_UpdateOpenMap = true; // update Open Map submenu
-
             SUtils.ProcessMap(publishDoc);
+
+            // TODO Занести в Synergy Explorer!
 
             // Share map
             using (ShareDlg _dlg = new ShareDlg(MMUtils.ActiveDocument.Name, aPath, "", "")) // TODO !

@@ -41,10 +41,10 @@
             // 
             this.lblList.Location = new System.Drawing.Point(9, 10);
             this.lblList.Name = "lblList";
-            this.lblList.Size = new System.Drawing.Size(273, 30);
+            this.lblList.Size = new System.Drawing.Size(292, 45);
             this.lblList.TabIndex = 0;
-            this.lblList.Text = "В карте есть ссылки на локальные файлы. Выберите, какие из файлов скопировать в п" +
-    "роект:";
+            this.lblList.Text = "В карте есть ссылки на локальные файлы. Выберите, какие из файлов опубликовать вм" +
+    "есте с картой:";
             // 
             // btnOK
             // 
@@ -60,7 +60,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(196, 179);
+            this.btnCancel.Location = new System.Drawing.Point(217, 179);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -74,14 +74,14 @@
             this.checkedListBox.Location = new System.Drawing.Point(12, 43);
             this.checkedListBox.Name = "checkedListBox";
             this.checkedListBox.ScrollAlwaysVisible = true;
-            this.checkedListBox.Size = new System.Drawing.Size(259, 124);
+            this.checkedListBox.Size = new System.Drawing.Size(280, 124);
             this.checkedListBox.TabIndex = 3;
             // 
             // LinkedFilesDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 214);
+            this.ClientSize = new System.Drawing.Size(306, 214);
             this.ControlBox = false;
             this.Controls.Add(this.checkedListBox);
             this.Controls.Add(this.btnCancel);

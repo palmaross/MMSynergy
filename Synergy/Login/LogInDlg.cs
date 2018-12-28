@@ -44,7 +44,7 @@ namespace Login
                 lblPassword.ForeColor = Color.Red;
             else
             {
-                if (Internet.EmailIsValid(txtEmail.Text) == true)
+                if (LoginToSynergy.EmailIsValid(txtEmail.Text) == true)
                     loginoremail = "EMAIL";
 
                 UsersDB _db = new UsersDB();

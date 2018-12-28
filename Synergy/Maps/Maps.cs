@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Mindjet.MindManager.Interop;
 using SynManager;
 using System.IO;
@@ -209,9 +208,11 @@ namespace Maps
                 item.Destroy();
             OpenButtons.Clear();
 
-            foreach (Timers item in TIMERS)
+            foreach (MapTimers item in TIMERS)
                 item.Destroy();
             TIMERS.Clear();
+
+            CHECKTIMERS.Destroy();
 
             foreach (Watchers item in WATCHERS)
                 item.Dispose();
@@ -229,18 +230,16 @@ namespace Maps
 
         protected System.Windows.Forms.Timer reopenmaps_timer = null;
 
-        private Control m_ctrlPublishMap = null;
-
-        public static bool m_UpdateOpenMap = false;
-
         private List<Document> _reopenmaps = new List<Document>();
         private SubMenus m_menus;
         public List<SubMenus> OpenButtons = new List<SubMenus>();
 
-        public static List<Timers> TIMERS = new List<Timers>();
+        public static List<MapTimers> TIMERS = new List<MapTimers>();
         public static List<Watchers> WATCHERS = new List<Watchers>();
 
         public static MapUsersDlg dlgUsersOnline = null;
         public static InternetCheckDlg InternetChecking = null;
+
+        public static CheckTimers CHECKTIMERS = new CheckTimers();
     }
 }

@@ -67,6 +67,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppManager\CloudStorage.cs" />
     <Compile Include="AppManager\DatabaseWrapper.cs" />
     <Compile Include="AppManager\Internet.cs" />
     <Compile Include="AppManager\InternetCheckDlg.cs">
@@ -76,6 +77,7 @@
       <DependentUpon>InternetCheckDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="AppManager\l18n.cs" />
+    <Compile Include="AppManager\Network.cs" />
     <Compile Include="AppManager\SynergyDBWrapper.cs" />
     <Compile Include="AppManager\MMEnums.cs" />
     <Compile Include="AppManager\Timers.cs" />
@@ -105,18 +107,14 @@
     <Compile Include="Maps\LinkedFilesDlg.Designer.cs">
       <DependentUpon>LinkedFilesDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Maps\MapStatus.cs" />
     <Compile Include="Maps\MapUsersDlg.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Maps\MapUsersDlg.Designer.cs">
       <DependentUpon>MapUsersDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Maps\ProjectReceivedDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Maps\ProjectReceivedDlg.Designer.cs">
-      <DependentUpon>ProjectReceivedDlg.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Maps\PublishMap.cs" />
     <Compile Include="Maps\ShareDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,12 +145,6 @@
     </Compile>
     <Compile Include="Places\NewPlaceDlg.Designer.cs">
       <DependentUpon>NewPlaceDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Maps\GetPathDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Maps\GetPathDlg.Designer.cs">
-      <DependentUpon>GetPathDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Changes\PortraitGet.cs" />
     <Compile Include="AppManager\SUtils.cs" />
@@ -188,12 +180,6 @@
       <DependentUpon>NewUserDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Changes\PortraitSet.cs" />
-    <Compile Include="Maps\PublishMapDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Maps\PublishMapDlg.Designer.cs">
-      <DependentUpon>PublishMapDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="Maps\MapExistsDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,9 +258,6 @@
     <EmbeddedResource Include="Maps\MapUsersDlg.resx">
       <DependentUpon>MapUsersDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Maps\ProjectReceivedDlg.resx">
-      <DependentUpon>ProjectReceivedDlg.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Maps\ShareDlg.resx">
       <DependentUpon>ShareDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -290,12 +273,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Places\NewPlaceDlg.resx">
       <DependentUpon>NewPlaceDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Maps\GetPathDlg.resx">
-      <DependentUpon>GetPathDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Maps\PublishMapDlg.resx">
-      <DependentUpon>PublishMapDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Maps\NewMapDlg.resx">
       <DependentUpon>NewMapDlg.cs</DependentUpon>

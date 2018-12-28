@@ -119,7 +119,7 @@
                 foreach (DocumentStorage item in SDocs)
                     if (item.MGuid == mapGuid) // map was opened before 
                     {
-                        foreach (Timers _item in Maps.MapsGroup.TIMERS)
+                        foreach (MapTimers _item in Maps.MapsGroup.TIMERS)
                             if (_item.m_Guid == mapGuid)
                             {
                                 Maps.MapUsersDlg.status = _item.m_Status;
@@ -273,7 +273,7 @@
                 string m_PlacePath = "";
                 bool _isonline = true;
 
-                foreach (Timers _item in MapsGroup.TIMERS)
+                foreach (MapTimers _item in MapsGroup.TIMERS)
                     if (_item.m_Guid == mapGuid)
                     {
                         _isonline = (_item.m_Status == "online");
