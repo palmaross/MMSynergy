@@ -131,9 +131,8 @@ namespace Maps
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             m_selectedFolderMaps = "";
-            TreeViewItem _tag = treeView1.SelectedNode.Tag as TreeViewItem;
-            if (_tag != null)
-                m_selectedFolderMaps = _tag.m_path;
+            if (treeView1.SelectedNode.Tag as TreeViewItem != null)
+                m_selectedFolderMaps = (treeView1.SelectedNode.Tag as TreeViewItem).m_path;
         }
 
         /// <summary>

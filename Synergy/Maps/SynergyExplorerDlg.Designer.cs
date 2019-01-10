@@ -570,7 +570,6 @@
         #endregion
 
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPropertis;
@@ -606,5 +605,6 @@
         public System.Windows.Forms.Panel panelPublish;
         private System.Windows.Forms.TabPage tabMembers;
         private System.Windows.Forms.ListBox listMembers;
+        public System.Windows.Forms.TreeView treeView1;
     }
 }

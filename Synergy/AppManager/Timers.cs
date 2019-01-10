@@ -105,7 +105,7 @@ namespace SynManager
         {
             waitingOnline_timer.Stop();
 
-            if (Internet.CheckInternetAndProcess(m_Guid, m_Storage, m_Process, m_Site, m_PlacePath, "wait_timer") != "")
+            if (Internet.IsConnected(m_Site))
                 return;
 
             MessageBox.Show(String.Format(MMUtils.GetString("internet.maponline.message"), doc.Name), 
@@ -139,12 +139,12 @@ namespace SynManager
 
             DocumentStorage.Sync(doc, true, m_PlacePath); // subscribe map
 
-            Watchers WW = new Watchers(m_PlacePath + "share", m_PlacePath, "") // TODO project path!
+            MapWatchers MW = new MapWatchers(m_PlacePath)
             {
                 doc = doc,
-                aMapGuid = m_Guid
+                MapGuid = m_Guid
             };
-            Maps.MapsGroup.WATCHERS.Add(WW);
+            Maps.MapsGroup.MAPWATCHERS.Add(MW);
 
             SUtils.GetChanges(doc);
 
@@ -153,7 +153,9 @@ namespace SynManager
             refreshIndicator_timer.Start();
 
             if (doc == MMUtils.ActiveDocument)
-                refresh = true;
+                RefreshIndicator = true;
+
+            File.SetAttributes(m_LocalPath, FileAttributes.Normal);
         }
 
         private void Lock_timer_Tick(object sender, EventArgs e)
@@ -171,9 +173,9 @@ namespace SynManager
             if (doc == null)
                 return; // TODO 
 
-            if (refresh)
+            if (RefreshIndicator)
             {
-                refresh = false;
+                RefreshIndicator = false;
                 Maps.MapUsersDlg.users = UsersOnline;
                 Maps.MapUsersDlg.status = m_Status;
                 Maps.MapUsersDlg.waitTime = waitTime;
@@ -288,97 +290,121 @@ namespace SynManager
         public List<string> UsersOnline = new List<string>();
         public string MapBlocker { get; set; }
 
-        public bool refresh { get; set; }
+        public bool RefreshIndicator { get; set; }
     }
 
     internal class CheckTimers
     {
         public CheckTimers()
         {
-            // Internet connection
-            IP_timer = new Timer() { Interval = 60000 * 1 }; // 1 min
-            IP_timer.Tick += new EventHandler(IP_timer_Tick);
+            // Internet/Site connection
+            Internet_timer = new Timer() { Interval = 60000 * 2 }; // 2 min
+            Internet_timer.Tick += new EventHandler(Internet_timer_Tick);
 
-            // Cloud storage process running
-            Process_timer = new Timer() { Interval = 60000 * 1 }; // 1 min
-            Process_timer.Tick += new EventHandler(IP_timer_Tick);
-
-            // Network connection
-            Network_timer = new Timer() { Interval = 60000 * 1 }; // 1 min
-            Network_timer.Tick += new EventHandler(IP_timer_Tick);
+            // Cloud storage process and Network disk
+            ProcessAndNetwork_timer = new Timer() { Interval = 30000 }; // 30 sec
+            ProcessAndNetwork_timer.Tick += new EventHandler(ProcessAndNetwork_timer_Tick);
         }
 
-
-        private void IP_timer_Tick(object sender, EventArgs e)
+        private void Internet_timer_Tick(object sender, EventArgs e)
         {
-            if (doc == null)
-                return; // TODO 
+            Internet_timer.Stop();
+            if (Maps.MapsGroup.TIMERS.Count <= 0)
+                return;
 
-            Internet.CheckInternetAndProcess(m_Guid, m_Storage, m_Process, m_Site, m_PlacePath, "IPtimer");
-        }
-
-        private void Process_timer_Tick(object sender, EventArgs e)
-        {
-            // If running process disappeared - set corresponding maps offline
-            foreach (string _process in GoodProcesses)
+            foreach (MapTimers item in Maps.MapsGroup.TIMERS)
             {
-                if (!CloudStorage.ProcessIsRunnig(_process))
+                if (item.m_Status == "waitonline")
+                    continue;
+
+                if (item.m_Site != string.Empty)
                 {
-                    Maps.MapStatus.SetOfflineStatus("process", _process);
-                    if (!BadProcesses.Contains(_process))
-                        BadProcesses.Add(_process);
-                    GoodProcesses.Remove(_process);
+                    if(Internet.IsConnected(item.m_Site))
+                    {
+                        if (item.m_Status == "offline")
+                            Maps.MapStatus.SetOnlineStatus(item);
+                    }
+                    else
+                    {
+                        if (item.m_Status == "online")
+                            Maps.MapStatus.SetOfflineStatus(item);
+                    }
                 }
             }
 
-            // If not running process is started up - set corresponding maps online
-            foreach (string _process in BadProcesses)
-            {
-                if (CloudStorage.ProcessIsRunnig(_process))
-                {
-                    Maps.MapStatus.SetOnlineStatus("process", _process);
-                    if (!GoodProcesses.Contains(_process))
-                        GoodProcesses.Add(_process);
-                    BadProcesses.Remove(_process);
-                }
-            }
+            Internet_timer.Start();
         }
 
-        private void Network_timer_Tick(object sender, EventArgs e)
+        // Timer starts first time when publishing or opening Synergy map with Cloud storage or Network folder.
+        private void ProcessAndNetwork_timer_Tick(object sender, EventArgs e)
         {
+            ProcessAndNetwork_timer.Stop();
+            if (Maps.MapsGroup.TIMERS.Count <= 0)
+                return;
 
+            foreach (MapTimers item in Maps.MapsGroup.TIMERS)
+            {
+                if (item.m_Process != string.Empty)
+                {
+                    if (item.m_Status == "waitonline")
+                        continue;
+
+                    if (CloudStorage.ProcessIsRunnig(item.m_Process))
+                    {
+                        if (item.m_Status == "offline")
+                            Maps.MapStatus.SetOnlineStatus(item);
+                    }
+                    else
+                    {
+                        if (item.m_Status == "online")
+                            Maps.MapStatus.SetOfflineStatus(item);
+                    }
+                }
+
+                if (item.m_Storage == "ND")
+                {
+                    if (Network.IsAvailable(item.m_Storage))
+                    {
+                        if (item.m_Status == "offline")
+                            Maps.MapStatus.SetOnlineStatus(item, false);
+                    }
+                    else
+                    {
+                        if (item.m_Status == "online")
+                            Maps.MapStatus.SetOfflineStatus(item, false);
+                    }
+                }
+
+                ProcessAndNetwork_timer.Start();
+            }
         }
 
         public void Destroy()
         {
-            IP_timer.Stop();
-            IP_timer.Tick -= IP_timer_Tick;
-            IP_timer = null;
+            Internet_timer.Stop();
+            Internet_timer.Tick -= Internet_timer_Tick;
+            Internet_timer = null;
 
-            Process_timer.Stop();
-            Process_timer.Tick -= Process_timer_Tick;
-            Process_timer = null;
-
-            Network_timer.Stop();
-            Network_timer.Tick -= Network_timer_Tick;
-            Network_timer = null;
+            ProcessAndNetwork_timer.Stop();
+            ProcessAndNetwork_timer.Tick -= ProcessAndNetwork_timer_Tick;
+            ProcessAndNetwork_timer = null;
         }
 
-        public Timer IP_timer = null;       // Internet check
-        public Timer Process_timer = null;  // Cloud storage process check
-        public Timer Network_timer = null;  // Network connection check
+        public Timer Internet_timer = null;       // Internet check
+        public Timer ProcessAndNetwork_timer = null;  // Cloud storage process and Network path check
+        public Timer Network_timer = null;
 
         /////////////////////// Lists of items to check 
         /////////////////////// Good - should be runned/accessible and they are.
         /////////////////////// Bad - should be runned/accessible but they are not.
 
-        private List<string> GoodProcesses = new List<string>();
-        private List<string> BadProcesses = new List<string>();
-
-        private List<string> GoodNetworkDrives = new List<string>();
-        private List<string> BadNetworkDrives = new List<string>();
-
-        private List<string> GoodWebsites = new List<string>();
-        private List<string> BadWebsites = new List<string>();
+        public static List<string> GoodProcesses = new List<string>();
+        public static List<string> BadProcesses = new List<string>();
+        //public static List<string> GoodNetworkFolders = new List<string>();
+        //public static List<string> BadNetworkFolders = new List<string>();
+        public static List<string> GoodNetworkPlaces = new List<string>(); // Root path to Network place
+        public static List<string> BadNetworkPlaces = new List<string>();
+        //public static List<string> GoodWebsites = new List<string>();
+        //public static List<string> BadWebsites = new List<string>();
     }
 }

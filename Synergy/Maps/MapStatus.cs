@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Mindjet.MindManager.Interop;
 using SynManager;
 using System.Windows.Forms;
 
@@ -11,90 +6,76 @@ namespace Maps
 {
     internal class MapStatus
     {
-        public static void SetOnlineStatus(string _cause, string _name)
+        public static void SetOnlineStatus(MapTimers _map, bool _wait = true)
         {
-            if (_cause == "process")
+            if (_wait)
             {
-                foreach (MapTimers item in MapsGroup.TIMERS)
-                    if (_name == item.m_Process)
-                    {
-                        item.waitTime = DateTime.UtcNow.AddSeconds(item.secToWait).ToLocalTime().ToShortTimeString();
-                        item.m_Status = "waitonline";
-                        item.waitingOnline_timer.Start();
-
-                        if (item.doc == MMUtils.ActiveDocument)
-                            item.refresh = true; // for refreshIndicator_timer
-                    }
+                _map.m_Status = "waitonline";
+                _map.waitingOnline_timer.Start();
+                return;
             }
-            if (_cause == "process")
+
+            _map.m_Status = "online";
+            MapWatchers MW = new MapWatchers(_map.m_PlacePath)
             {
-                foreach (MapTimers item in MapsGroup.TIMERS)
-                    if (_name == item.m_Process)
-                    {
-                        item.waitTime = DateTime.UtcNow.AddSeconds(item.secToWait).ToLocalTime().ToShortTimeString();
-                        item.m_Status = "waitonline";
-                        item.waitingOnline_timer.Start();
+                doc = _map.doc,
+                MapGuid = _map.m_Guid
+            };
+            MapsGroup.MAPWATCHERS.Add(MW);
 
-                        if (item.doc == MMUtils.ActiveDocument)
-                            item.refresh = true; // for refreshIndicator_timer
-                    }
-            }
+            DocumentStorage.Sync(_map.doc, true, _map.m_PlacePath); // subscribe map
+
+            System.IO.File.SetAttributes(_map.m_LocalPath, System.IO.FileAttributes.Normal);
+
+            if (_map.doc == MMUtils.ActiveDocument)
+                _map.RefreshIndicator = true; // for refreshIndicator_timer
         }
 
-        public static void SetOfflineStatus(string _cause, string _name)
+        public static void SetOfflineStatus(MapTimers _map, bool _wait = false)
         {
-            Document _doc = null;
+            _map.m_Status = "offline";
 
-            foreach (Watchers _item in MapsGroup.WATCHERS)
-                if (_item.aMapGuid == _guid)
+            foreach (MapWatchers _item in MapsGroup.MAPWATCHERS)
+                if (_item.MapGuid == _map.m_Guid)
                 {
-                    _doc = _item.doc;
                     _item.Dispose();
-                    MapsGroup.WATCHERS.Remove(_item);
+                    MapsGroup.MAPWATCHERS.Remove(_item);
                     break;
                 }
 
-            DocumentStorage.Sync(_doc, false); // Unsubscribe this map
+            DocumentStorage.Sync(_map.doc, false); // Unsubscribe this map
 
-            foreach (MapTimers item in MapsGroup.TIMERS)
-            {
-                if (_guid == item.m_Guid)
-                {
-                    item.m_Status = "offline";
-                    item.m_FrozenTime = Convert.ToInt64(SUtils.modtime);
-                    //item.m_OfflineCause += _cause;
+            _map.m_Status = "offline";
+            _map.m_FrozenTime = Convert.ToInt64(SUtils.modtime);
+            //item.m_OfflineCause += _cause;
 
-                    item.saveMap_timer.Stop();
-                    item.checkOnlineUsers_timer.Stop();
+            _map.saveMap_timer.Stop();
+            _map.checkOnlineUsers_timer.Stop();
 
-                    System.IO.File.Copy(item.m_LocalPath, item.m_FrozenPath, true);
+            System.IO.File.Copy(_map.m_LocalPath, _map.m_FrozenPath, true);
 
-                    string docName = item.doc.Name;
-                    string messageSite = MMUtils.GetString("internet.sitefailed.message");
-                    string messageProcess = MMUtils.GetString("internet.processfailed.message");
-                    string messagePlace = MMUtils.GetString("internet.placefail.message");
-                    string endMessage = MMUtils.GetString("internet.failed.endmessage");
+            string docName = _map.doc.Name;
+            string messageSite = MMUtils.GetString("internet.sitefailed.message");
+            string messageProcess = MMUtils.GetString("internet.processfailed.message");
+            string messagePlace = MMUtils.GetString("internet.placefail.message");
+            string endMessage = MMUtils.GetString("internet.failed.endmessage");
 
-                    string _message = "", arg = "";
+            string _message = "", arg = "";
 
-                    if (_cause == "process") { _message = messageProcess; arg = item.m_Storage; }
-                    else if (_cause == "place") { _message = messagePlace; arg = item.m_PlacePath; }
-                    else if (_cause == "site") { _message = messageSite; arg = item.m_Site; }
+            if (_map.m_Process != string.Empty) { _message = messageProcess; arg = _map.m_Storage; }
+            else if (_map.m_Storage == "ND") { _message = messagePlace; arg = _map.m_PlacePath; }
+            else if (_map.m_Site != string.Empty) { _message = messageSite; arg = _map.m_Site; }
 
-                    MessageBox.Show(
-                        String.Format(_message, arg) + endMessage,
-                        String.Format(MMUtils.GetString("internet.failed.caption"), item.doc.Name),
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation);
+            MessageBox.Show(
+                String.Format(_message, arg) + endMessage,
+                String.Format(MMUtils.GetString("internet.failed.caption"), _map.doc.Name),
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Exclamation);
 
-                    System.IO.File.SetAttributes(item.m_LocalPath, System.IO.FileAttributes.ReadOnly);
+            System.IO.File.SetAttributes(_map.m_LocalPath, System.IO.FileAttributes.ReadOnly);
 
-                    if (item.doc == MMUtils.ActiveDocument)
-                        item.refresh = true; // for refreshIndicator_timer
-
-                    break;
-                }
-            }
-        }
+            if (_map.doc == MMUtils.ActiveDocument)
+                _map.RefreshIndicator = true; // for refreshIndicator_timer
+        }       
     }
 }

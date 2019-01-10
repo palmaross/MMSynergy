@@ -300,7 +300,7 @@ namespace SynManager
                 m_FrozenPath = _frozenPath,
                 MapBlocker = _mapblocker,
                 unLockTime = _unlocktime,
-                refresh = false
+                RefreshIndicator = false
             };
 
             Maps.MapsGroup.TIMERS.Add(timer);
@@ -346,12 +346,12 @@ namespace SynManager
                 }
             }
 
-            Watchers WW = new Watchers(_placemapfolderpath + "share", _placemapfolderpath, _projectpath)
+            MapWatchers MW = new MapWatchers(_placemapfolderpath)
                 {
                     doc = _doc,
-                    aMapGuid = _guid
+                    MapGuid = _guid
                 };
-            Maps.MapsGroup.WATCHERS.Add(WW);
+            Maps.MapsGroup.MAPWATCHERS.Add(MW);
 
             if (_doc == MMUtils.ActiveDocument && skipActiveMap == false)
             {

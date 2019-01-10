@@ -50,7 +50,7 @@
             openMap_timer.Tick += new EventHandler(MapOpen_timer_Tick);
         }
 
-        public static void Sync(Document aDoc, bool _add, string _mapPlaceFolder = "", bool _online = true)
+        public static void Sync(Document aDoc, bool _add, string _mapPlaceFolder = "")
         {
             if (_add)
             {
@@ -262,11 +262,11 @@
 
                 Sync(_doc, false); // Unsubscribe this map
 
-                foreach (Watchers _item in Maps.MapsGroup.WATCHERS)
-                    if (_item.aMapGuid == mapGuid)
+                foreach (MapWatchers _item in MapsGroup.MAPWATCHERS)
+                    if (_item.MapGuid == mapGuid)
                     {
                         _item.Dispose();
-                        Maps.MapsGroup.WATCHERS.Remove(_item);
+                        MapsGroup.MAPWATCHERS.Remove(_item);
                         break;
                     }
 

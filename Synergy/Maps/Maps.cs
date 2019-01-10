@@ -16,6 +16,7 @@ namespace Maps
         {
             // Init SaveChanges
             SC = new Changes.SaveChanges();
+            CHECKTIMERS = new CheckTimers();
 
             // There are the only exemplares of these dialogs!
             dlgUsersOnline = new MapUsersDlg();
@@ -214,9 +215,13 @@ namespace Maps
 
             CHECKTIMERS.Destroy();
 
-            foreach (Watchers item in WATCHERS)
+            //foreach (Watchers item in WATCHERS)
+            //    item.Dispose();
+            //WATCHERS.Clear();
+
+            foreach (MapWatchers item in MAPWATCHERS)
                 item.Dispose();
-            WATCHERS.Clear();
+            MAPWATCHERS.Clear();
 
             dlgUsersOnline.Visible = false;
             dlgUsersOnline.Destroy();
@@ -235,11 +240,11 @@ namespace Maps
         public List<SubMenus> OpenButtons = new List<SubMenus>();
 
         public static List<MapTimers> TIMERS = new List<MapTimers>();
-        public static List<Watchers> WATCHERS = new List<Watchers>();
+        public static CheckTimers CHECKTIMERS = new CheckTimers();
+        //public static List<Watchers> WATCHERS = new List<Watchers>();
+        public static List<MapWatchers> MAPWATCHERS = new List<MapWatchers>();
 
         public static MapUsersDlg dlgUsersOnline = null;
         public static InternetCheckDlg InternetChecking = null;
-
-        public static CheckTimers CHECKTIMERS = new CheckTimers();
     }
 }
