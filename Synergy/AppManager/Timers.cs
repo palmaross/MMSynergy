@@ -392,19 +392,5 @@ namespace SynManager
 
         public Timer Internet_timer = null;       // Internet check
         public Timer ProcessAndNetwork_timer = null;  // Cloud storage process and Network path check
-        public Timer Network_timer = null;
-
-        /////////////////////// Lists of items to check 
-        /////////////////////// Good - should be runned/accessible and they are.
-        /////////////////////// Bad - should be runned/accessible but they are not.
-
-        public static List<string> GoodProcesses = new List<string>();
-        public static List<string> BadProcesses = new List<string>();
-        //public static List<string> GoodNetworkFolders = new List<string>();
-        //public static List<string> BadNetworkFolders = new List<string>();
-        public static List<string> GoodNetworkPlaces = new List<string>(); // Root path to Network place
-        public static List<string> BadNetworkPlaces = new List<string>();
-        //public static List<string> GoodWebsites = new List<string>();
-        //public static List<string> BadWebsites = new List<string>();
     }
 }

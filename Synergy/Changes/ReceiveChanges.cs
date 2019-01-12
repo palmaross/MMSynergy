@@ -23,10 +23,10 @@ namespace Changes
 
             //foreach (string file in files)
             {
-                System.IO.StreamReader _file = null;
+                StreamReader _file = null;
                 try
                 {
-                    _file = new System.IO.StreamReader(_filepath);
+                    _file = new StreamReader(_filepath);
                 }
                 catch (Exception e)
                 {

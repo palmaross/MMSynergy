@@ -31,101 +31,130 @@ namespace Maps
 
         public void Init()
         {
-            PlacesDB _db = new PlacesDB();           
-            string _placename = "";
-            string _pathtoplace = "";
-            TreeNode _placeNode, _accountNode;
-            string _path = "";
-            string _owner = "";
-            string _email = "";
+            SharedItemsDB _db = new SharedItemsDB();
+
+            TreeNode _placeNode, _accountNode, _folderNode;
             treeView1.Nodes.Clear();
 
-            DataTable _dt = _db.ExecuteQuery("select * from PLACES order by PLACENAME");
-            if (_dt.Rows.Count == 0)
-            {
+            Dictionary<string, string> Accounts = new Dictionary<string, string>();
+            List<string> Places = new List<string>();
+
+            DataTable _dtAccounts = _db.ExecuteQuery("select * from SHARED order by OWNER");
+            if (_dtAccounts.Rows.Count == 0)
+            {                
+                btnAddFiles.Enabled = false; btnCopyFolder.Enabled = false; btnShareFolder.Enabled = false;
                 _db.Dispose();
-                btnAddFiles.Enabled = false;
-                btnCopyFolder.Enabled = false;
-                btnShareFolder.Enabled = false;
                 return;
             }
             else
             {
-                btnAddFiles.Enabled = true;
-                btnCopyFolder.Enabled = true;
-                btnShareFolder.Enabled = true;
+                btnAddFiles.Enabled = true; btnCopyFolder.Enabled = true; btnShareFolder.Enabled = true;
             }
 
-            SharedItemsDB _db1 = new SharedItemsDB();
-            foreach (DataRow _row in _dt.Rows)
+            foreach (DataRow _row in _dtAccounts.Rows)
             {
-                _placename = _row["PLACENAME"].ToString();
-                _pathtoplace = _row["PLACEPATH"].ToString();
+                if (!Accounts.ContainsKey(_row["OWNER"].ToString()))
+                    Accounts.Add(_row["OWNER"].ToString(), _row["EMAIL"].ToString());
+                if (!Places.Contains(_row["PLACE"].ToString()))
+                    Places.Add(_row["PLACE"].ToString());
+            }
 
-                // No access to Place
-                if (!Directory.Exists(_pathtoplace))
-                {
-                    // TODO сообщить пользователю...
-                    // TODO с сайтами другая проверка!
-                    continue;
-                }
-
-                // Add Place to treeview.
-                _placeNode = new TreeNode();
-                _placeNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
-                _placeNode.Text = _placename;
-                treeView1.Nodes.Add(_placeNode);
-
-                // Add current user account to treeview
+            foreach (string owner in Accounts.Keys)
+            {
+                // Add Account to treeview.
                 _accountNode = new TreeNode();
-                _owner = SUtils.currentUserName;
-                _email = SUtils.currentUserEmail;
-                _path = _pathtoplace + _owner;
-                TreeViewItem _tag = new TreeViewItem(_owner, _owner, _email, _path);
+                string _email = Accounts[owner];
+                TreeViewItem _tag = new TreeViewItem(owner, owner, _email, "");
                 _accountNode.Tag = _tag;
                 _accountNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
-                _accountNode.Text = _owner;
-                _placeNode.Nodes.Add(_accountNode);
-                FillFoldersRecursive(_accountNode, _path, _owner, _email);
+                _accountNode.Text = owner;
+                treeView1.Nodes.Add(_accountNode);
 
-                // Fill rest accounts
-                DataTable _dt1 = _db1.ExecuteQuery("select * from SHARED where PLACE=`" + _placename + "` order by OWNER");
-                foreach (DataRow _row1 in _dt1.Rows)
+                foreach (string place in Places)
                 {
-                    _accountNode = null;
-                    _path = _row1["PATH"].ToString();
-                    _email = _row1["EMAIL"].ToString();
-                    _owner = _row1["OWNER"].ToString();
+                    // Add Place to treeview.
+                    _placeNode = new TreeNode();
+                    _tag = new TreeViewItem(place, owner, _email, "");
+                    _placeNode.Tag = _tag;
+                    _placeNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
+                    _placeNode.Text = place;
+                    _accountNode.Nodes.Add(_placeNode);
 
-                    foreach (TreeNode _node in _placeNode.Nodes)
+                    DataTable _dt = _db.ExecuteQuery("select * from SHARED where OWNER=`" + owner + "` and PLACE =`" + place + "`");
+                    foreach (DataRow _row in _dt.Rows)
                     {
-                        TreeViewItem _tag1 = _node.Tag as TreeViewItem;
-                        if (_tag1.m_email == _email)
-                            _accountNode = _node;
-                    }
-                    if (_accountNode == null)
-                        _accountNode = new TreeNode();
+                        string _path = _row["PATH"].ToString();
+                        string _folderName = Path.GetFileName(_path);
 
-                    try // Fill account node    
-                    {                                                   
-                        TreeViewItem _tag2 = new TreeViewItem(_owner, _owner, _email, _path);
-                        _accountNode.Tag = _tag2;
-                        _accountNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
-                        _accountNode.Text = _owner;
-                        _placeNode.Nodes.Add(_accountNode);
-                        FillFoldersRecursive(_accountNode, _path, _owner, _email);
-                    }
-                    catch (Exception _e)
-                    {
+                        // No access to Place
+                        if (!Directory.Exists(_path))
+                        {
+                            using (PlacesDB _db1 = new PlacesDB())
+                            {
+                                DataTable _dt1 = _db1.ExecuteQuery("select * from PLACES where PLACENAME=`" + place + "`");
+                                string storage = _row["STORAGE"].ToString();
+                                string path = _row["PLACEPATH"].ToString();
+
+                                if (storage == "ND") // it's network, check path to Place
+                                    if (!Directory.Exists(path)) // network drive is not connected
+                                    {
+                                        // поставить значок блокировки на нод места
+
+                                        // TODO сообщить пользователю
+
+                                        break;
+                                    }
+                            }
+
+                            // folder have been deleted, delete entry in SharedItemsDB
+
+                            continue;
+                            // TODO сообщить пользователю?
+                        }
+
+                        string userspath = _path + "\\users.syn";
+                        if (File.Exists(userspath))
+                        {
+                            string line = "";
+                            bool me = false;
+                            StreamReader sr = new StreamReader(userspath);
+                            while ((line = sr.ReadLine()) != null)
+                            {
+                                if (line == SUtils.currentUserName)
+                                {
+                                    me = true;
+                                    break;
+                                }
+                            }
+                            sr.Close();
+
+                            if (!me) // This folder is not for me.
+                                continue;
+                        }
+
+                        // Add shared folder to treeview.
+                        try
+                        {
+                            _folderNode = new TreeNode();
+                            _tag = new TreeViewItem(_folderName, owner, _email, _path);
+                            _folderNode.Tag = _tag;
+                            _folderNode.Text = _folderName;
+                            _folderNode.NodeFont = new Font("Arial", 9, FontStyle.Regular);
+                            _placeNode.Nodes.Add(_folderNode);
+                            // And fill its subfolders.
+                            FillFoldersRecursive(_folderNode, _path, owner, _email);
+                        }
+                        catch (Exception _e)
+                        {
 #if DEBUG
-                        MessageBox.Show("Exception: " + _e.Message + "\r\nSource: " + _e.Source + "\r\nStack: " + _e.StackTrace);
+                            MessageBox.Show("Exception: " + _e.Message + "\r\nSource: " + _e.Source + "\r\nStack: " + _e.StackTrace);
 #endif
+                        }
                     }
+                    _placeNode.Expand();
                 }
-                _placeNode.Expand();
             }
             _db.Dispose();
-            _db1.Dispose();
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
@@ -143,7 +172,6 @@ namespace Maps
         public void FillFoldersRecursive(TreeNode pNode, string aPath, string aOwner, string aEmail)
         {
             DirectoryInfo _thisDir = new DirectoryInfo(aPath);
-            //SortedList<string, DirectoryInfo> _dirs = new SortedList<string, DirectoryInfo>();
             IEnumerable<DirectoryInfo> _dirinfos;
             try
             {
@@ -157,10 +185,6 @@ namespace Maps
                 return;
             }
 
-            //foreach (DirectoryInfo _dir in _dirinfos)
-            //    _dirs.Add(_dir.Name, _dir);
-
-            //foreach (string _name in _dirs.Keys)
             foreach (DirectoryInfo _dir in _dirinfos)
             {
                 TreeNode _newNode = new TreeNode(_dir.Name);
@@ -180,6 +204,9 @@ namespace Maps
         private void btnNewPlace_Click(object sender, EventArgs e)
         {
             string placename, _pathtoplace;
+            string _owner = SUtils.currentUserName;
+            string _email = SUtils.currentUserEmail;
+
             using (Places.NewPlaceDlg _dlg = new Places.NewPlaceDlg())
             {
                 if (_dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd)) == DialogResult.Cancel)
@@ -188,18 +215,31 @@ namespace Maps
                 _pathtoplace = _dlg.aPlacePath;
                 MessageBox.Show(MMUtils.GetString("places.placecreated.message"));              
             }
-            TreeNode _placeNode = treeView1.Nodes.Add(placename);
 
-            // Add current user account to place node
-            string _owner = SUtils.currentUserName;
-            string _email = SUtils.currentUserEmail;
-            TreeNode _accountNode = new TreeNode();
-            TreeViewItem _tag = new TreeViewItem(_owner, _owner, _email, _pathtoplace + _owner);
-            _accountNode.Tag = _tag;
-            _accountNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
-            _accountNode.Text = _owner;
-            _placeNode.Nodes.Add(_accountNode);
-            FillFoldersRecursive(_accountNode, _pathtoplace + _owner, _owner, _email);
+            string _placePath = _pathtoplace + SUtils.currentUserName + "\\";
+            TreeNode _placeNode = new TreeNode();
+            TreeNode _accountNode = null;
+
+            foreach (TreeNode _accountnode in treeView1.Nodes)
+                if (_accountnode.Name == _owner)
+                    _accountNode = _accountnode;
+
+            if (_accountNode == null)
+            {
+                _accountNode = new TreeNode();
+                TreeViewItem _tag1 = new TreeViewItem(_owner, _owner, _email, _placePath);
+                _accountNode.Tag = _tag1;
+                _accountNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
+                _accountNode.Text = _owner;
+                _accountNode = treeView1.Nodes.Add(_owner);
+            }
+
+            TreeViewItem _tag = new TreeViewItem(placename, _owner, _email, "");
+            _placeNode.Tag = _tag;
+            _placeNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
+            _placeNode.Text = placename;
+            _accountNode.Nodes.Add(_placeNode);
+            FillFoldersRecursive(_placeNode, _placePath, _owner, _email);
 
             btnAddFiles.Enabled = true;
             btnCopyFolder.Enabled = true;
@@ -215,6 +255,11 @@ namespace Maps
         private void btnCancel_Click(object sender, EventArgs e)
         {
             panelPublish.Visible = false;
+        }
+
+        private void btnPublish_Click(object sender, EventArgs e)
+        {
+            PublishMap.Publish(MMUtils.ActiveDocument, "", ""); // TODO !!
         }
     }
 

@@ -502,6 +502,7 @@
             this.btnPublish.TabIndex = 1;
             this.btnPublish.Text = "ОПУБЛИКОВАТЬ";
             this.btnPublish.UseVisualStyleBackColor = true;
+            this.btnPublish.Click += new System.EventHandler(this.btnPublish_Click);
             // 
             // lblPublish
             // 

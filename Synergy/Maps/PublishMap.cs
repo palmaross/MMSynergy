@@ -13,7 +13,7 @@ namespace Maps
 {
     internal class PublishMap
     {
-        public bool Publish(Document publishDoc, string aPlace, string aMapPathInPlace)
+        public static bool Publish(Document publishDoc, string aPlaceName, string aMapPathInPlace)
         {
             string _docName = publishDoc.Name;
             string aGuid = publishDoc.Guid;
@@ -35,7 +35,7 @@ namespace Maps
 
             using (PlacesDB _db = new PlacesDB())
             {
-                DataTable _dt = _db.ExecuteQuery("select * from PLACES where PLACENAME=`" + aPlace + "`");
+                DataTable _dt = _db.ExecuteQuery("select * from PLACES where PLACENAME=`" + aPlaceName + "`");
                 aPlacePath = _dt.Rows[0]["PLACEPATH"].ToString();
                 aSite = _dt.Rows[0]["SITE"].ToString();
                 aProcess = _dt.Rows[0]["PROCESS"].ToString();
@@ -63,18 +63,18 @@ namespace Maps
 
             if (aStorage == "ND") // Network disk
             {
-
+                fail = "networkfail";
             }
             else if (aStorage == "synergysite" || aStorage == "usersite")
             {
-
+                fail = "sitefail";
             }
             else // Cloud storage
             {
-
+                fail = "processfail";
             }
 
-                while ((fail = Internet.CheckInternetAndProcess(aGuid, aStorage, aProcess, aSite, aPlacePath, "publish")) != "")
+            while (!Internet.IsConnected(aSite))
             {
                 string _message = "", arg = "";
 

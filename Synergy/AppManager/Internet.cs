@@ -12,7 +12,7 @@ namespace SynManager
         public static bool IsConnected(string _site)
         {
             if (_site == "")
-                _site = MMUtils.GetRegistry("", ""); // TODO!
+                _site = MMUtils.GetRegistry("", "GeneralWebsite");
 
             if (ConnectionAvailable(_site))
                 return true;
@@ -23,7 +23,7 @@ namespace SynManager
         {
             try
             {
-                HttpWebRequest reqFP = (HttpWebRequest)HttpWebRequest.Create(strServer);
+                HttpWebRequest reqFP = (HttpWebRequest)WebRequest.Create(strServer);
                 reqFP.Timeout = 5000;
                 HttpWebResponse rspFP = (HttpWebResponse)reqFP.GetResponse();
 

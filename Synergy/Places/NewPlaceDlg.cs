@@ -94,12 +94,37 @@ namespace Places
             }
 
             // Create folder with current user structure in the Place
+            string _placePath = aPlacePath + SUtils.currentUserName + "\\";
             try
             {
-                string _path = aPlacePath + SUtils.currentUserName + "\\";
-                Directory.CreateDirectory(_path + MMUtils.GetString("synergy.maps"));
-                Directory.CreateDirectory(_path + MMUtils.GetString("synergy.projects"));
-                Directory.CreateDirectory(_path + MMUtils.GetString("synergy.files"));
+                DirectoryInfo di1 = Directory.CreateDirectory(_placePath + MMUtils.GetString("synergy.maps"));
+                using (StreamWriter sw = File.CreateText(di1.FullName + "\\users.syn"))
+                    sw.WriteLine(SUtils.currentUserName);
+                DirectoryInfo di2 = Directory.CreateDirectory(_placePath + MMUtils.GetString("synergy.projects"));
+                using (StreamWriter sw = File.CreateText(di2.FullName + "\\users.syn"))
+                    sw.WriteLine(SUtils.currentUserName);
+                DirectoryInfo di3 = Directory.CreateDirectory(_placePath + MMUtils.GetString("synergy.files"));
+                using (StreamWriter sw = File.CreateText(di3.FullName + "\\users.syn"))
+                    sw.WriteLine(SUtils.currentUserName);
+
+                using (SharedItemsDB _db = new SharedItemsDB())
+                {
+                    _db.ExecuteNonQuery("INSERT INTO SHARED VALUES(" +
+                        "`" + aPlaceName + "`," +
+                        "`" + di1.FullName + "`," +
+                        "`" + SUtils.currentUserName + "`," +
+                        "`" + SUtils.currentUserEmail + "`, ``, ``, 0, 0)");
+                    _db.ExecuteNonQuery("INSERT INTO SHARED VALUES(" +
+                        "`" + aPlaceName + "`," +
+                        "`" + di2.FullName + "`," +
+                        "`" + SUtils.currentUserName + "`," +
+                        "`" + SUtils.currentUserEmail + "`, ``, ``, 0, 0)");
+                    _db.ExecuteNonQuery("INSERT INTO SHARED VALUES(" +
+                        "`" + aPlaceName + "`," +
+                        "`" + di3.FullName + "`," +
+                        "`" + SUtils.currentUserName + "`," +
+                        "`" + SUtils.currentUserEmail + "`, ``, ``, 0, 0)");
+                }
             }
             catch
             {
@@ -109,11 +134,11 @@ namespace Places
             using (PlacesDB _db = new PlacesDB())
             {
                 _db.ExecuteNonQuery("INSERT INTO PLACES VALUES(" +
-                "`" + aPlaceName + "`," +
-                "`" + storage + "`," +
-                "`" + aPlacePath + "`," +
-                "`" + process + "`," +
-                "`" + site + "`, ``, ``, 0, 0)");
+                    "`" + aPlaceName + "`," +
+                    "`" + storage + "`," +
+                    "`" + aPlacePath + "`," +
+                    "`" + process + "`," +
+                    "`" + site + "`, ``, ``, 0, 0)");
             }
 
             if (storage != "synergysite" && storage != "usersite") // cloud or network disk

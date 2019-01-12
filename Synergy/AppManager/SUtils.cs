@@ -313,17 +313,18 @@ namespace SynManager
             }
             else
             {
-                fail = Internet.CheckInternetAndProcess(_guid, _storage, _process, _site, _placemapfolderpath, "SUtils");
+                fail = "";
             }
 
             timer.refreshIndicator_timer.Start();
-            timer.IP_timer.Start();
+            Maps.MapsGroup.CHECKTIMERS.ProcessAndNetwork_timer.Start();
 
             if (fail == "")
             {
                 timer.m_Status = "online";
                 timer.GetOnlineUsers();
-                timer.IP_timer.Start(); // start watching for Internet & Process
+                Maps.MapsGroup.CHECKTIMERS.ProcessAndNetwork_timer.Start(); // start watching for Internet & Process
+                Maps.MapsGroup.CHECKTIMERS.Internet_timer.Start();
                 timer.saveMap_timer.Start();
                 timer.checkOnlineUsers_timer.Start();             
             }
