@@ -6,7 +6,7 @@ namespace Synergy18
 {
     internal partial class LinkToFileDlg : Form
     {
-        public LinkToFileDlg()
+        public LinkToFileDlg(string filepath)
         {
             InitializeComponent();
 
@@ -15,10 +15,8 @@ namespace Synergy18
             aHelpProvider.SetHelpKeyword(this, "publishmap.htm"); // TODO
 
             // TODO
-            Text = MMUtils.GetString("publishmapdlg.dlgtitle.text");
-            lblLink.Text = MMUtils.GetString("publishmapdlg.lblPickProject.text");
-            btnYes.Text = MMUtils.GetString("publishmapdlg.lblOr.text");
-            btnNo.Text = MMUtils.GetString("publishmapdlg.linkNewProject.text");
+            Text = MMUtils.GetString("linktofiledlg.dlgtitle.text");
+            lblLink.Text = String.Format(MMUtils.GetString("linktofiledlg.lblLink.text"), filepath);
         }
 
         private void btnYes_Click(object sender, EventArgs e)

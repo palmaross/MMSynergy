@@ -601,11 +601,11 @@
         private System.Windows.Forms.PictureBox btnUnlock;
         private System.Windows.Forms.HelpProvider helpProvider1;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnPublish;
         private System.Windows.Forms.Label lblPublish;
         public System.Windows.Forms.Panel panelPublish;
         private System.Windows.Forms.TabPage tabMembers;
         private System.Windows.Forms.ListBox listMembers;
         public System.Windows.Forms.TreeView treeView1;
+        public System.Windows.Forms.Button btnPublish;
     }
 }

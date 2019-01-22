@@ -25,7 +25,6 @@ namespace Maps
             aHelpProvider.SetHelpKeyword(this, "share.htm");
 
             Text = MMUtils.GetString("sharemapdlg.dlgtitle.text");           
-            lblShareWhat.Text = MMUtils.GetString("sharemapdlg.lblShareWhat.text");
             lblFolderToShare.Text = MMUtils.GetString("sharemapdlg.lblFolderToShare.text");
             lblPath.Text = _folderPath;
             btnOpenFolder.Text = MMUtils.GetString("sharemapdlg.btnOpenFolder.text");
@@ -56,8 +55,6 @@ namespace Maps
             {
                 txtMessage.Text = MMUtils.GetString("sharemapdlg.txtMessage.cloud.text");               
             }
-
-            var checkedButton = panelRadio.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
 
             // TODO в _cryptpath засунуть ссылку! Если это облако, то всовывается "synergymap"
             string _message = txtMessage.Text;

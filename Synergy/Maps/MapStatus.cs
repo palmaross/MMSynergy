@@ -16,16 +16,16 @@ namespace Maps
             }
 
             _map.m_Status = "online";
-            MapWatchers MW = new MapWatchers(_map.m_PlacePath)
+            MapWatchers MW = new MapWatchers(_map.m_FolderPath + "Share_" + _map.m_MapName)
             {
                 doc = _map.doc,
                 MapGuid = _map.m_Guid
             };
             MapsGroup.MAPWATCHERS.Add(MW);
 
-            DocumentStorage.Sync(_map.doc, true, _map.m_PlacePath); // subscribe map
+            DocumentStorage.Sync(_map.doc, true, _map.m_FolderPath); // subscribe map
 
-            System.IO.File.SetAttributes(_map.m_LocalPath, System.IO.FileAttributes.Normal);
+            System.IO.File.SetAttributes(_map.m_UserMapPath, System.IO.FileAttributes.Normal);
 
             if (_map.doc == MMUtils.ActiveDocument)
                 _map.RefreshIndicator = true; // for refreshIndicator_timer
@@ -47,12 +47,11 @@ namespace Maps
 
             _map.m_Status = "offline";
             _map.m_FrozenTime = Convert.ToInt64(SUtils.modtime);
-            //item.m_OfflineCause += _cause;
 
             _map.saveMap_timer.Stop();
             _map.checkOnlineUsers_timer.Stop();
 
-            System.IO.File.Copy(_map.m_LocalPath, _map.m_FrozenPath, true);
+            System.IO.File.Copy(_map.m_UserMapPath, _map.m_FrozenPath, true);
 
             string docName = _map.doc.Name;
             string messageSite = MMUtils.GetString("internet.sitefailed.message");
@@ -63,7 +62,7 @@ namespace Maps
             string _message = "", arg = "";
 
             if (_map.m_Process != string.Empty) { _message = messageProcess; arg = _map.m_Storage; }
-            else if (_map.m_Storage == "ND") { _message = messagePlace; arg = _map.m_PlacePath; }
+            else if (_map.m_Storage == "ND") { _message = messagePlace; arg = _map.m_FolderPath; }
             else if (_map.m_Site != string.Empty) { _message = messageSite; arg = _map.m_Site; }
 
             MessageBox.Show(
@@ -72,7 +71,7 @@ namespace Maps
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Exclamation);
 
-            System.IO.File.SetAttributes(_map.m_LocalPath, System.IO.FileAttributes.ReadOnly);
+            System.IO.File.SetAttributes(_map.m_UserMapPath, System.IO.FileAttributes.ReadOnly);
 
             if (_map.doc == MMUtils.ActiveDocument)
                 _map.RefreshIndicator = true; // for refreshIndicator_timer

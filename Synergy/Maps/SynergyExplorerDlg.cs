@@ -27,8 +27,6 @@ namespace Maps
             treeView1.Sort();
         }
 
-        string m_selectedFolderMaps = "";
-
         public void Init()
         {
             SharedItemsDB _db = new SharedItemsDB();
@@ -64,7 +62,7 @@ namespace Maps
                 // Add Account to treeview.
                 _accountNode = new TreeNode();
                 string _email = Accounts[owner];
-                TreeViewItem _tag = new TreeViewItem(owner, owner, _email, "");
+                TreeViewItem _tag = new TreeViewItem(owner, owner, _email, "", "");
                 _accountNode.Tag = _tag;
                 _accountNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
                 _accountNode.Text = owner;
@@ -74,7 +72,7 @@ namespace Maps
                 {
                     // Add Place to treeview.
                     _placeNode = new TreeNode();
-                    _tag = new TreeViewItem(place, owner, _email, "");
+                    _tag = new TreeViewItem(place, owner, _email, "", place);
                     _placeNode.Tag = _tag;
                     _placeNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
                     _placeNode.Text = place;
@@ -85,6 +83,10 @@ namespace Maps
                     {
                         string _path = _row["PATH"].ToString();
                         string _folderName = Path.GetFileName(_path);
+
+                        // It's a folder for share map changes
+                        if (_folderName.StartsWith("Share_"))
+                            continue;
 
                         // No access to Place
                         if (!Directory.Exists(_path))
@@ -136,13 +138,13 @@ namespace Maps
                         try
                         {
                             _folderNode = new TreeNode();
-                            _tag = new TreeViewItem(_folderName, owner, _email, _path);
+                            _tag = new TreeViewItem(_folderName, owner, _email, _path, place);
                             _folderNode.Tag = _tag;
                             _folderNode.Text = _folderName;
                             _folderNode.NodeFont = new Font("Arial", 9, FontStyle.Regular);
                             _placeNode.Nodes.Add(_folderNode);
                             // And fill its subfolders.
-                            FillFoldersRecursive(_folderNode, _path, owner, _email);
+                            FillFoldersRecursive(_folderNode, _path, owner, _email, place);
                         }
                         catch (Exception _e)
                         {
@@ -159,9 +161,14 @@ namespace Maps
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            m_selectedFolderMaps = "";
+            m_selectedFolder = "";
             if (treeView1.SelectedNode.Tag as TreeViewItem != null)
-                m_selectedFolderMaps = (treeView1.SelectedNode.Tag as TreeViewItem).m_path;
+            {
+                m_selectedFolder = (treeView1.SelectedNode.Tag as TreeViewItem).m_path;
+                btnPublish.Enabled = (treeView1.SelectedNode.Tag as TreeViewItem).m_placename != "";
+            }
+            else
+                btnPublish.Enabled = false;
         }
 
         /// <summary>
@@ -169,9 +176,10 @@ namespace Maps
         /// </summary>
         /// <param name="pNode">Root node</param>
         /// <param name="aPath">Stored full path to root node</param>
-        public void FillFoldersRecursive(TreeNode pNode, string aPath, string aOwner, string aEmail)
+        public void FillFoldersRecursive(TreeNode pNode, string aPath, string aOwner, string aEmail, string aPlaceName)
         {
             DirectoryInfo _thisDir = new DirectoryInfo(aPath);
+
             IEnumerable<DirectoryInfo> _dirinfos;
             try
             {
@@ -187,12 +195,14 @@ namespace Maps
 
             foreach (DirectoryInfo _dir in _dirinfos)
             {
+                if (_dir.Name.StartsWith("Share_"))
+                    continue;
                 TreeNode _newNode = new TreeNode(_dir.Name);
                 _newNode.NodeFont = new Font("Arial", 9, FontStyle.Regular);
-                TreeViewItem _tag = new TreeViewItem(_dir.Name, aOwner, aEmail, _dir.FullName);
+                TreeViewItem _tag = new TreeViewItem(_dir.Name, aOwner, aEmail, _dir.FullName, aPlaceName);
                 _newNode.Tag = _tag;
                 pNode.Nodes.Add(_newNode);
-                FillFoldersRecursive(_newNode, _dir.FullName, aOwner, aEmail);
+                FillFoldersRecursive(_newNode, _dir.FullName, aOwner, aEmail, aPlaceName);
             }
         }
 
@@ -227,19 +237,19 @@ namespace Maps
             if (_accountNode == null)
             {
                 _accountNode = new TreeNode();
-                TreeViewItem _tag1 = new TreeViewItem(_owner, _owner, _email, _placePath);
+                TreeViewItem _tag1 = new TreeViewItem(_owner, _owner, _email, "", "");
                 _accountNode.Tag = _tag1;
                 _accountNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
                 _accountNode.Text = _owner;
                 _accountNode = treeView1.Nodes.Add(_owner);
             }
 
-            TreeViewItem _tag = new TreeViewItem(placename, _owner, _email, "");
+            TreeViewItem _tag = new TreeViewItem(placename, _owner, _email, _placePath, placename);
             _placeNode.Tag = _tag;
             _placeNode.NodeFont = new Font("Arial", 9, FontStyle.Bold);
             _placeNode.Text = placename;
             _accountNode.Nodes.Add(_placeNode);
-            FillFoldersRecursive(_placeNode, _placePath, _owner, _email);
+            FillFoldersRecursive(_placeNode, _placePath, _owner, _email, placename);
 
             btnAddFiles.Enabled = true;
             btnCopyFolder.Enabled = true;
@@ -259,25 +269,77 @@ namespace Maps
 
         private void btnPublish_Click(object sender, EventArgs e)
         {
-            PublishMap.Publish(MMUtils.ActiveDocument, "", ""); // TODO !!
+            Document publishDoc = MMUtils.ActiveDocument;
+            string _folderPath = "";
+            string _placeName = "";
+
+            if (treeView1.SelectedNode.Tag as TreeViewItem != null)
+            {
+                _folderPath = (treeView1.SelectedNode.Tag as TreeViewItem).m_path;
+                _placeName = (treeView1.SelectedNode.Tag as TreeViewItem).m_placename;
+            }
+            else
+                return;
+
+            string _mapPath = _folderPath + "\\" + publishDoc.Name;
+
+            // Map with this name is stored already in this place or it's a new map, not saved yet.
+            if (File.Exists(_mapPath) || publishDoc.Path == "")
+            {
+                using (NewMapDlg _dlg = new NewMapDlg(_folderPath, publishDoc.Name))
+                {
+                    if (_dlg.ShowDialog(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd)) == DialogResult.Cancel)
+                    {
+                        MessageBox.Show(MMUtils.GetString("maps.nosuccessmessage.text"));
+                        publishDoc = null;
+                        return;
+                    }
+                    _mapPath = _folderPath + "\\" + _dlg.textBox_MapName.Text + ".mmap";
+                }
+            }
+
+            if (PublishMap.Publish(publishDoc, _placeName, _folderPath, _mapPath))
+                MessageBox.Show(MMUtils.GetString("maps.successmessage.text"));
+            else
+                MessageBox.Show(MMUtils.GetString("maps.nosuccessmessage.text"));
+            publishDoc = null;
         }
+
+        string m_selectedFolder = "";
     }
 
     internal class TreeViewItem
     {
+        /// <summary>
+        /// Folder name
+        /// </summary>
         public string m_name = "";
-        public bool m_isDirectory = false;
-        public string m_path = "";
+        /// <summary>
+        /// Folder owner
+        /// </summary>
         public string m_owner = "";
+        /// <summary>
+        /// Folder owner's email
+        /// </summary>
         public string m_email = "";
+        /// <summary>
+        /// Path to folder
+        /// </summary>
+        public string m_path = "";
+        /// <summary>
+        /// Place name
+        /// </summary>
+        public string m_placename = "";
+        public bool m_isDirectory = false;
 
-        public TreeViewItem(string aName, string aOwner, string aEmail, string aPath, bool aIsDirectory = true)
+        public TreeViewItem(string aName, string aOwner, string aEmail, string aPath, string aPlacename, bool aIsDirectory = true)
         {
             m_name = aName;
             m_isDirectory = aIsDirectory;
             m_path = aPath;
             m_owner = aOwner;
             m_email = aEmail;
+            m_placename = aPlacename;
         }
 
         public override string ToString() => m_name;

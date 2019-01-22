@@ -109,7 +109,7 @@ namespace SynManager
                             {
                                 if ((_node.Tag as TreeViewItem).m_path == _parentDir)
                                 {
-                                    _dlg.FillFoldersRecursive(_node, _parentDir, "", "");
+                                    _dlg.FillFoldersRecursive(_node, _parentDir, "", "", "");
                                     break;
                                 }
                             }
@@ -212,15 +212,16 @@ namespace SynManager
         // Event handler for MapFolder
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            // Do not watch timed map versions
-            if (Path.GetExtension(e.FullPath).ToLower().ToString() == ".mmap")
-                return;           
-            System.Threading.ThreadPool.QueueUserWorkItem((o) => ProcessFile(e, Path.GetDirectoryName(e.FullPath) == "Share"));                                                                               // true = changes in Share folder
+            //if (Path.GetExtension(e.FullPath).ToLower().ToString() == ".mmap")
+            //    return;
+            System.Threading.ThreadPool.QueueUserWorkItem((o) => ProcessFile(e)); //, Path.GetDirectoryName(e.FullPath) == "Share"));                                                                               // true = changes in Share folder
         }
 
-        private void ProcessFile(FileSystemEventArgs e, bool _share)
+        private void ProcessFile(FileSystemEventArgs e)
         {
-            if (_share) // process map changes
+            FileInfo f = new FileInfo(e.FullPath);
+
+            if (f.Extension.Equals(".mc")) // process map changes
             {
                 string _filename = Path.GetFileNameWithoutExtension(e.FullPath);
                 int a = _filename.IndexOf("&") + 1;
@@ -236,14 +237,12 @@ namespace SynManager
             }
 
             // process users 
-
-            string _username = Path.GetFileNameWithoutExtension(e.FullPath);
             string _whathappen = e.ChangeType.ToString().ToLower(); // "created" or "deleted" or "changed"
-
-            FileInfo f = new FileInfo(e.FullPath);
 
             if (f.Extension.Equals(".online"))
             {
+                string _username = Path.GetFileNameWithoutExtension(e.FullPath);
+
                 // Conflict in cloud storage
                 if (_username.ToLower().Contains(MMUtils.GetString("cloud.conflict.text")))
                 {
@@ -274,7 +273,14 @@ namespace SynManager
 
             if (f.Extension.Equals(".locker"))
             {
+                string _username = Path.GetFileNameWithoutExtension(e.FullPath);
 
+                // Conflict in cloud storage
+                if (_username.ToLower().Contains(MMUtils.GetString("cloud.conflict.text")))
+                {
+                    f.Delete();
+                    return;
+                }
             }
 
             f = null;
@@ -311,5 +317,6 @@ namespace SynManager
 
         public Mindjet.MindManager.Interop.Document doc { get; set; }
         public string MapGuid { get; set; }
+        //public string MapPath { get; set; }
     }
 }

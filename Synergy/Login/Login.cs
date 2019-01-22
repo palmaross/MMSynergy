@@ -19,7 +19,7 @@ namespace Login
             login_timer.Interval = 50;
             login_timer.Tick += new EventHandler(Login_timer_Tick);
 
-            m_explorerDlg = new Maps.SynergyExplorerDlg();
+            //m_explorerDlg = new Maps.SynergyExplorerDlg();
 
             // Init databases
             MapsDB _dbMaps = new MapsDB(); _dbMaps.Dispose();
@@ -48,10 +48,18 @@ namespace Login
                 imagePath = imagePath + "user.png";
                 SUtils.currentUserName = MMUtils.GetRegistry("", "CurrentUserName");
                 _caption = SUtils.currentUserName + "    |";
+                m_explorerDlg = new Maps.SynergyExplorerDlg();
+                m_explorerDlg.Init();
             }
             else // Log out
             {
                 imagePath = imagePath + "connection.png";
+                if (m_explorerDlg != null)
+                {
+                    m_explorerDlg.Hide();
+                    m_explorerDlg.Dispose();
+                    m_explorerDlg = null;
+                }
             }
 
             m_cmdLogin = CreateCommand("synergylogin");
@@ -85,7 +93,6 @@ namespace Login
 
                 if (!m_explorerDlg.Visible)
                 {
-                    m_explorerDlg.Init();
                     m_explorerDlg.Show(new WindowWrapper((IntPtr)MMUtils.MindManager.hWnd));
                 }
                 else
@@ -93,6 +100,9 @@ namespace Login
                     m_explorerDlg.WindowState = FormWindowState.Normal;
                     m_explorerDlg.Focus();
                 }
+
+                if (m_explorerDlg.treeView1.SelectedNode == null)
+                    m_explorerDlg.btnPublish.Enabled = false;
             }
             
             // Share current map.
@@ -137,6 +147,13 @@ namespace Login
                 login_timer.Stop();
                 login_timer.Tick -= Login_timer_Tick;
                 login_timer = null;
+
+                if (m_explorerDlg != null)
+                {
+                    m_explorerDlg.Hide();
+                    m_explorerDlg.Dispose();
+                    m_explorerDlg = null;
+                }
             }
         }
 

@@ -62,14 +62,13 @@ namespace SynManager
             m_db.ExecuteNonQuery("BEGIN EXCLUSIVE");
             m_db.ExecuteNonQuery("CREATE TABLE MAPS(" +
                 "PLACE text, " +                // Place name
-                "MAPGUID text primary key, " +  // Map Synergy guid
-                "MAPNAME text," +               // Map file name
-                "PATHTOPLACE text, " +          // Path to map folder in Place - with backslash!
-                "LOCALPATH text, " +            // Path to map in Local Storage
+                "MAPGUID text primary key, " +  // map Synergy guid
+                "MAPNAME text," +               // map file name
+                "FOLDERPATH text, " +                 // path to map folder
                 "AUTHOR text," +                // map creator
                 "VERSION integer, " +           // map version (if any)
-                "CREATED integer, " +           // date map created
-                "MODIFIED integer, " +          // date map modified
+                "CREATED integer, " +           // date created
+                "MODIFIED integer, " +          // date modified
                 "reserved1 text, reserved2 text, reserved3 integer, reserved4 integer);");
             m_db.ExecuteNonQuery("END");
         }
@@ -77,7 +76,7 @@ namespace SynManager
         /// <summary>
         /// Add map to MapsDB
         /// </summary>
-        public static void AddMapToDB(string aPlace, string aGuid, string aMapName, string aPathToPlace, string aLocalPath, 
+        public static void AddMapToDB(string aPlace, string aGuid, string aMapName, string aPath, 
                                       string aAuthor, int aVersion, int aCreated, int aModified)
         {
             using (MapsDB _db = new MapsDB())
@@ -86,8 +85,7 @@ namespace SynManager
                 "`" + aPlace + "`," +
                 "`" + aGuid + "`," +
                 "`" + aMapName + "`," +
-                "`" + aPathToPlace + "`," +
-                "`" + aLocalPath + "`," +
+                "`" + aPath + "`," +
                 "`" + aAuthor + "`," +
                 "`" + aVersion + "`," +
                 "`" + aCreated.ToString() + "`," +

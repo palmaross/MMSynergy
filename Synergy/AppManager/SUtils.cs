@@ -189,7 +189,7 @@ namespace SynManager
         /// false: otherwise
         /// </returns>
         public static void GetMapData(string mapGuid, ref string aStorage, ref string aProcess, 
-            ref string aSite, ref string aPath, ref string aPlaceName, ref string aProjectName, ref string aProjectPath)
+            ref string aSite, ref string aPath, ref string aPlaceName)
         {
             using (MapsDB _db = new MapsDB())
             {
@@ -197,9 +197,8 @@ namespace SynManager
                 if (_dt.Rows.Count != 0)
                 {
                     aStorage = _dt.Rows[0]["STORAGE"].ToString();
-                    aPath = _dt.Rows[0]["PATHTOPLACE"].ToString();
+                    aPath = _dt.Rows[0]["FOLDERPATH"].ToString();
                     aPlaceName = _dt.Rows[0]["PLACENAME"].ToString();
-                    aProjectName = _dt.Rows[0]["PROJECTNAME"].ToString();
                 }
             }
 
@@ -208,7 +207,7 @@ namespace SynManager
         }
 
         /// <summary>
-        /// 
+        /// Set map timers and watchers
         /// </summary>
         /// <param name="_doc">Map to process</param>
         /// <returns>fail</returns>
@@ -216,10 +215,8 @@ namespace SynManager
         {
             string _guid = SynergyMapGuid(_doc);
             string _storage = "", _process = "", _site = "",
-            _placemapfolderpath = "", // full path to map folder in its Place
+            mapfolderpath = "", // full path to map folder in its Place
             _placename = "",        // place name - for Frozen Path
-            _projectname = "",      // place name - for Frozen Path
-            _projectpath = "",
             _mapblocker = "",       // who blocks the map
             _unlocktime = "",       // hh:mm when map will be unlocked
             fail = "";
@@ -234,14 +231,14 @@ namespace SynManager
             _secToSaveMap = _secToSaveMap + Convert.ToInt32(fileMBytesSize * 15);
             _secToWait = _secToSaveMap + Convert.ToInt32(fileMBytesSize * 20);
 
-            GetMapData(_guid, ref _storage, ref _process, ref _site, ref _placemapfolderpath, 
-                ref _placename, ref _projectname, ref _projectpath);
+            GetMapData(_guid, ref _storage, ref _process, ref _site, ref mapfolderpath, 
+                ref _placename);
 
-            if (_placemapfolderpath == "" || _placename == "")
+            if (mapfolderpath == "" || _placename == "")
                 return "nomap";
 
             // TODO check if map is locked
-            string blockerPath = _placemapfolderpath + "info.locker";
+            string blockerPath = mapfolderpath + "info.locker";
             if (File.Exists(blockerPath))
             {
                 string _datetime;
@@ -265,7 +262,7 @@ namespace SynManager
                 }
             }
 
-            string _frozenPath = MMUtils.m_SynergyTempPath + _placename + "\\";
+            string _frozenPath = MMUtils.m_SynergyTempPath + _guid + "\\";
 
             try
             {
@@ -278,15 +275,7 @@ namespace SynManager
                 return "path";
             }
 
-            if (_projectname == "")
-            {
-                _frozenPath = _frozenPath + _docName;
-            }
-            else
-            {
-                Directory.CreateDirectory(_frozenPath + _projectname);
-                _frozenPath = _frozenPath + _projectname + "\\" + _docName;
-            }
+            _frozenPath = _frozenPath + _docName;
 
             MapTimers timer = new MapTimers(_secToSaveMap, _secToWait, _minLockTime)
             {
@@ -295,8 +284,8 @@ namespace SynManager
                 m_Storage = _storage,
                 m_Process = _process,
                 m_Site = _site,
-                m_PlacePath = _placemapfolderpath,
-                m_LocalPath = _doc.FullName,
+                m_FolderPath = mapfolderpath,
+                m_UserMapPath = _doc.FullName,
                 m_FrozenPath = _frozenPath,
                 MapBlocker = _mapblocker,
                 unLockTime = _unlocktime,
@@ -305,7 +294,7 @@ namespace SynManager
 
             Maps.MapsGroup.TIMERS.Add(timer);
 
-            DocumentStorage.Sync(_doc, true, _placemapfolderpath);
+            DocumentStorage.Sync(_doc, true, mapfolderpath);
 
             if (_mapblocker != "")
             {
@@ -347,7 +336,7 @@ namespace SynManager
                 }
             }
 
-            MapWatchers MW = new MapWatchers(_placemapfolderpath)
+            MapWatchers MW = new MapWatchers(mapfolderpath)
                 {
                     doc = _doc,
                     MapGuid = _guid
@@ -420,6 +409,9 @@ namespace SynManager
             string _attrs = TimeStamp + ";" + currentUserName + ";" + currentUserEmail;
             string aGuid = _doc.Guid;
 
+            _doc.GetAttributes(SYNERGYNAMESPACE).SetAttributeValue(MGUID, aGuid);
+            _doc.GetAttributes(SYNERGYNAMESPACE).SetAttributeValue(MATTRS, _attrs);
+
             foreach (Topic t in _doc.Range(MmRange.mmRangeAllTopics, true))
             {
                 if (!t.ContainsAttributesNamespace(SYNERGYNAMESPACE))
@@ -440,8 +432,8 @@ namespace SynManager
 
                         _h.Absolute = true;
 
-                        if (!links.Contains(_h.Address))
-                            links.Add(_h.Address);
+                        if (!MapLinks.Contains(_h.Address))
+                            MapLinks.Add(_h.Address);
                     }
             }
 
@@ -452,6 +444,12 @@ namespace SynManager
             foreach (Relationship r in _doc.Range(MmRange.mmRangeAllRelationships, true))
                 if (!r.ContainsAttributesNamespace(SYNERGYNAMESPACE))
                     r.get_Attributes(SYNERGYNAMESPACE).SetAttributeValue(OGUID, r.Guid);
+        }
+
+        public static void AttrMap(Document _doc)
+        {
+            string _attrs = TimeStamp + ";" + currentUserName + ";" + currentUserEmail;
+            string aGuid = _doc.Guid;
 
             if (!_doc.ContainsAttributesNamespace(SYNERGYNAMESPACE))
             {
@@ -459,7 +457,6 @@ namespace SynManager
                 _doc.GetAttributes(SYNERGYNAMESPACE).SetAttributeValue(MATTRS, _attrs);
             }
         }
-
 
         public static Topic FindTopicByAttrGuid(Document aDocument, string aGuid)
         {
@@ -521,7 +518,7 @@ namespace SynManager
             return doc.get_Attributes(SYNERGYNAMESPACE).GetAttributeValue(MGUID);
         }
 
-        public static List<string> links = new List<string>();
+        public static List<string> MapLinks = new List<string>();
 
         public static string currentUserName = "";
         public static string currentUserEmail = "";

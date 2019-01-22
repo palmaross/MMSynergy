@@ -40,9 +40,9 @@
             this.lblNotSaved.AutoSize = true;
             this.lblNotSaved.Location = new System.Drawing.Point(12, 9);
             this.lblNotSaved.Name = "lblNotSaved";
-            this.lblNotSaved.Size = new System.Drawing.Size(78, 13);
+            this.lblNotSaved.Size = new System.Drawing.Size(84, 13);
             this.lblNotSaved.TabIndex = 0;
-            this.lblNotSaved.Text = "Map not saved";
+            this.lblNotSaved.Text = "Enter map name";
             // 
             // textBox_MapName
             // 
@@ -100,11 +100,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblNotSaved;
         public System.Windows.Forms.TextBox textBox_MapName;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btn_cancel;
         private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label lblNotSaved;
     }
 }

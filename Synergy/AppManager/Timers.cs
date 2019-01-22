@@ -48,12 +48,12 @@ namespace SynManager
 
             doc.Save();
 
-            string lastwrite = File.GetLastWriteTimeUtc(m_LocalPath).ToString("yyyyMMddHHmmssfff");
-            string _docpath = m_PlacePath + lastwrite + ".mmap";
+            string lastwrite = File.GetLastWriteTimeUtc(m_UserMapPath).ToString("yyyyMMddHHmmssfff");
+            string _docpath = m_FolderPath + "mmap" + lastwrite + ".mmap";
 
             try
             {
-                File.Copy(m_LocalPath, _docpath); // copy as file, don't save (because of map links)!
+                File.Copy(m_UserMapPath, _docpath); // copy as file, don't save (because of map links)!
             }
             catch (Exception _e)
             {
@@ -61,7 +61,7 @@ namespace SynManager
                 return;
             }
 
-            string[] files = Directory.GetFiles(m_PlacePath, "*.mmap");
+            string[] files = Directory.GetFiles(m_FolderPath, "mmap*.mmap");
 
             /////// Delete map versions but three last.
             for (int i = 0; i <= files.Count() - 4; i++)
@@ -76,8 +76,8 @@ namespace SynManager
             /////// Delete waste files in share folder.
             long _timetodelete = Convert.ToInt64(DateTime.UtcNow.AddSeconds(secToSaveMap * -2).ToString("yyyyMMddHHmmssfff"));
 
-            // All files! .txt and other, shared with map links
-            string[] sharefiles = Directory.GetFiles(m_PlacePath + "share", "*");
+            // All files! .txt and others, shared with map links
+            string[] sharefiles = Directory.GetFiles(m_FolderPath + "Share_" + m_MapName);
 
             foreach (string sharefile in sharefiles)
             {
@@ -86,9 +86,9 @@ namespace SynManager
                 int a = _filename.IndexOf("&");
 
                 if (a == -1)
-                    Int64.TryParse(_filename, out _sharetime);
+                    long.TryParse(_filename, out _sharetime);
                 else
-                    Int64.TryParse(_filename.Substring(0, _filename.IndexOf("&")), out _sharetime);
+                    long.TryParse(_filename.Substring(0, _filename.IndexOf("&")), out _sharetime);
 
                 if (_sharetime == 0 || _sharetime < _timetodelete)
                 {
@@ -105,41 +105,41 @@ namespace SynManager
         {
             waitingOnline_timer.Stop();
 
-            if (Internet.IsConnected(m_Site))
+            if (!Internet.IsConnected(m_Site))
                 return;
 
-            MessageBox.Show(String.Format(MMUtils.GetString("internet.maponline.message"), doc.Name), 
-                MMUtils.GetString("internet.maponline.caption"));
+            MessageBox.Show(String.Format(MMUtils.GetString("maponline.message"), doc.Name), 
+                MMUtils.GetString("maponline.caption"));
 
-            string _lastfile = Directory.GetFiles(m_PlacePath, "*.mmap").Last().ToString();
+            string _lastfile = Directory.GetFiles(m_FolderPath, "mmap*.mmap").Last().ToString();
             long placemap_time = Convert.ToInt64(Path.GetFileNameWithoutExtension(_lastfile));
 
             DocumentStorage.closeMap = true;
             doc.Close();
 
-            File.SetAttributes(m_LocalPath, System.IO.FileAttributes.Normal);
+            File.SetAttributes(m_UserMapPath, FileAttributes.Normal);
 
             // Get last copy from Place
             if (placemap_time > m_FrozenTime)
             {
-                File.Copy(_lastfile, m_LocalPath, true);                
+                File.Copy(_lastfile, m_UserMapPath, true);                
             }
             // Or return frozen file
             else
             {
-                File.Copy(m_FrozenPath, m_LocalPath, true);
+                File.Copy(m_FrozenPath, m_UserMapPath, true);
             }
 
             DocumentStorage.openMap = true;
-            MMUtils.MindManager.AllDocuments.Open(m_LocalPath);
+            MMUtils.MindManager.AllDocuments.Open(m_UserMapPath);
             doc = MMUtils.ActiveDocument;
 
             m_Status = "online";
             GetOnlineUsers();
 
-            DocumentStorage.Sync(doc, true, m_PlacePath); // subscribe map
+            DocumentStorage.Sync(doc, true, m_FolderPath); // subscribe map
 
-            MapWatchers MW = new MapWatchers(m_PlacePath)
+            MapWatchers MW = new MapWatchers(m_FolderPath + "Share_" + m_MapName)
             {
                 doc = doc,
                 MapGuid = m_Guid
@@ -155,7 +155,7 @@ namespace SynManager
             if (doc == MMUtils.ActiveDocument)
                 RefreshIndicator = true;
 
-            File.SetAttributes(m_LocalPath, FileAttributes.Normal);
+            File.SetAttributes(m_UserMapPath, FileAttributes.Normal);
         }
 
         private void Lock_timer_Tick(object sender, EventArgs e)
@@ -193,7 +193,7 @@ namespace SynManager
             UsersOnline.Clear();
 
             DateTime _utcnow = DateTime.UtcNow;
-            string _currentuser = m_PlacePath + SUtils.currentUserName + ".online";
+            string _currentuser = m_FolderPath + SUtils.currentUserName + ".online";
 
             StreamWriter sw = null;
             try
@@ -208,7 +208,7 @@ namespace SynManager
             }
             catch { } // TODO 
 
-            string[] files = Directory.GetFiles(m_PlacePath, "*.online");
+            string[] files = Directory.GetFiles(m_FolderPath, "*.online");
 
             for (int i = 0; i < files.Count(); i++)
             {
@@ -268,8 +268,17 @@ namespace SynManager
 
         public Document doc = null;
 
-        public string m_LocalPath { get; set; }
-        public string m_PlacePath { get; set; } // path to map folder in its Place
+        /// <summary>
+        /// Path to user's variant of map. Format: mapname_username.mmap
+        /// </summary>
+        public string m_UserMapPath { get; set; }
+        /// <summary>
+        /// Path to map folder
+        /// </summary>
+        public string m_FolderPath { get; set; }
+        public string m_MapName { get; set; }
+
+
         public long m_FrozenTime { get; set; }
         public string m_FrozenPath { get; set; }
 

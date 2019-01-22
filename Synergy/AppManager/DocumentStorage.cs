@@ -277,8 +277,8 @@
                     if (_item.m_Guid == mapGuid)
                     {
                         _isonline = (_item.m_Status == "online");
-                        m_PlacePath = _item.m_PlacePath;
-                        string _folder = _item.m_PlacePath;
+                        m_PlacePath = _item.m_FolderPath;
+                        string _folder = _item.m_FolderPath;
                         _folder = Path.GetDirectoryName(_folder) + "\\";
 
                         try
