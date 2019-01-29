@@ -114,8 +114,8 @@ namespace Maps
                             // TODO сообщить пользователю?
                         }
 
-                        string userspath = _path + "\\users.syn";
-                        if (File.Exists(userspath))
+                        string userspath = _path + "\\folder.users";
+                        try
                         {
                             string line = "";
                             bool me = false;
@@ -123,16 +123,14 @@ namespace Maps
                             while ((line = sr.ReadLine()) != null)
                             {
                                 if (line == SUtils.currentUserName)
-                                {
                                     me = true;
-                                    break;
-                                }
                             }
                             sr.Close();
 
                             if (!me) // This folder is not for me.
                                 continue;
                         }
+                        catch { };
 
                         // Add shared folder to treeview.
                         try
@@ -162,13 +160,60 @@ namespace Maps
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             m_selectedFolder = "";
+            bool getfiles = false;
             if (treeView1.SelectedNode.Tag as TreeViewItem != null)
             {
                 m_selectedFolder = (treeView1.SelectedNode.Tag as TreeViewItem).m_path;
-                btnPublish.Enabled = (treeView1.SelectedNode.Tag as TreeViewItem).m_placename != "";
+                getfiles = (treeView1.SelectedNode.Tag as TreeViewItem).m_placename != "";
+                btnPublish.Enabled = getfiles;
             }
             else
                 btnPublish.Enabled = false;
+
+            // Fill Gridview1
+            if (getfiles)
+            {
+                List<string> maps = new List<string>();
+                List<string> files = new List<string>();
+                foreach (string _file in Directory.GetFiles(m_selectedFolder))
+                {
+                    string ext = Path.GetExtension(_file);
+
+                    if (ext == ".owner" || ext == ".info" || ext == ".users" || _file.Contains("&&&"))
+                        continue;
+
+                    string folder = Path.GetDirectoryName(_file) + "\\";
+                    string path = Path.GetFileNameWithoutExtension(_file);
+                    path = folder + path + ".users";
+
+                    string line = "";
+                    bool me = false;
+                    try
+                    {
+                        StreamReader sr = new StreamReader(path);
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line == SUtils.currentUserName)
+                                me = true;
+                        }
+                        sr.Close();
+                    }
+                    catch { };
+
+                    if (!me) // This file is not for me.
+                        continue;
+
+                    if (ext == "mmap") maps.Add(_file);
+                    else files.Add(_file);
+
+                    maps.Sort(); files.Sort();
+
+                    foreach (string file in maps) AddToTable(_file);
+                    foreach (string file in files) AddToTable(_file);
+
+                    maps.Clear(); files.Clear();
+                }
+            }
         }
 
         /// <summary>
@@ -303,6 +348,29 @@ namespace Maps
             else
                 MessageBox.Show(MMUtils.GetString("maps.nosuccessmessage.text"));
             publishDoc = null;
+        }
+
+        public void AddToTable(string _path)
+        {
+            FileInfo fi = new FileInfo(_path);
+            string imgFile = MMUtils.GetIconForFile(_path);
+            string _fileType = fi.Extension;
+            string _filename = fi.Name;
+            string modified = fi.LastWriteTime.ToShortTimeString();
+            
+            System.Drawing.Image img = System.Drawing.Image.FromFile(imgFile);
+
+            int rowId = dataGridView1.Rows.Add();
+            DataGridViewRow row = dataGridView1.Rows[rowId];
+            // Visible columns
+            row.Cells["Column1"].Value = img;       // filetype img
+            row.Cells["Column2"].Value = _filename; // filename
+            row.Cells["Column3"].Value = null;      // locked img
+            row.Cells["Column4"].Value = "";        // locked by
+            row.Cells["Column5"].Value = modified;  // date modified
+            // Invisible columns
+            row.Cells["Column6"].Value = _path;     // full filepath
+            row.Cells["Column7"].Value = _fileType; // sort by filetype img
         }
 
         string m_selectedFolder = "";

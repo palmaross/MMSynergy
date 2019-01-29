@@ -528,8 +528,6 @@ namespace SynManager
         //private static List<Relationship> SavedRelationships = new List<Relationship>();
         public static ArrayList[] SavedRelationships = null;
 
-        public static string SingleMaps = MMUtils.GetString("singlemaps.text"); // "single maps"
-
         public static bool skipActiveMap = false;
         public static bool singleMap = false;
     }

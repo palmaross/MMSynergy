@@ -211,9 +211,62 @@ namespace SynManager
             }
         }
 
-        public static void CopyPlaceToLocal()
+        /// <summary>
+        /// Gets the icon for file.
+        /// </summary>
+        /// <param name="aPath">a filename</param>
+        /// <returns>Path to the icon</returns>
+        public static string GetIconForFile(string aPath)
         {
+            FileInfo _fi = new FileInfo(aPath);
+            switch (_fi.Extension.ToLower())
+            {
+                case ".wav":
+                case ".mp3":
+                case ".mid":
+                case ".rmi":
+                case ".m4a":
+                case ".wma":
+                    return getDLLPath() + "images\\audio.png";
+                case ".chm":
+                    return getDLLPath() + "images\\chm.png";
+                case ".doc":
+                case ".docx":
+                case ".rtf":
+                case "docm":
+                case ".odt":
+                    return getDLLPath() + "images\\doc.png";
+                case ".exe":
+                case ".dll":
+                    return getDLLPath() + "images\\exe.png";
+                case ".gif":
+                case ".jpg":
+                case ".jpeg":
+                case ".png":
+                case ".tif":
+                case ".tiff":
+                case ".bmp":
+                    return getDLLPath() + "images\\img.png";
+                case ".mmap":
+                case ".mmat":
+                    return getDLLPath() + "images\\map.png";
+                case ".pdf":
+                    return getDLLPath() + "images\\pdf.png";
+                case ".txt":
+                    return getDLLPath() + "images\\txt.png";
+                case ".xls":
+                case ".xlsx":
+                case ".xlsm":
+                case ".ods":
+                    return getDLLPath() + "images\\xls.png";
+            }
 
+            return getDLLPath() + "images\\file.png";
+        }
+
+        public static string getDLLPath()
+        {
+            return m_i18n.getDLLPath();
         }
 
         /// <summary>

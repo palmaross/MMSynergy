@@ -102,7 +102,10 @@ namespace Maps
                     SUtils.AttrMap(publishDoc);
 
                     // Add .users to map.
-                    StreamWriter sw = new StreamWriter(File.Create(aFolderPath + "\\" + _mapName + ".users"));
+                    StreamWriter sw = new StreamWriter(File.Create(aFolderPath + "\\" + _mapName + ".owner"));
+                    sw.WriteLine(SUtils.currentUserName);
+                    sw.Close();
+                    sw = new StreamWriter(File.Create(aFolderPath + "\\" + _mapName + ".users"));
                     sw.WriteLine(SUtils.currentUserName);
                     sw.Close();
                     // Add map info.
@@ -120,6 +123,8 @@ namespace Maps
                     MessageBox.Show("Error: " + _e.Message, "PublishMapDlg", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (File.Exists(aMapPath))
                         File.Delete(aMapPath);
+                    if (File.Exists(aFolderPath + "\\" + _mapName + ".owner"))
+                        File.Delete(aFolderPath + "\\" + _mapName + ".owner");
                     if (File.Exists(aFolderPath + "\\" + _mapName + ".users"))
                         File.Delete(aFolderPath + "\\" + _mapName + ".users");
                     if (File.Exists(aFolderPath + "\\" + _mapName + ".info"))
@@ -154,7 +159,9 @@ namespace Maps
 
             SUtils.ProcessMap(publishDoc);
 
-            // TODO Занести в Synergy Explorer!
+            // Add to Synergy Explorer
+            using (SynergyExplorerDlg dlg = new SynergyExplorerDlg())
+                dlg.AddToTable(aFolderPath + "\\" + _mapName);
 
             // Share map
             using (ShareDlg _dlg = new ShareDlg(MMUtils.ActiveDocument.Name, aFolderPath, aStorage, "map"))

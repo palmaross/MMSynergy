@@ -176,6 +176,6 @@ namespace Login
         private static List<Document> docstoclose = new List<Document>();
 
         public static bool logged = false;
-        private static Maps.SynergyExplorerDlg m_explorerDlg;
+        public static Maps.SynergyExplorerDlg m_explorerDlg;
     }
 }

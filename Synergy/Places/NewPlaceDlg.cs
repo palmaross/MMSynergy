@@ -95,36 +95,11 @@ namespace Places
 
             // Create folder with current user structure in the Place
             string _placePath = aPlacePath + SUtils.currentUserName + "\\";
+            Directory.CreateDirectory(_placePath);
             try
             {
-                DirectoryInfo di1 = Directory.CreateDirectory(_placePath + MMUtils.GetString("synergy.maps"));
-                using (StreamWriter sw = File.CreateText(di1.FullName + "\\users.syn"))
+                using (StreamWriter sw = File.CreateText(_placePath + "\\folder.users"))
                     sw.WriteLine(SUtils.currentUserName);
-                DirectoryInfo di2 = Directory.CreateDirectory(_placePath + MMUtils.GetString("synergy.projects"));
-                using (StreamWriter sw = File.CreateText(di2.FullName + "\\users.syn"))
-                    sw.WriteLine(SUtils.currentUserName);
-                DirectoryInfo di3 = Directory.CreateDirectory(_placePath + MMUtils.GetString("synergy.files"));
-                using (StreamWriter sw = File.CreateText(di3.FullName + "\\users.syn"))
-                    sw.WriteLine(SUtils.currentUserName);
-
-                using (SharedItemsDB _db = new SharedItemsDB())
-                {
-                    _db.ExecuteNonQuery("INSERT INTO SHARED VALUES(" +
-                        "`" + aPlaceName + "`," +
-                        "`" + di1.FullName + "`," +
-                        "`" + SUtils.currentUserName + "`," +
-                        "`" + SUtils.currentUserEmail + "`, ``, ``, 0, 0)");
-                    _db.ExecuteNonQuery("INSERT INTO SHARED VALUES(" +
-                        "`" + aPlaceName + "`," +
-                        "`" + di2.FullName + "`," +
-                        "`" + SUtils.currentUserName + "`," +
-                        "`" + SUtils.currentUserEmail + "`, ``, ``, 0, 0)");
-                    _db.ExecuteNonQuery("INSERT INTO SHARED VALUES(" +
-                        "`" + aPlaceName + "`," +
-                        "`" + di3.FullName + "`," +
-                        "`" + SUtils.currentUserName + "`," +
-                        "`" + SUtils.currentUserEmail + "`, ``, ``, 0, 0)");
-                }
             }
             catch
             {
